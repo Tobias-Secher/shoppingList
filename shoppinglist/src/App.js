@@ -13,7 +13,7 @@ class App extends Component {
                 id: 1,
                 title: "Cheeseburger",
                 price: 20,
-                description: "Cheeseburger med glacerede løg og cheddar"
+                description: "Cheeseburger med glacerede lø.."
             }, {
                 id: 2,
                 title: "Boller i karry",

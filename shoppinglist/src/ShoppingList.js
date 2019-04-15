@@ -7,8 +7,13 @@ class ShoppingList extends Component {
             list.push(
                 <div className="shoppingItem" key={elm.id}>
                     <span className="dot"/>
-                    <h2>{elm.title}</h2>
-                    <span className="description">{elm.description}</span>
+                    <div className="info">
+                        <h2>{elm.title}</h2>
+                        <span className="description">{elm.description}</span>
+                    </div>
+                    <i className="material-icons">
+                        keyboard_arrow_right
+                    </i>
                 </div>
             )
         });
