@@ -1,33 +1,65 @@
-.App {
-  text-align: center;
+* {
+  padding: 0;
+  margin: 0;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+a {
+  color: #000;
+  text-decoration: none;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+body {
+  font-family: 'Roboto', sans-serif;
 }
 
-.App-link {
-  color: #61dafb;
+.dot {
+  height: 3.5em;
+  width: 3.5em;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  float: left;
+  margin: 0.4em;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.header {
+  width: 100%;
+  height: 5em;
+  background-color: #f3f3f3;
+}
+
+.header a:first-child {
+  float: left;
+  padding: 1.3em;
+}
+
+.header a:last-child {
+  float: right;
+  padding: 1.3em;
+}
+
+.header i {
+  font-size: 2em;
+}
+
+.header h1 {
+  float: left;
+  line-height: 2.3em;
+  margin-left: 0.8em;
+}
+
+.shoppingItem {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  width: 95%;
+  margin: 0.8em auto 0;
+  height: 4em;
+}
+
+.shoppingItem h2 {
+  padding: 0.5em;
+  font-size: 1em;
+}
+
+.shoppingItem .description {
+  font-size: 0.8em;
 }
