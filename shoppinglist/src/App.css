@@ -26,6 +26,12 @@ body {
   width: 100%;
   height: 5em;
   background-color: #f3f3f3;
+  /*## Der skal nok findes en bedre box shadow til header på et tidspunkt ##*/
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.list {
+  width: 15em;
 }
 
 .header a:first-child {
@@ -61,6 +67,7 @@ body {
   font-size: 1em;
   padding-top: 0.8em;
   color: #565656;
+  width: 100%;
 }
 
 .shoppingItem .description {
