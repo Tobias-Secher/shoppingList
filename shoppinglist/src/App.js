@@ -10,9 +10,11 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import AddCircle from '@material-ui/icons/AddCircle';
+import Menu from '@material-ui/icons/Menu';
+import Search from '@material-ui/icons/Search';
+import ShoppingListForm from "./ShoppingListForm";
+import HomeIcon from '@material-ui/icons/Home';
 
 class App extends Component {
     constructor(props) {
@@ -44,22 +46,16 @@ class App extends Component {
         const sideList = (
             <div className="list">
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
-                            <ListItemText primary={text}/>
+                    <Link to={'/'}>
+                        <ListItem button>
+                            <ListItemIcon>
+                                <HomeIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary={"Home"}/>
                         </ListItem>
-                    ))}
+                    </Link>
                 </List>
                 <Divider/>
-                <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
-                            <ListItemText primary={text}/>
-                        </ListItem>
-                    ))}
-                </List>
             </div>
         );
 
@@ -68,15 +64,11 @@ class App extends Component {
                 <div className="container">
                     <div className="header">
                         <a onClick={this.toggleDrawer('left', true)} href="#">
-                            <i className="material-icons">
-                                menu
-                            </i>
+                            <Menu/>
                         </a>
-                        <h1>Lists</h1>
+                        <Link to={'/'}><h1>Lists</h1></Link>
                         <a href="#">
-                            <i className="material-icons">
-                                search
-                            </i>
+                            <Search/>
                         </a>
                     </div>
                     <div className="content">
@@ -85,6 +77,12 @@ class App extends Component {
                                    render={(props) =>
                                        <ShoppingList {...props}
                                                      items={this.state.items}/>}
+                            />
+
+                            <Route exact path={'/create'}
+                                   render={(props) =>
+                                       <ShoppingListForm {...props}
+                                       />}
                             />
 
                             <Route component={NotFound}/>
@@ -100,7 +98,9 @@ class App extends Component {
                             {sideList}
                         </div>
                     </Drawer>
-                    <AddCircle className="addIcon"/>
+                    <Link to={'/create'}>
+                        <AddCircle className="addIcon"/>
+                    </Link>
                 </div>
             </Router>
         );

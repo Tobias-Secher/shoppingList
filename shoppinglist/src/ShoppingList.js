@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import ArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+
 class ShoppingList extends Component {
     render() {
         let list = [];
@@ -11,9 +13,7 @@ class ShoppingList extends Component {
                         <h2>{elm.title}</h2>
                         <span className="description">{elm.description}</span>
                     </div>
-                    <i className="material-icons">
-                        keyboard_arrow_right
-                    </i>
+                    <ArrowRightIcon className="arrowRightIcon" />
                 </div>
             )
         });

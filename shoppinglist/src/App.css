@@ -46,15 +46,15 @@ body {
 
 .header a:first-child {
   float: left;
-  padding: 1.3em;
+  padding: 1.4em;
 }
 
 .header a:last-child {
   float: right;
-  padding: 1.3em;
+  padding: 1.4em;
 }
 
-.header i {
+.header svg {
   font-size: 2em;
 }
 
@@ -92,8 +92,17 @@ body {
   float: left;
 }
 
-.shoppingItem i {
+.shoppingItem .arrowRightIcon {
   position: absolute;
   right: 0;
   top: 30%;
+}
+
+.itemInput {
+  width: 90%;
+  height: 3em;
+  margin: 0 auto;
+  display: block;
+  border: none;
+  border-bottom: 1px solid #b5b3b3;
 }
