@@ -12,6 +12,7 @@ import List from "@material-ui/core/List";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import AddCircle from '@material-ui/icons/AddCircle';
 
 class App extends Component {
     constructor(props) {
@@ -99,6 +100,7 @@ class App extends Component {
                             {sideList}
                         </div>
                     </Drawer>
+                    <AddCircle className="addIcon"/>
                 </div>
             </Router>
         );

@@ -34,6 +34,16 @@ body {
   width: 15em;
 }
 
+.addIcon {
+  width: 2.5em !important;
+  height: 2.5em !important;
+  position: absolute;
+  bottom: 0.5em;
+  right: 0.5em;
+  cursor: pointer;
+  color: #54d298;
+}
+
 .header a:first-child {
   float: left;
   padding: 1.3em;
