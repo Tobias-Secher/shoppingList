@@ -39,7 +39,7 @@ app.use((req, res, next) => {
 });
 
 // Open paths that does not need login
-let openPaths = [
+/*let openPaths = [
     '/api/users/authenticate',
     '/api/users/'
 ];
@@ -51,11 +51,14 @@ app.use((err, req, res) => {
     if (err.name === 'UnauthorizedError') {
         res.status(401).json({ error: err.message });
     }
-});
+});*/
 
 /****** Routes ******/
 let usersRouter = require('./users_router')();
 app.use('/api/users', usersRouter);
+
+let shoppingListsRouter = require('./shoppingLists_router')();
+app.use('/api/shoppingLists', shoppingListsRouter);
 
 /****** Error handling ******/
 app.use(function (err, req, res) {

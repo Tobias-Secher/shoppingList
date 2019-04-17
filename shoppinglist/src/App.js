@@ -21,19 +21,13 @@ class App extends Component {
         super(props);
 
         this.state = {
-            items: [{
-                id: 1,
-                title: "Cheeseburger",
-                price: 20,
-                description: "Cheeseburger med glacerede lø.."
-            }, {
-                id: 2,
-                title: "Boller i karry",
-                price: 50,
-                description: "Gammeldags boller i karry"
-            }],
+            shoppingLists: [],
             left: false
         };
+    }
+
+    componentDidMount() {
+        this.getShoppingLists();
     }
 
     toggleDrawer = (side, open) => () => {
@@ -41,6 +35,16 @@ class App extends Component {
             [side]: open,
         });
     };
+
+    getShoppingLists() {
+        fetch('http://localhost:8080/api/shoppingLists')
+            .then(response => response.json())
+            .then(json => {
+                this.setState({
+                    shoppingLists: json
+                })
+            });
+    }
 
     render() {
         const sideList = (
@@ -76,7 +80,13 @@ class App extends Component {
                             <Route exact path={'/'}
                                    render={(props) =>
                                        <ShoppingList {...props}
-                                                     items={this.state.items}/>}
+                                                     shoppingLists={this.state.shoppingLists}/>}
+                            />
+
+                            <Route exact path={'/shoppingList/:id'}
+                                   render={(props) =>
+                                       <ShoppingListForm {...props}
+                                       />}
                             />
 
                             <Route exact path={'/create'}
