@@ -1,0 +1,114 @@
+* {
+    padding: 0;
+    margin: 0;
+  }
+  
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+  
+  body {
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .dot {
+    height: 3em;
+    width: 3em;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    float: left;
+    margin: 0.5em;
+  }
+  
+  .header {
+    width: 100%;
+    height: 5em;
+    background-color: #f3f3f3;
+    /*## Der skal nok findes en bedre box shadow til header på et tidspunkt ##*/
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    /* box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); */
+  }
+  
+  .list {
+    width: 15em;
+  }
+  
+  .addIcon {
+    width: 2.5em !important;
+    height: 2.5em !important;
+    position: absolute;
+    bottom: 0.5em;
+    right: 0.5em;
+    cursor: pointer;
+    color: #54d298;
+  }
+  
+  .header a:first-child {
+    float: left;
+    padding: 1.4em;
+  }
+  
+  .header a:last-child {
+    float: right;
+    padding: 1.4em;
+  }
+  
+  .header svg {
+    font-size: 2em;
+  }
+  
+  .header h1 {
+    float: left;
+    line-height: 2.3em;
+    margin-left: 0.8em;
+  }
+  
+  .shoppingItem {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    width: 95%;
+    margin: 0.8em auto 0;
+    height: 4em;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .shoppingItem:active {
+    background-color: #eee;
+  }
+  
+  .shoppingItem h2 {
+    float: left;
+    font-size: 1em;
+    padding-top: 0.8em;
+    color: #565656;
+    width: 100%;
+  }
+  
+  .shoppingItem .description {
+    font-size: 0.8em;
+    float: left;
+    padding-top: 0.3em;
+    color: #636262;
+  }
+  
+  .shoppingItem .info {
+    width: 60%;
+    float: left;
+  }
+  
+  .shoppingItem .arrowRightIcon {
+    position: absolute;
+    right: 0;
+    top: 30%;
+  }
+  
+  .itemInput {
+    width: 90%;
+    height: 3em;
+    margin: 0 auto;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #b5b3b3;
+  }

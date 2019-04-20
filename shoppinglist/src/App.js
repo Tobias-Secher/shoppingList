@@ -1,6 +1,6 @@
 import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
 import React, {Component} from 'react';
-import './App.css';
+import './app.scss';
 import NotFound from './NotFound';
 import ShoppingList from "./ShoppingList";
 
