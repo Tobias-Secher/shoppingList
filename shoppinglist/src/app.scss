@@ -32,7 +32,7 @@
   }
   
   .list {
-    width: 15em;
+    width: 18em;
   }
   
   .addIcon {
@@ -44,15 +44,19 @@
     cursor: pointer;
     color: #54d298;
   }
-  
-  .header a:first-child {
-    float: left;
-    padding: 1.4em;
+
+  .header button {
+    padding: 1.9em;
+    border: none;
+    background: none;
   }
   
-  .header a:last-child {
+  .header button:first-child {
+    float: left;
+  }
+  
+  .header button:last-child {
     float: right;
-    padding: 1.4em;
   }
   
   .header svg {
@@ -64,7 +68,40 @@
     line-height: 2.3em;
     margin-left: 0.8em;
   }
-  
+
+  .loginContainer h3 {
+    clear: both;
+    display: flex;
+    padding: 10px 16px;
+    font-size: 0.750em;
+    font-weight: 100;
+  }
+
+  .loginContainer {
+    position: relative;
+    background-color: #F19A4C;
+    color: #fff;
+  }
+
+  .arrowDownIcon {
+    position: absolute;
+    right: 0.6em;
+    top: 3em;
+  }
+
+  .loginContainer .dot {
+    height: 3em;
+    width: 3em;
+    background-color: #efefef;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 10px 16px;
+    background-image: url('https://www.meme-arsenal.com/memes/c52c825398aaac64ddce5dd861492c50.jpg');
+    background-position-y: 4.2em;
+    background-position-x: 4em;
+    background-size: 5em;
+  }
+
   .shoppingItem {
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     width: 95%;

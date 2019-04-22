@@ -15,6 +15,7 @@ import Menu from '@material-ui/icons/Menu';
 import Search from '@material-ui/icons/Search';
 import ShoppingListForm from "./ShoppingListForm";
 import HomeIcon from '@material-ui/icons/Home';
+import KeyBoardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 
 class App extends Component {
     constructor(props) {
@@ -49,6 +50,12 @@ class App extends Component {
     render() {
         const sideList = (
             <div className="list">
+                <div className="loginContainer">
+                    <span className="dot" />
+                    <h3>coolguy27@gmail.com</h3>
+                    <KeyBoardArrowDown className="arrowDownIcon"/>
+                </div>
+                <Divider/>
                 <List>
                     <Link to={'/'}>
                         <ListItem button>
@@ -59,7 +66,6 @@ class App extends Component {
                         </ListItem>
                     </Link>
                 </List>
-                <Divider/>
             </div>
         );
 
@@ -67,13 +73,13 @@ class App extends Component {
             <Router>
                 <div className="container">
                     <div className="header">
-                        <a onClick={this.toggleDrawer('left', true)} href="#">
+                        <button onClick={this.toggleDrawer('left', true)}>
                             <Menu/>
-                        </a>
+                        </button>
                         <Link to={'/'}><h1>Lists</h1></Link>
-                        <a href="#">
+                        <button>
                             <Search/>
-                        </a>
+                        </button>
                     </div>
                     <div className="content">
                         <Switch>
