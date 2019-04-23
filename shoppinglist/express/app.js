@@ -5,13 +5,24 @@ const app = express();
 const checkJwt = require('express-jwt');    // Check for access tokens automatically
 const mongoose = require('mongoose');
 
-let dbUrl = 'mongodb://localhost/shoppingList';
+let dbUrl = 'mongodb+srv://TobiasSecher:rJ.BejAatvzXS4y@cluster0-inrvm.mongodb.net/test?retryWrites=true';
+// let dbUrl = 'mongodb://localhost/shoppingList';
 
 /****** Configuration *****/
+mongoose.connect(dbUrl, { useNewUrlParser: true }, (err) => {
+    console.log('mongo db connection', err);
+});
+
 app.use(bodyParser.json());                 // Make sure all json data is parsed
-app.use(morgan('combined'));         // Log all requests to the console
+// app.use(morgan('combined'));         // Log all requests to the console
 
 const port = (process.env.PORT || 8080);
+
+let db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error'));
+db.once('open', function () {
+    console.log(`db connection is opend`);
+})
 
 /*if (!process.env.JWT_SECRET) {
     console.error('You need to put a secret in the JWT_SECRET env variable!');
@@ -53,6 +64,14 @@ app.use((err, req, res) => {
     }
 });*/
 
+let listSchema = new mongoose.Schema({
+    title: String,
+    description: String,
+    items: []
+});
+
+let List = mongoose.model('List', listSchema);
+
 /****** Routes ******/
 let usersRouter = require('./users_router')();
 app.use('/api/users', usersRouter);
@@ -60,15 +79,17 @@ app.use('/api/users', usersRouter);
 let shoppingListsRouter = require('./shoppingLists_router')();
 app.use('/api/shoppingLists', shoppingListsRouter);
 
+
+app.get('/test/', (req, res) => {
+    List.find({}, (err, lists) => {res.json(lists)})
+    // res.json(list);
+})
 /****** Error handling ******/
 app.use(function (err, req, res) {
     console.error(err.stack);
-    res.status(500).send({msg: 'Something broke!'})
+    res.status(500).send({ msg: 'Something broke!' })
 });
 
 /****** Listen ******/
 app.listen(port, () => console.log(`API running on port ${port}!`));
 
-mongoose.connect(dbUrl, {useNewUrlParser: true}, (err) => {
-    console.log('mongo db connection', err);
-});
