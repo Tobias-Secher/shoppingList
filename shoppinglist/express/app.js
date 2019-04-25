@@ -5,8 +5,8 @@ const app = express();
 const checkJwt = require('express-jwt');    // Check for access tokens automatically
 const mongoose = require('mongoose');
 
-let dbUrl = 'mongodb+srv://TobiasSecher:rJ.BejAatvzXS4y@cluster0-inrvm.mongodb.net/test?retryWrites=true';
-// let dbUrl = 'mongodb://localhost/shoppingList';
+//let dbUrl = 'mongodb+srv://TobiasSecher:rJ.BejAatvzXS4y@cluster0-inrvm.mongodb.net/test?retryWrites=true';
+let dbUrl = 'mongodb://localhost/shoppingList';
 
 /****** Configuration *****/
 mongoose.connect(dbUrl, { useNewUrlParser: true }, (err) => {
