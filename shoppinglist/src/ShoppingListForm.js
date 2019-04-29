@@ -60,8 +60,8 @@ class ShoppingListForm extends Component {
             title: this.state.title,
             items: this.state.items,
             type: "normal",
-            description: ""
-        }
+            description: "En kort beskrivelse af listen"
+        };
 
         this.props.addShoppingList(shoppingList);
     }
@@ -80,9 +80,9 @@ class ShoppingListForm extends Component {
     render() {
         return (
             <form className="createListForm" method="post" action="#">
-                <label htmlFor="title">Title</label>
+                {/*<label htmlFor="title">Title</label>*/}
                 <input type="text" name="title" id="title" className="itemTitleInput" value={this.state.title} onChange={this.onChange} placeholder="Inkøbsliste titel"/>
-                <label>Items</label>
+                {/*<label>Items</label>*/}
                 {
                     this.state.items.map((item, index) => {
                         return (

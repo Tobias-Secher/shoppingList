@@ -24,7 +24,7 @@ body {
 
 .header {
   width: 100%;
-  height: 5em;
+  height: 4.5em;
   background-color: #f3f3f3;
   /*## Der skal nok findes en bedre box shadow til header på et tidspunkt ##*/
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -46,7 +46,7 @@ body {
 }
 
 .header button {
-  padding: 1.9em;
+  padding: 1.6em;
   border: none;
   background: none;
 }
@@ -65,8 +65,9 @@ body {
 
 .header h1 {
   float: left;
-  line-height: 2.3em;
+  line-height: 3.2em;
   margin-left: 0.8em;
+  font-size: 1.5em;
 }
 
 .loginContainer h3 {
@@ -87,6 +88,10 @@ body {
   position: absolute;
   right: 0.6em;
   top: 3em;
+}
+
+.createListForm {
+  margin-top: 1em;
 }
 
 .createListForm button {
@@ -171,11 +176,11 @@ body {
   border-bottom: 1px solid #b5b3b3;
 }
 
-label {
-  float: left;
-  width: 100%;
-  padding: 1em;
-}
+//label {
+//  float: left;
+//  width: 100%;
+//  padding: 1em;
+//}
 
 .items {
   float:left;

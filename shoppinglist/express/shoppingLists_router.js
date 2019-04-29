@@ -11,7 +11,7 @@ module.exports = () => {
         checked: Boolean,
         itemName: String,
         price: Number,
-    })
+    });
     let ShoppingList = mongoose.model('ShoppingList', {
         title: String,
         type: String,
@@ -49,7 +49,7 @@ module.exports = () => {
                 console.error(err)
         });
 
-        res.status(501).json({msg: `POST shoppingList: ${title}`});
+        res.status(200).json({msg: `POST shoppingList: ${title}`});
     });
 
     router.put('/:id', (req, res) => {
