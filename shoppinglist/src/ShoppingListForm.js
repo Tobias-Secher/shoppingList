@@ -5,12 +5,16 @@ class ShoppingListForm extends Component {
 
     constructor(props) {
         super(props);
-
+        console.log(props)
         this.state = {
             title: "",
             type: "",
             description: "",
-            items: []
+            items: [
+                // {itemName: 'List  item 01', price: 22},
+                // {itemName: 'List  item 02', price: 22},
+                // {itemName: 'List  item 03', price: 22},
+            ]
         };
 
         this.handleInput = this.handleInput.bind(this);
@@ -27,9 +31,6 @@ class ShoppingListForm extends Component {
     }
 
     handleItemTitleChange(e, index) {
-        /*console.log(`index: ${index}`);
-        console.log(`shoppingList.items.length - 1: ${(this.state.items.length)}`);
-        console.log(`e.value: ${e.target.value}`);*/
         this.state.items[index].itemName = e.target.value;
         //set the state...
         this.setState({ items: this.state.items });
@@ -56,8 +57,8 @@ class ShoppingListForm extends Component {
     }
 
     updateInput(e) {
-        console.log('blur');
         e.preventDefault();
+        console.log(this.props)
         fetch(`${this.api_url}/shoppingLists/${this.props.match.params.id}`, {
             method: 'PUT',
             body: JSON.stringify(this.state.items),
@@ -111,7 +112,7 @@ class ShoppingListForm extends Component {
                                 <div key={index} className="floatLeft">
                                     <span className="itemNumber">{indexTxt}.</span>
                                     <input className="itemTitleInput" key={`itemTitle_${index}`} type="text"
-                                        value={item.title}
+                                        value={item.itemName}
                                         onChange={(e) => this.handleItemTitleChange(e, index)} placeholder="Title" onBlur={this.updateInput} />
                                     <input className="itemPriceInput" key={`itemPrice_${index}`} type="text"
                                         value={item.price} onChange={(e) => this.handleItemPriceChange(e, index)}

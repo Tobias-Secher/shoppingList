@@ -18,6 +18,8 @@ import HomeIcon from '@material-ui/icons/Home';
 import KeyBoardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 
 class App extends Component {
+    api_url = process.env.REACT_APP_API_URL;
+
     constructor(props) {
         super(props);
 
@@ -48,7 +50,7 @@ class App extends Component {
     };
 
     getShoppingLists() {
-        fetch('http://localhost:8080/api/shoppingLists')
+        fetch(`${this.api_url}/shoppingLists`)
             .then(response => response.json())
             .then(json => {
                 this.setState({
@@ -58,7 +60,7 @@ class App extends Component {
     }
 
     addShoppingList(shoppingList) {
-        fetch(`http://localhost:8080/api/shoppingLists`, {
+        fetch(`${this.api_url}/shoppingLists`, {
             method: 'POST',
             body: JSON.stringify(shoppingList),
             headers: {
@@ -71,21 +73,7 @@ class App extends Component {
                 console.log(json);
             });
     }
-
-    // editShoppingList(shoppingList) {
-    //     e.preventDefault();
-    //     console.log(e.target);
-    //     fetch(`${this.api_url}/edit/id`, {
-    //         method: 'PUT',
-    //         body: JSON.stringify(shoppingList),
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         }
-    //     }).then(res => res.json())
-    //         .then(response => console.log('Success:', JSON.stringify(response)))
-    //         .catch(error => console.error('Error:', error));
-    // }
-
+    
     render() {
         const sideList = (
             <div className="list">
