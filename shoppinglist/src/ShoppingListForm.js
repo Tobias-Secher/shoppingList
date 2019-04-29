@@ -92,7 +92,7 @@ class ShoppingListForm extends Component {
                                 indexTxt = 0 + "" + index;
                             }
                             return (
-                                <div className="floatLeft">
+                                <div key={index} className="floatLeft">
                                     <span className="itemNumber">{indexTxt}.</span>
                                     <input className="itemTitleInput" key={`itemTitle_${index}`} type="text"
                                            value={item.title}
