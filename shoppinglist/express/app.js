@@ -5,8 +5,8 @@ const app = express();
 const checkJwt = require('express-jwt');    // Check for access tokens automatically
 const mongoose = require('mongoose');
 
-//let dbUrl = 'mongodb+srv://TobiasSecher:rJ.BejAatvzXS4y@cluster0-inrvm.mongodb.net/test?retryWrites=true';
-let dbUrl = 'mongodb://localhost/shoppingList';
+let dbUrl = 'mongodb+srv://TobiasSecher:rJ.BejAatvzXS4y@cluster0-inrvm.mongodb.net/ShoppingLists?retryWrites=true';
+// let dbUrl = 'mongodb://localhost/shoppingList';
 
 /****** Configuration *****/
 mongoose.connect(dbUrl, { useNewUrlParser: true }, (err) => {
@@ -14,7 +14,7 @@ mongoose.connect(dbUrl, { useNewUrlParser: true }, (err) => {
 });
 
 app.use(bodyParser.json());                 // Make sure all json data is parsed
-// app.use(morgan('combined'));         // Log all requests to the console
+app.use(morgan('combined'));         // Log all requests to the console
 
 const port = (process.env.PORT || 8080);
 
@@ -64,13 +64,6 @@ app.use((err, req, res) => {
     }
 });*/
 
-let listSchema = new mongoose.Schema({
-    title: String,
-    description: String,
-    items: []
-});
-
-let List = mongoose.model('List', listSchema);
 
 /****** Routes ******/
 let usersRouter = require('./users_router')();
@@ -79,11 +72,6 @@ app.use('/api/users', usersRouter);
 let shoppingListsRouter = require('./shoppingLists_router')();
 app.use('/api/shoppingLists', shoppingListsRouter);
 
-
-app.get('/test/', (req, res) => {
-    List.find({}, (err, lists) => {res.json(lists)})
-    // res.json(list);
-})
 /****** Error handling ******/
 app.use(function (err, req, res) {
     console.error(err.stack);
