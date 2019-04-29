@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 class ShoppingListForm extends Component {
+    api_url = process.env.REACT_APP_API_URL;
 
     constructor(props) {
         super(props);
@@ -14,6 +15,7 @@ class ShoppingListForm extends Component {
 
         this.handleInput = this.handleInput.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.updateInput = this.updateInput.bind(this);
     }
 
     componentDidMount() {
@@ -21,16 +23,16 @@ class ShoppingListForm extends Component {
     }
 
     addItem() {
-        this.setState({items: [...this.state.items, {title: "", price: ""}]})
+        this.setState({ items: [...this.state.items, { itemName: "", price: "" }] })
     }
 
     handleItemTitleChange(e, index) {
         /*console.log(`index: ${index}`);
         console.log(`shoppingList.items.length - 1: ${(this.state.items.length)}`);
         console.log(`e.value: ${e.target.value}`);*/
-        this.state.items[index].title = e.target.value;
+        this.state.items[index].itemName = e.target.value;
         //set the state...
-        this.setState({items: this.state.items});
+        this.setState({ items: this.state.items });
         if ((this.state.items.length - 1) <= index) {
             this.addItem();
         }
@@ -45,12 +47,26 @@ class ShoppingListForm extends Component {
         console.log(`e.value: ${e.target.value}`);*/
         this.state.items[index].price = e.target.value;
         //set the state...
-        this.setState({items: this.state.items});
+        this.setState({ items: this.state.items });
         if ((this.state.items.length - 1) <= index) {
             this.addItem();
         }
 
         console.log(`shoppingList: ${JSON.stringify(this.state.items)}`);
+    }
+
+    updateInput(e) {
+        console.log('blur');
+        e.preventDefault();
+        fetch(`${this.api_url}/shoppingLists/${this.props.match.params.id}`, {
+            method: 'PUT',
+            body: JSON.stringify(this.state.items),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+            .then(response => console.log('Success:', JSON.stringify(response)))
+            .catch(error => console.error('Error:', error));
     }
 
     handleInput(event) {
@@ -80,10 +96,10 @@ class ShoppingListForm extends Component {
     render() {
         return (
             <form className="createListForm" method="post" action="#">
-                {/*<label htmlFor="title">Title</label>*/}
+
                 <input type="text" name="title" id="title" className="titleInput" value={this.state.title}
-                       onChange={this.onChange} placeholder="Inkøbsliste titel"/>
-                {/*<label>Items</label>*/}
+                    onChange={this.onChange} placeholder="Inkøbsliste titel" />
+
                 <div className="items">
                     {
                         this.state.items.map((item, index) => {
@@ -95,11 +111,11 @@ class ShoppingListForm extends Component {
                                 <div key={index} className="floatLeft">
                                     <span className="itemNumber">{indexTxt}.</span>
                                     <input className="itemTitleInput" key={`itemTitle_${index}`} type="text"
-                                           value={item.title}
-                                           onChange={(e) => this.handleItemTitleChange(e, index)} placeholder="Title"/>
+                                        value={item.title}
+                                        onChange={(e) => this.handleItemTitleChange(e, index)} placeholder="Title" onBlur={this.updateInput} />
                                     <input className="itemPriceInput" key={`itemPrice_${index}`} type="text"
-                                           value={item.price} onChange={(e) => this.handleItemPriceChange(e, index)}
-                                           placeholder="Price"/>
+                                        value={item.price} onChange={(e) => this.handleItemPriceChange(e, index)}
+                                        placeholder="Price" />
                                 </div>
                             )
                         })
@@ -107,7 +123,7 @@ class ShoppingListForm extends Component {
                 </div>
 
                 <button onClick={this.handleInput}
-                        type="submit" id="submitItemBtn" className="btn btn-primary">CREATE
+                    type="submit" id="submitItemBtn" className="btn btn-primary">CREATE
                 </button>
                 <button
                     id="findListBtn" className="btn btn-primary btn-bot">Find list

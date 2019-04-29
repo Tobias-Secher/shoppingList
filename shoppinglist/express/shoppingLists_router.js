@@ -8,7 +8,6 @@ module.exports = () => {
     // })
 
     let listItemSchema = mongoose.Schema({
-        checked: Boolean,
         itemName: String,
         price: Number,
     });
@@ -53,8 +52,10 @@ module.exports = () => {
     });
 
     router.put('/:id', (req, res) => {
-        // TODO: Implement shoppingList update.
-        res.status(501).json({msg: "PUT update shoppingList not implemented"});
+        ShoppingList.findOne({_id: req.params.id}).exec(function(err, list){
+            list.items = req.body;
+            list.save();
+        })
     });
 
     return router;
