@@ -1,5 +1,5 @@
-import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
-import React, {Component} from 'react';
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import React, { Component } from 'react';
 import './app.scss';
 import NotFound from './NotFound';
 import ShoppingList from "./ShoppingList";
@@ -50,7 +50,7 @@ class App extends Component {
     }
 
     addShoppingList(shoppingList) {
-        fetch( `http://localhost:8080/api/shoppingLists`, {
+        fetch(`http://localhost:8080/api/shoppingLists`, {
             method: 'POST',
             body: JSON.stringify(shoppingList),
             headers: {
@@ -64,22 +64,36 @@ class App extends Component {
             });
     }
 
+    // editShoppingList(shoppingList) {
+    //     e.preventDefault();
+    //     console.log(e.target);
+    //     fetch(`${this.api_url}/edit/id`, {
+    //         method: 'PUT',
+    //         body: JSON.stringify(shoppingList),
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         }
+    //     }).then(res => res.json())
+    //         .then(response => console.log('Success:', JSON.stringify(response)))
+    //         .catch(error => console.error('Error:', error));
+    // }
+
     render() {
         const sideList = (
             <div className="list">
                 <div className="loginContainer">
                     <span className="dot" />
                     <h3>coolguy27@gmail.com</h3>
-                    <KeyBoardArrowDown className="arrowDownIcon"/>
+                    <KeyBoardArrowDown className="arrowDownIcon" />
                 </div>
-                <Divider/>
+                <Divider />
                 <List>
                     <Link to={'/'}>
                         <ListItem button>
                             <ListItemIcon>
-                                <HomeIcon/>
+                                <HomeIcon />
                             </ListItemIcon>
-                            <ListItemText primary={"Home"}/>
+                            <ListItemText primary={"Home"} />
                         </ListItem>
                     </Link>
                 </List>
@@ -91,34 +105,34 @@ class App extends Component {
                 <div className="container">
                     <div className="header">
                         <button onClick={this.toggleDrawer('left', true)}>
-                            <Menu/>
+                            <Menu />
                         </button>
                         <Link to={'/'}><h1>Lists</h1></Link>
                         <button>
-                            <Search/>
+                            <Search />
                         </button>
                     </div>
                     <div className="content">
                         <Switch>
                             <Route exact path={'/'}
-                                   render={(props) =>
-                                       <ShoppingList {...props}
-                                                     shoppingLists={this.state.shoppingLists}/>}
+                                render={(props) =>
+                                    <ShoppingList {...props}
+                                        shoppingLists={this.state.shoppingLists} />}
                             />
 
                             <Route exact path={'/shoppingList/:id'}
-                                   render={(props) =>
-                                       <ShoppingListForm {...props}
-                                       />}
+                                render={(props) =>
+                                    <ShoppingListForm {...props}
+                                    />}
                             />
 
                             <Route exact path={'/create'}
-                                   render={(props) =>
-                                       <ShoppingListForm {...props}
-                                       addShoppingList={this.addShoppingList} />}
+                                render={(props) =>
+                                    <ShoppingListForm {...props}
+                                        addShoppingList={this.addShoppingList} />}
                             />
 
-                            <Route component={NotFound}/>
+                            <Route component={NotFound} />
                         </Switch>
                     </div>
                     <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
@@ -132,7 +146,7 @@ class App extends Component {
                         </div>
                     </Drawer>
                     <Link to={'/create'}>
-                        <AddCircle className="addIcon"/>
+                        <AddCircle className="addIcon" />
                     </Link>
                 </div>
             </Router>

@@ -3,11 +3,20 @@ module.exports = () => {
     let router = express.Router();
     const mongoose = require('mongoose');
 
+    // let shoppingListItem = new mongoose.model('listItem', {
+        
+    // })
+
+    let listItemSchema = mongoose.Schema({
+        checked: Boolean,
+        itemName: String,
+        price: Number,
+    })
     let ShoppingList = mongoose.model('ShoppingList', {
         title: String,
         type: String,
         description: String,
-        items: Array
+        items: [listItemSchema]
     });
 
     router.get('/', (req, res) => {
@@ -43,7 +52,7 @@ module.exports = () => {
         res.status(501).json({msg: `POST shoppingList: ${title}`});
     });
 
-    router.put('/', (req, res) => {
+    router.put('/:id', (req, res) => {
         // TODO: Implement shoppingList update.
         res.status(501).json({msg: "PUT update shoppingList not implemented"});
     });
