@@ -21,7 +21,7 @@ class ShoppingListForm extends Component {
     }
 
     addItem() {
-        this.setState({items: [...this.state.items, {title: "", price: 0}]})
+        this.setState({items: [...this.state.items, {title: "", price: ""}]})
     }
 
     handleItemTitleChange(e, index) {
