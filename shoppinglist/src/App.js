@@ -23,7 +23,8 @@ class App extends Component {
 
         this.state = {
             shoppingLists: [],
-            left: false
+            left: false,
+            search: false
         };
 
         this.addShoppingList = this.addShoppingList.bind(this);
@@ -37,6 +38,13 @@ class App extends Component {
         this.setState({
             [side]: open,
         });
+    };
+
+    toggleSearch = (open) => () => {
+      console.log(open);
+      this.setState({
+          search: open
+      });
     };
 
     getShoppingLists() {
@@ -108,7 +116,7 @@ class App extends Component {
                             <Menu />
                         </button>
                         <Link to={'/'}><h1>Lists</h1></Link>
-                        <button>
+                        <button onClick={this.toggleSearch(true)} >
                             <Search />
                         </button>
                     </div>

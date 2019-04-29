@@ -6,7 +6,7 @@ const checkJwt = require('express-jwt');    // Check for access tokens automatic
 const mongoose = require('mongoose');
 
 let dbUrl = 'mongodb+srv://TobiasSecher:rJ.BejAatvzXS4y@cluster0-inrvm.mongodb.net/shoppingList?retryWrites=true';
-// let dbUrl = 'mongodb://localhost/shoppingList';
+//let dbUrl = 'mongodb://localhost/shoppingList';
 
 /****** Configuration *****/
 mongoose.connect(dbUrl, { useNewUrlParser: true }, (err) => {
@@ -22,7 +22,7 @@ let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error'));
 db.once('open', function () {
     console.log(`db connection is opened`);
-})
+});
 
 /*if (!process.env.JWT_SECRET) {
     console.error('You need to put a secret in the JWT_SECRET env variable!');
