@@ -39,7 +39,7 @@ class ShoppingListForm extends Component {
 
     }
 
-    handleItemPriceChange(e, index){
+    handleItemPriceChange(e, index) {
         /*console.log(`index: ${index}`);
         console.log(`shoppingList.items.length - 1: ${(this.state.items.length)}`);
         console.log(`e.value: ${e.target.value}`);*/
@@ -81,22 +81,31 @@ class ShoppingListForm extends Component {
         return (
             <form className="createListForm" method="post" action="#">
                 {/*<label htmlFor="title">Title</label>*/}
-                <input type="text" name="title" id="title" className="itemTitleInput" value={this.state.title} onChange={this.onChange} placeholder="Inkøbsliste titel"/>
+                <input type="text" name="title" id="title" className="titleInput" value={this.state.title}
+                       onChange={this.onChange} placeholder="Inkøbsliste titel"/>
                 {/*<label>Items</label>*/}
-                {
-                    this.state.items.map((item, index) => {
-                        return (
-                            <div key={index} className="items">
-                                <input className="itemTitleInput" key={`itemTitle_${index}`} type="text"
-                                       value={item.title}
-                                       onChange={(e) => this.handleItemTitleChange(e, index)} placeholder="Title"/>
-                                <input className="itemPriceInput" key={`itemPrice_${index}`} type="text"
-                                       value={item.price} onChange={(e) => this.handleItemPriceChange(e, index)}
-                                       placeholder="Price"/>
-                            </div>
-                        )
-                    })
-                }
+                <div className="items">
+                    {
+                        this.state.items.map((item, index) => {
+                            let indexTxt = index;
+                            if (indexTxt <= 9) {
+                                indexTxt = 0 + "" + index;
+                            }
+                            return (
+                                <div className="floatLeft">
+                                    <span className="itemNumber">{indexTxt}.</span>
+                                    <input className="itemTitleInput" key={`itemTitle_${index}`} type="text"
+                                           value={item.title}
+                                           onChange={(e) => this.handleItemTitleChange(e, index)} placeholder="Title"/>
+                                    <input className="itemPriceInput" key={`itemPrice_${index}`} type="text"
+                                           value={item.price} onChange={(e) => this.handleItemPriceChange(e, index)}
+                                           placeholder="Price"/>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+
                 <button onClick={this.handleInput}
                         type="submit" id="submitItemBtn" className="btn btn-primary">CREATE
                 </button>
