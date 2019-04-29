@@ -5,23 +5,23 @@ const app = express();
 const checkJwt = require('express-jwt');    // Check for access tokens automatically
 const mongoose = require('mongoose');
 
-let dbUrl = 'mongodb+srv://TobiasSecher:rJ.BejAatvzXS4y@cluster0-inrvm.mongodb.net/ShoppingLists?retryWrites=true';
-// let dbUrl = 'mongodb://localhost/shoppingList';
+//let dbUrl = 'mongodb+srv://TobiasSecher:rJ.BejAatvzXS4y@cluster0-inrvm.mongodb.net/test?retryWrites=true';
+let dbUrl = 'mongodb://localhost/shoppingList';
 
 /****** Configuration *****/
 mongoose.connect(dbUrl, { useNewUrlParser: true }, (err) => {
-    console.log('mongo db connection', err);
+    console.log('mongo db connection, error: ', err);
 });
 
 app.use(bodyParser.json());                 // Make sure all json data is parsed
-app.use(morgan('combined'));         // Log all requests to the console
+// app.use(morgan('combined'));         // Log all requests to the console
 
 const port = (process.env.PORT || 8080);
 
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error'));
 db.once('open', function () {
-    console.log(`db connection is opend`);
+    console.log(`db connection is opened`);
 })
 
 /*if (!process.env.JWT_SECRET) {
@@ -63,7 +63,6 @@ app.use((err, req, res) => {
         res.status(401).json({ error: err.message });
     }
 });*/
-
 
 /****** Routes ******/
 let usersRouter = require('./users_router')();

@@ -96,7 +96,7 @@ body {
   padding: 1em;
   border: none;
   display: block;
-  margin: 1em auto 0;
+  margin: 0 auto;
 }
 
 .loginContainer .dot {
@@ -169,4 +169,15 @@ body {
   display: block;
   border: none;
   border-bottom: 1px solid #b5b3b3;
+}
+
+label {
+  float: left;
+  width: 100%;
+  padding: 1em;
+}
+
+.items {
+  float:left;
+  margin-bottom: 1em;
 }

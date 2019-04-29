@@ -25,6 +25,8 @@ class App extends Component {
             shoppingLists: [],
             left: false
         };
+
+        this.addShoppingList = this.addShoppingList.bind(this);
     }
 
     componentDidMount() {
@@ -44,6 +46,21 @@ class App extends Component {
                 this.setState({
                     shoppingLists: json
                 })
+            });
+    }
+
+    addShoppingList(shoppingList) {
+        fetch( `http://localhost:8080/api/shoppingLists`, {
+            method: 'POST',
+            body: JSON.stringify(shoppingList),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+            .then(response => response.json())
+            .then(json => {
+                console.log("Result of posting a new question:");
+                console.log(json);
             });
     }
 
@@ -98,7 +115,7 @@ class App extends Component {
                             <Route exact path={'/create'}
                                    render={(props) =>
                                        <ShoppingListForm {...props}
-                                       />}
+                                       addShoppingList={this.addShoppingList} />}
                             />
 
                             <Route component={NotFound}/>
