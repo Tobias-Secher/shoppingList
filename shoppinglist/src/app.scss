@@ -30,10 +30,18 @@ body {
   float: left;
 }
 
+.shoppingCart {
+  color: #fff;
+  width: 1.3em !important;
+  height: 1.3em !important;
+  margin-left: 0.4em;
+  margin-top: 0.4em;
+}
+
 .dot {
   height: 3em;
   width: 3em;
-  background-color: #bbb;
+  background-color: #dcdcdc;
   border-radius: 50%;
   display: inline-block;
   float: left;
