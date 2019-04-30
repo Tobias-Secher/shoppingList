@@ -5,7 +5,6 @@ class ShoppingListFormUpdate extends Component {
 
     constructor(props) {
         super(props);
-        console.log(props)
         this.state = {
             title: "",
             type: "",
@@ -35,28 +34,19 @@ class ShoppingListFormUpdate extends Component {
         if ((this.state.items.length - 1) <= index) {
             this.addItem();
         }
-
-        console.log(`shoppingList: ${JSON.stringify(this.state.items)}`);
-
     }
 
     handleItemPriceChange(e, index) {
-        /*console.log(`index: ${index}`);
-        console.log(`shoppingList.items.length - 1: ${(this.state.items.length)}`);
-        console.log(`e.value: ${e.target.value}`);*/
         this.state.items[index].price = e.target.value;
         //set the state...
         this.setState({ items: this.state.items });
         if ((this.state.items.length - 1) <= index) {
             this.addItem();
         }
-
-        console.log(`shoppingList: ${JSON.stringify(this.state.items)}`);
     }
 
     updateInput(e) {
         e.preventDefault();
-        console.log(this.props)
         fetch(`${this.api_url}/shoppingLists/${this.props.match.params.id}`, {
             method: 'PUT',
             body: JSON.stringify(this.state.items),
@@ -72,7 +62,6 @@ class ShoppingListFormUpdate extends Component {
         fetch(`${this.api_url}/shoppingLists/${this.props.match.params.id}`)
       .then(response => response.json())
       .then(json => {
-        console.log(json)
         this.setState({
           items: json.items,
           title: json.title
