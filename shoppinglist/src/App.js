@@ -16,6 +16,7 @@ import Search from '@material-ui/icons/Search';
 import ShoppingListForm from "./ShoppingListForm";
 import HomeIcon from '@material-ui/icons/Home';
 import KeyBoardArrowDown from '@material-ui/icons/KeyboardArrowDown';
+import ShoppingListFormUpdate from "./shoppingListFormUpdate";
 
 class App extends Component {
     api_url = process.env.REACT_APP_API_URL;
@@ -121,6 +122,13 @@ class App extends Component {
                                     <ShoppingListForm {...props}
                                     />}
                             />
+                            <Route exact path={'/shoppingList/update/:id'}
+                                render={(props) =>
+                                    <ShoppingListFormUpdate {...props}
+                                    />}
+                            />
+
+
 
                             <Route exact path={'/create'}
                                 render={(props) =>

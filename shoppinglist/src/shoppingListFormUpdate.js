@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class ShoppingListForm extends Component {
+class ShoppingListFormUpdate extends Component {
     api_url = process.env.REACT_APP_API_URL;
 
     constructor(props) {
@@ -10,15 +10,14 @@ class ShoppingListForm extends Component {
             title: "",
             type: "",
             description: "",
-            items: [
-                // {itemName: 'List  item 01', price: 22},
-                // {itemName: 'List  item 02', price: 22},
-                // {itemName: 'List  item 03', price: 22},
-            ]
+            items: []
         };
 
         this.handleInput = this.handleInput.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.updateInput = this.updateInput.bind(this);
+        this.getList = this.getList.bind(this);
+        this.getList();
     }
 
     componentDidMount() {
@@ -55,6 +54,31 @@ class ShoppingListForm extends Component {
         console.log(`shoppingList: ${JSON.stringify(this.state.items)}`);
     }
 
+    updateInput(e) {
+        e.preventDefault();
+        console.log(this.props)
+        fetch(`${this.api_url}/shoppingLists/${this.props.match.params.id}`, {
+            method: 'PUT',
+            body: JSON.stringify(this.state.items),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+            .then(response => console.log('Success:', JSON.stringify(response)))
+            .catch(error => console.error('Error:', error));
+    }
+
+    getList(){
+        fetch(`${this.api_url}/shoppingLists/${this.props.match.params.id}`)
+      .then(response => response.json())
+      .then(json => {
+        console.log(json)
+        this.setState({
+          items: json.items,
+          title: json.title
+        })
+      })
+    }
     handleInput(event) {
         event.preventDefault();
 
@@ -98,10 +122,10 @@ class ShoppingListForm extends Component {
                                     <span className="itemNumber">{indexTxt}.</span>
                                     <input className="itemTitleInput" key={`itemTitle_${index}`} type="text"
                                         value={item.itemName}
-                                        onChange={(e) => this.handleItemTitleChange(e, index)} placeholder="Title"/>
+                                        onChange={(e) => this.handleItemTitleChange(e, index)} placeholder="Title" onBlur={this.updateInput} />
                                     <input className="itemPriceInput" key={`itemPrice_${index}`} type="text"
                                         value={item.price} onChange={(e) => this.handleItemPriceChange(e, index)}
-                                        placeholder="Price" />
+                                        placeholder="Price" onBlur={this.updateInput} />
                                 </div>
                             )
                         })
@@ -119,4 +143,4 @@ class ShoppingListForm extends Component {
     }
 }
 
-export default ShoppingListForm;
+export default ShoppingListFormUpdate;

@@ -8,7 +8,7 @@ class ShoppingList extends Component {
         let list = [];
         this.props.shoppingLists.forEach((elm) => {
             list.push(
-                <Link key={elm._id} to={'/shoppingList/' + elm._id}>
+                <Link key={elm._id} to={'/shoppingList/update/' + elm._id}>
                     <div className="shoppingItem" >
                         <span className="dot"/>
                         <div className="info">
