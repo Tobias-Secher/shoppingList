@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 class ShoppingListForm extends Component {
-    api_url = process.env.REACT_APP_API_URL;
 
     constructor(props) {
         super(props);
@@ -13,7 +12,8 @@ class ShoppingListForm extends Component {
                 // {itemName: 'List  item 01', price: 22},
                 // {itemName: 'List  item 02', price: 22},
                 // {itemName: 'List  item 03', price: 22},
-            ]
+            ],
+            errorMsg: ""
         };
 
         this.handleInput = this.handleInput.bind(this);
@@ -25,13 +25,13 @@ class ShoppingListForm extends Component {
     }
 
     addItem() {
-        this.setState({ items: [...this.state.items, { itemName: "", price: "" }] })
+        this.setState({items: [...this.state.items, {itemName: "", price: ""}]})
     }
 
     handleItemTitleChange(e, index) {
         this.state.items[index].itemName = e.target.value;
         //set the state...
-        this.setState({ items: this.state.items });
+        this.setState({items: this.state.items});
         if ((this.state.items.length - 1) <= index) {
             this.addItem();
         }
@@ -46,7 +46,7 @@ class ShoppingListForm extends Component {
         console.log(`e.value: ${e.target.value}`);*/
         this.state.items[index].price = e.target.value;
         //set the state...
-        this.setState({ items: this.state.items });
+        this.setState({items: this.state.items});
         if ((this.state.items.length - 1) <= index) {
             this.addItem();
         }
@@ -54,17 +54,49 @@ class ShoppingListForm extends Component {
         console.log(`shoppingList: ${JSON.stringify(this.state.items)}`);
     }
 
+    static isItemsNull(items){
+        let isItemsNull = false;
+        for(let i = 0; i < items.length - 1; i++){
+            if(items[i].itemName === "" || items[i].price === ""){
+                isItemsNull = true;
+                console.log("true");
+            }
+        }
+        return isItemsNull;
+    }
+
     handleInput(event) {
         event.preventDefault();
+        let items = this.state.items.slice();
+        let title = this.state.title;
+        if (title !== "") {
+            if (items.length === 1) {
+                this.setState({
+                    errorMsg: "Tilføj mindst én ting."
+                });
+            } else if (ShoppingListForm.isItemsNull(items)) {
+                this.setState({
+                    errorMsg: "Husk både titel og pris!"
+                });
+            } else {
+                items.pop();
+                let shoppingList = {
+                    title: title,
+                    items: items,
+                    type: "normal",
+                    description: "En kort beskrivelse af listen"
+                };
 
-        let shoppingList = {
-            title: this.state.title,
-            items: this.state.items,
-            type: "normal",
-            description: "En kort beskrivelse af listen"
-        };
-
-        this.props.addShoppingList(shoppingList);
+                this.props.addShoppingList(shoppingList);
+                this.setState({
+                    errorMsg: ""
+                })
+            }
+        } else {
+            this.setState({
+                errorMsg: "Hovsa! Du glemte at give din liste et navn."
+            })
+        }
     }
 
     onChange(event) {
@@ -81,9 +113,9 @@ class ShoppingListForm extends Component {
     render() {
         return (
             <form className="createListForm" method="post" action="#">
-
+                <span className="errorMsg">{this.state.errorMsg}</span>
                 <input type="text" name="title" id="title" className="titleInput" value={this.state.title}
-                    onChange={this.onChange} placeholder="Inkøbsliste titel" />
+                       onChange={this.onChange} placeholder="Inkøbsliste titel"/>
 
                 <div className="items">
                     {
@@ -96,11 +128,11 @@ class ShoppingListForm extends Component {
                                 <div key={index} className="floatLeft">
                                     <span className="itemNumber">{indexTxt}.</span>
                                     <input className="itemTitleInput" key={`itemTitle_${index}`} type="text"
-                                        value={item.itemName}
-                                        onChange={(e) => this.handleItemTitleChange(e, index)} placeholder="Title"/>
+                                           value={item.itemName}
+                                           onChange={(e) => this.handleItemTitleChange(e, index)} placeholder="Title"/>
                                     <input className="itemPriceInput" key={`itemPrice_${index}`} type="text"
-                                        value={item.price} onChange={(e) => this.handleItemPriceChange(e, index)}
-                                        placeholder="Price" />
+                                           value={item.price} onChange={(e) => this.handleItemPriceChange(e, index)}
+                                           placeholder="Price"/>
                                 </div>
                             )
                         })
@@ -108,7 +140,7 @@ class ShoppingListForm extends Component {
                 </div>
 
                 <button onClick={this.handleInput}
-                    type="submit" id="submitItemBtn" className="btn btn-primary">CREATE
+                        type="submit" id="submitItemBtn" className="btn btn-primary">CREATE
                 </button>
                 <button
                     id="findListBtn" className="btn btn-primary btn-bot">Find list
