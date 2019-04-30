@@ -48,7 +48,7 @@ module.exports = () => {
                 console.error(err)
         });
 
-        res.status(200).json({msg: `POST shoppingList: ${title}`});
+        res.status(200).json({id: newShoppingList._id, msg: `POST shoppingList: ${title}`});
     });
 
     router.put('/:id', (req, res) => {

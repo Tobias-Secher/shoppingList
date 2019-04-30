@@ -72,6 +72,10 @@ class App extends Component {
             .then(json => {
                 console.log("Result of posting a new question:");
                 console.log(json);
+                shoppingList._id = json.id;
+                this.setState({
+                    shoppingLists: [...this.state.shoppingLists, shoppingList]
+                })
             });
     }
     

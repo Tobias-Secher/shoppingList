@@ -88,9 +88,7 @@ class ShoppingListForm extends Component {
                 };
 
                 this.props.addShoppingList(shoppingList);
-                this.setState({
-                    errorMsg: ""
-                })
+                this.props.history.push('/');
             }
         } else {
             this.setState({
