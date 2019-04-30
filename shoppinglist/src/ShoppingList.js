@@ -5,13 +5,17 @@ import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import Link from "react-router-dom/es/Link";
 
 class ShoppingList extends Component {
+
     render() {
         let list = [];
         this.props.shoppingLists.forEach((elm) => {
+            let dotStyle = {
+                backgroundColor: elm.dotColor
+            };
             list.push(
                 <Link key={elm._id} to={'/shoppingList/update/' + elm._id}>
                     <div className="shoppingItem" >
-                        <span className="dot">
+                        <span className="dot" style={dotStyle}>
                             <ShoppingCart className="shoppingCart" />
                         </span>
                         <div className="info">
