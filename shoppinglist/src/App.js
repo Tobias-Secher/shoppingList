@@ -18,6 +18,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import KeyBoardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import ShoppingListFormUpdate from "./shoppingListFormUpdate";
 
+
 class App extends Component {
     api_url = process.env.REACT_APP_API_URL;
 
@@ -31,6 +32,9 @@ class App extends Component {
         };
 
         this.addShoppingList = this.addShoppingList.bind(this);
+        this.deleteShoppingList = this.deleteShoppingList.bind(this);
+        this.deleteItem = this.deleteItem.bind(this);
+
     }
 
     componentDidMount() {
@@ -78,8 +82,40 @@ class App extends Component {
                 })
             });
     }
-    
-    render() {
+
+    deleteShoppingList(id){
+
+        console.log("vi er inde i delete" + id)
+
+        fetch(`${this.api_url}/shoppingLists/delete/${id}`, {
+            method: 'DELETE',
+            body: JSON.stringify(id),
+
+        })
+            .then(response => response.json())
+            .then(json => {
+                console.log("delete shoppinglist" + id);
+
+            }).catch(error => console.error(error));
+    }
+
+    deleteItem(id){
+
+        console.log("vi er inde i delete item" + id)
+
+        fetch(`${this.api_url}/shoppingLists/delete/item/${id}`, {
+            method: 'DELETE',
+            body: JSON.stringify(id),
+
+        })
+            .then(response => response.json())
+            .then(json => {
+                console.log("delete item" + id);
+
+            }).catch(error => console.error(error));
+
+    }
+   render() {
         const sideList = (
             <div className="list">
                 <div className="loginContainer">
@@ -118,7 +154,8 @@ class App extends Component {
                             <Route exact path={'/'}
                                 render={(props) =>
                                     <ShoppingList {...props}
-                                        shoppingLists={this.state.shoppingLists} />}
+                                        shoppingLists={this.state.shoppingLists}
+                                        deleteShoppingList = {this.deleteShoppingList}/>}
                             />
 
                             <Route exact path={'/shoppingList/:id'}
@@ -129,7 +166,7 @@ class App extends Component {
                             <Route exact path={'/shoppingList/update/:id'}
                                 render={(props) =>
                                     <ShoppingListFormUpdate {...props}
-                                    />}
+                                    deleteItem = {this.deleteItem}/>}
                             />
 
 
