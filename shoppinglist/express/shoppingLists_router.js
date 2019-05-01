@@ -61,5 +61,44 @@ module.exports = () => {
         })
     });
 
+    router.delete('/delete/:id', function (req, res, next) {
+
+       console.log("vi er inde i delete api")
+        //ShoppingList.findOneAndRemove({_id: req.params.id});
+        //res.send('DELETE request to homepage')
+        //ShoppingList.remove(ShoppingList.findOne({_id: req.params.id}))
+        //ShoppingList.deleteOne({_id: req.params.id});
+        //ShoppingList.save();
+        //ShoppingList.findByIdAndDelete({'_id': req.params.id})
+
+        //ShoppingList.collection.findByIdAndRemove({_id :req.params.id});
+
+        ShoppingList.findOne({_id: req.params.id}).exec(function(err, shoppinglist){
+            shoppinglist.remove();
+            shoppinglist.save();
+            res.json("succes")
+        })
+
+    });
+
+    router.delete('/delete/item/:id', function (req, res, next) {
+
+        console.log("vi er inde i delete item")
+
+        /*ShoppingList.findOne({_id: req.params.id}).exec(function(err, shoppinglist){
+
+            shoppinglist.item.forEach(function (item){
+
+                    if(item._id == req.params.id){
+                        console.log("DETTE ER DIT ITEM" + item.item);
+                        item.remove();
+                        res.json("succes deleting item")
+                    }
+            })
+
+            item.save();
+        })*/
+    });
+
     return router;
 };

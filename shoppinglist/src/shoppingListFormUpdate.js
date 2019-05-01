@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+//import DeleteButton from "@material-ui/core/SvgIcon/SvgIcon";
+import DeleteButtonforItem from '@material-ui/icons/Clear';
 
 class ShoppingListFormUpdate extends Component {
     api_url = process.env.REACT_APP_API_URL;
@@ -92,6 +94,17 @@ class ShoppingListFormUpdate extends Component {
         }
     }
 
+    HandleDeleteItem(event, data){
+        console.log("delete item" + data);
+        event.preventDefault();
+        this.props.deleteItem(
+            data
+        );
+
+    }
+
+
+
     render() {
         return (
             <form className="createListForm" method="post" action="#">
@@ -115,14 +128,21 @@ class ShoppingListFormUpdate extends Component {
                                     <input className="itemPriceInput" key={`itemPrice_${index}`} type="text"
                                         value={item.price} onChange={(e) => this.handleItemPriceChange(e, index)}
                                         placeholder="Price" onBlur={this.updateInput} />
+
+                                        <DeleteButtonforItem className="DeleteButtonforItem" onClick={((e) => this.HandleDeleteItem(e, item._id))}/>
+
                                 </div>
+
+
+
+
                             )
                         })
                     }
                 </div>
 
                 <button onClick={this.handleInput}
-                    type="submit" id="submitItemBtn" className="btn btn-primary">CREATE
+                    type="submit" id="submitItemBtn" className="btn btn-primary">UPDATE
                 </button>
                 <button
                     id="findListBtn" className="btn btn-primary btn-bot">Find list
