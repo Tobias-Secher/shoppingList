@@ -21,11 +21,14 @@ class ShoppingList extends Component {
     render() {
         let list = [];
         this.props.shoppingLists.forEach((elm) => {
+            let dotStyle = {
+                backgroundColor: elm.dotColor
+            };
             list.push(
 
                     <div className="shoppingItem" >
                         <Link key={elm._id} to={'/shoppingList/update/' + elm._id}>
-                        <span className="dot">
+                        <span className="dot" style={dotStyle}>
                             <ShoppingCart className="shoppingCart" />
                         </span>
                         <div className="info">

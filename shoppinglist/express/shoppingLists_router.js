@@ -15,6 +15,7 @@ module.exports = () => {
         title: String,
         type: String,
         description: String,
+        dotColor: String,
         items: [listItemSchema]
     });
 
@@ -35,10 +36,12 @@ module.exports = () => {
         let type = req.body.type;
         let items = req.body.items;
         let description = req.body.description;
+        let dotColor = req.body.dotColor;
 
         let newShoppingList = new ShoppingList({
             title: title,
             type: type,
+            dotColor: dotColor,
             items: items,
             description: description
         });

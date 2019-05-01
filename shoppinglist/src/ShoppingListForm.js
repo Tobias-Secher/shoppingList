@@ -28,6 +28,16 @@ class ShoppingListForm extends Component {
         this.setState({items: [...this.state.items, {itemName: "", price: ""}]})
     }
 
+    randomColor(){
+        let rgb = [];
+
+        for(let i = 0; i < 3; i++){
+            rgb.push(Math.floor(Math.random() * 255));
+        }
+
+        return `rgb(${rgb.join(',')})`;
+    }
+
     handleItemTitleChange(e, index) {
         this.state.items[index].itemName = e.target.value;
         //set the state...
@@ -80,9 +90,11 @@ class ShoppingListForm extends Component {
                 });
             } else {
                 items.pop();
+
                 let shoppingList = {
                     title: title,
                     items: items,
+                    dotColor: this.randomColor(),
                     type: "normal",
                     description: "En kort beskrivelse af listen"
                 };
