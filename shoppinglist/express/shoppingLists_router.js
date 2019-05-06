@@ -65,7 +65,7 @@ module.exports = (io) => {
 
     router.delete('/delete/:id', function (req, res, next) {
 
-       console.log("vi er inde i delete api")
+       //console.log("vi er inde i delete api")
         //ShoppingList.findOneAndRemove({_id: req.params.id});
         //res.send('DELETE request to homepage')
         //ShoppingList.remove(ShoppingList.findOne({_id: req.params.id}))
@@ -78,6 +78,9 @@ module.exports = (io) => {
         ShoppingList.findOne({_id: req.params.id}).exec(function(err, shoppinglist){
             shoppinglist.remove();
             shoppinglist.save();
+
+            io.of('/shopping_list').emit('new-data', {msg: 'New data is available on /api/my_data'});
+
             res.json("succes")
         })
 
