@@ -1,4 +1,4 @@
-module.exports = () => {
+module.exports = (io) => {
     let express = require('express');
     let router = express.Router();
     const mongoose = require('mongoose');
@@ -50,6 +50,8 @@ module.exports = () => {
             if(err)
                 console.error(err)
         });
+
+        io.of('/shopping_list').emit('new-data', {msg: 'New data is available on /api/my_data'});
 
         res.status(200).json({id: newShoppingList._id, msg: `POST shoppingList: ${title}`});
     });

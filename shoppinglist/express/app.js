@@ -64,13 +64,6 @@ app.use((err, req, res) => {
     }
 });*/
 
-/****** Routes ******/
-let usersRouter = require('./users_router')();
-app.use('/api/users', usersRouter);
-
-let shoppingListsRouter = require('./shoppingLists_router')();
-app.use('/api/shoppingLists', shoppingListsRouter);
-
 /****** Error handling ******/
 app.use(function (err, req, res, next) {
     console.error(err.stack);
@@ -78,5 +71,23 @@ app.use(function (err, req, res, next) {
 });
 
 /****** Listen ******/
-app.listen(port, () => console.log(`API running on port ${port}!`));
+const server = app.listen(port, () => console.log(`API running on port ${port}!`));
+const io = require('socket.io').listen(server);
+
+/****** Routes ******/
+let usersRouter = require('./users_router')();
+app.use('/api/users', usersRouter);
+
+let shoppingListsRouter = require('./shoppingLists_router')(io);
+app.use('/api/shoppingLists', shoppingListsRouter);
+
+/**** Socket.io event handlers ****/
+io.of('/shopping_list').on('connection', function (socket) {
+    socket.on('hello', function (from, msg) {
+        console.log(`I received a private message from '${from}' saying '${msg}'`);
+    });
+    socket.on('disconnect', () => {
+        console.log("Someone disconnected...");
+    });
+});
 
