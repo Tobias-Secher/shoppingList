@@ -1,5 +1,5 @@
-import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
-import React, {Component} from 'react';
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import React, { Component } from 'react';
 import './app.scss';
 import NotFound from './NotFound';
 import ShoppingList from "./ShoppingList";
@@ -45,11 +45,6 @@ class App extends Component {
         this.getShoppingLists();
         const socket = io(this.SOCKET_URL);
 
-        /*socket.on('connect', () => {
-            console.log("Connected to socket.io!");
-            socket.emit('hello', "Kristian", "howdy");
-        });*/
-
         socket.on('new-data', (data) => {
             console.log(`server msg: ${data.msg}`);
             this.getShoppingLists();
@@ -76,7 +71,30 @@ class App extends Component {
                 this.setState({
                     shoppingLists: json
                 })
-            });
+                this.addToIndexedDB(json);
+            })
+    }
+
+    addToIndexedDB(json) {
+        let request = indexedDB.open('shoppingList', 1);
+        let db;
+        console.log(json)
+        request.onsuccess = function (event) {
+            console.log(`[onsuccess]`, request.result);
+            db = event.target.result;
+        }
+        request.onerror = function (event) {
+            console.log('[onerror]', request.error);
+        };
+
+        request.onupgradeneeded = function (event) {
+            // create object store from db or event.target.result
+            let db = event.target.result;
+            let store = db.createObjectStore('shoppingLists', { keyPath: '_id' });
+            json.forEach(function (list) {
+                store.add(list);
+            })
+        };
     }
 
     addShoppingList(shoppingList) {
@@ -135,18 +153,18 @@ class App extends Component {
         const sideList = (
             <div className="list">
                 <div className="loginContainer">
-                    <span className="dot"/>
+                    <span className="dot" />
                     <h3>coolguy27@gmail.com</h3>
-                    <KeyBoardArrowDown className="arrowDownIcon"/>
+                    <KeyBoardArrowDown className="arrowDownIcon" />
                 </div>
-                <Divider/>
+                <Divider />
                 <List>
                     <Link to={'/'}>
                         <ListItem button>
                             <ListItemIcon>
-                                <HomeIcon/>
+                                <HomeIcon />
                             </ListItemIcon>
-                            <ListItemText primary={"Home"}/>
+                            <ListItemText primary={"Home"} />
                         </ListItem>
                     </Link>
                 </List>
@@ -158,41 +176,41 @@ class App extends Component {
                 <div className="container">
                     <div className="header">
                         <button onClick={this.toggleDrawer('left', true)}>
-                            <Menu/>
+                            <Menu />
                         </button>
                         <Link to={'/'}><h1>Lists</h1></Link>
                         <button onClick={this.toggleSearch(true)}>
-                            <Search/>
+                            <Search />
                         </button>
                     </div>
                     <div className="content">
                         <Switch>
                             <Route exact path={'/'}
-                                   render={(props) =>
-                                       <ShoppingList {...props}
-                                                     shoppingLists={this.state.shoppingLists}
-                                                     deleteShoppingList={this.deleteShoppingList}/>}
+                                render={(props) =>
+                                    <ShoppingList {...props}
+                                        shoppingLists={this.state.shoppingLists}
+                                        deleteShoppingList={this.deleteShoppingList} />}
                             />
 
                             <Route exact path={'/shoppingList/:id'}
-                                   render={(props) =>
-                                       <ShoppingListForm {...props}
-                                       />}
+                                render={(props) =>
+                                    <ShoppingListForm {...props}
+                                    />}
                             />
                             <Route exact path={'/shoppingList/update/:id'}
-                                   render={(props) =>
-                                       <ShoppingListFormUpdate {...props}
-                                                               deleteItem={this.deleteItem}/>}
+                                render={(props) =>
+                                    <ShoppingListFormUpdate {...props}
+                                        deleteItem={this.deleteItem} />}
                             />
 
 
                             <Route exact path={'/create'}
-                                   render={(props) =>
-                                       <ShoppingListForm {...props}
-                                                         addShoppingList={this.addShoppingList}/>}
+                                render={(props) =>
+                                    <ShoppingListForm {...props}
+                                        addShoppingList={this.addShoppingList} />}
                             />
 
-                            <Route component={NotFound}/>
+                            <Route component={NotFound} />
                         </Switch>
                     </div>
                     <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
@@ -206,7 +224,7 @@ class App extends Component {
                         </div>
                     </Drawer>
                     <Link to={'/create'}>
-                        <AddCircle className="addIcon"/>
+                        <AddCircle className="addIcon" />
                     </Link>
                 </div>
             </Router>
