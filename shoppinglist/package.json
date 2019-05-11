@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
+    "@react-native-community/netinfo": "^2.0.10",
     "moment-timezone": "^0.5.23",
     "node-sass": "^4.12.0",
     "react": "^16.8.6",
