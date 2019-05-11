@@ -1,5 +1,8 @@
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import React, { Component } from 'react';
+import { openDB, deleteDB, wrap, unwrap } from 'idb';
+
+
 import './app.scss';
 import NotFound from './NotFound';
 import ShoppingList from "./ShoppingList";
@@ -19,12 +22,15 @@ import KeyBoardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import ShoppingListFormUpdate from "./shoppingListFormUpdate";
 
 import io from 'socket.io-client';
+import { object } from "prop-types";
 
 let db;
+const DB_VERSION = 1;
+const DB_NAME = 'ShoppingList';
+const DB_STORE = 'ShoppingLists';
 class App extends Component {
     api_url = process.env.REACT_APP_API_URL
     SOCKET_URL = 'http://localhost:8080/shopping_list';
-
     constructor(props) {
         super(props);
 
@@ -37,7 +43,7 @@ class App extends Component {
         this.addShoppingList = this.addShoppingList.bind(this);
         this.deleteShoppingList = this.deleteShoppingList.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
-        this.getFromIndexedDB = this.getFromIndexedDB.bind(this);
+        this.myFunction = this.myFunction.bind(this);
     }
 
     componentDidMount() {
@@ -75,7 +81,7 @@ class App extends Component {
     }
 
     addToIndexedDB(json) {
-        let request = indexedDB.open('shoppingList', 1);
+        let request = indexedDB.open(DB_NAME, DB_VERSION);
         console.log(json)
         request.onsuccess = function (event) {
             console.log(`[onsuccess]`, request.result);
@@ -90,28 +96,31 @@ class App extends Component {
             // create object store from db or event.target.result
             // let db = event.target.result;
             db = event.target.result;
-            let store = db.createObjectStore('shoppingLists', { keyPath: '_id' });
+            let store = db.createObjectStore(DB_STORE, { keyPath: '_id' });
             json.forEach(function (list) {
                 store.add(list);
             })
         };
 
     }
-    getFromIndexedDB() {
-        let transaction = db.transaction(['shoppingLists'], 'readwrite');
-        let objectStore = transaction.objectStore('shoppingLists');
-        let response = objectStore.getAll();
-        let DETTE_ER = [];
-        response.onsuccess = function (event) {
-            DETTE_ER = event.target.result;
-        }
-        console.log(DETTE_ER)
-        // this.setState({
-        //     shoppingLists: result
-        // })
-    }
 
-    setStuff(json){
+    async myFunction() {
+        let dba = await openDB(DB_NAME, DB_VERSION)
+        console.log(dba)
+
+        let transaction = dba.transaction([DB_STORE], 'readwrite');
+        let objectStore = transaction.objectStore(DB_STORE);
+
+        let allSavedItems = await objectStore.getAll()
+
+        console.log(allSavedItems)
+        this.setState({
+            shoppingLists: allSavedItems
+        })
+        dba.close()
+
+    }
+    setStuff(json) {
         console.log(json)
     }
 
@@ -197,7 +206,7 @@ class App extends Component {
                             <Menu />
                         </button>
                         <Link to={'/'}><h1>Lists</h1></Link>
-                        <button onClick={this.getFromIndexedDB}>test</button>
+                        <button onClick={this.myFunction}>test</button>
                         <button onClick={this.toggleSearch(true)}>
                             <Search />
                         </button>
