@@ -67,9 +67,9 @@ class App extends Component {
         fetch(`${this.api_url}/shoppingLists`)
             .then(response => response.json())
             .then(json => {
-                // this.setState({
-                //     shoppingLists: json
-                // })
+                this.setState({
+                     shoppingLists: json
+                 })
                 this.addToIndexedDB(json);
             })
     }
@@ -135,6 +135,7 @@ class App extends Component {
     }
 
     deleteShoppingList(id) {
+
 
         console.log("vi er inde i delete" + id)
 

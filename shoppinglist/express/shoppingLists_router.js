@@ -90,20 +90,25 @@ module.exports = (io) => {
 
         console.log("vi er inde i delete item")
 
-        /*ShoppingList.findOne({_id: req.params.id}).exec(function(err, shoppinglist){
+        ShoppingList.find({}, (err, list) => {
 
-            shoppinglist.item.forEach(function (item){
-
-                    if(item._id == req.params.id){
-                        console.log("DETTE ER DIT ITEM" + item.item);
+            list.forEach(function (elm) {
+                elm.items.forEach(function (item) {
+                    if (item._id == req.params.id) {
+                        console.log("DETTE ER DIN KOMMENTAR" + item.item);
                         item.remove();
-                        res.json("succes deleting item")
-                    }
-            })
+                        elm.save();
 
-            item.save();
-        })*/
+                    }
+                })
+            })
+        });
+
+        io.of('/shopping_list').emit('new-data', {msg: 'New data is available on /api/my_data'});
+
+        res.json("succes")
     });
+
 
     return router;
 };
