@@ -11,7 +11,7 @@ class ShoppingListForm extends Component {
             items: [
                 // {itemName: 'List  item 01', price: 22},
                 // {itemName: 'List  item 02', price: 22},
-                // {itemName: 'List  item 03', price: 22},
+                // {itemName: 'List  item 03', price: 22}
             ],
             errorMsg: ""
         };
@@ -51,9 +51,6 @@ class ShoppingListForm extends Component {
     }
 
     handleItemPriceChange(e, index) {
-        /*console.log(`index: ${index}`);
-        console.log(`shoppingList.items.length - 1: ${(this.state.items.length)}`);
-        console.log(`e.value: ${e.target.value}`);*/
         this.state.items[index].price = e.target.value;
         //set the state...
         this.setState({items: this.state.items});

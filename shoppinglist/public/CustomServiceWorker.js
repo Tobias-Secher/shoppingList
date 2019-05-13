@@ -2,8 +2,8 @@ console.log("Custom Service Worker");
 
 // importScripts('serviceworker-cache-polyfill.js');
 
-
-const staticCacheName = 'PWA_CACHE2';
+const CACHE_VERSION = 1
+const CACHE_NAME = `PWA_CACHE_${CACHE_VERSION}`;
 const filesToCache = [
     '/',
     '../src/app.scss',
@@ -13,16 +13,15 @@ const filesToCache = [
     '../shoppingList.js',
     '../shoppingListForm.js',
     '../shoppingListFormUpdate.js',
-    // '../src/logo.svg',
     './index.html',
     './CustomServiceWorker.js',
-    // './serviceworker-cache-polyfill.js',
     './manifest.json',
     './favicon.ico',
     '../static/js/bundle.js',
     '../static/js/0.chunk.js',
     '../static/js/1.chunk.js',
     '../static/js/main.chunk.js',
+    '../main.6bdba2c05771f28f1976.hot-update.js',
 ]
 self.addEventListener('install', event => {
     console.log('The service worker is being installed.');
@@ -31,7 +30,7 @@ self.addEventListener('install', event => {
     // This is fixed by wrapping the event.waitUntil. This waits until the last promise is done, before returning the event.
     event.waitUntil(
         // Returns a promise that works in the background 
-        caches.open(staticCacheName)
+        caches.open(CACHE_NAME)
             // .then runs after the promise is done. This will recive the result of the privious function. 
             // Here we recive the cache from the previous funcion
             .then(cache => {

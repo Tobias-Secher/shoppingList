@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 //import DeleteButton from "@material-ui/core/SvgIcon/SvgIcon";
 import DeleteButtonforItem from '@material-ui/icons/Clear';
+import { openDB, deleteDB, wrap, unwrap } from 'idb';
 
 class ShoppingListFormUpdate extends Component {
     api_url = process.env.REACT_APP_API_URL;
@@ -60,15 +61,22 @@ class ShoppingListFormUpdate extends Component {
             .catch(error => console.error('Error:', error));
     }
 
-    getList(){
-        fetch(`${this.api_url}/shoppingLists/${this.props.match.params.id}`)
-      .then(response => response.json())
-      .then(json => {
+    async getList() {
+        let dba = await openDB(this.props.DB_NAME, this.props.DB_VERSION)
+        console.log(`UPDATE DATABASE LOG`)
+        console.log(dba)
+
+        let transaction = dba.transaction([this.props.DB_STORE], 'readwrite');
+        let objectStore = transaction.objectStore(this.props.DB_STORE);
+
+        let list = await objectStore.get(this.props.match.params.id)
+        console.log(`LIST RESULT`)
+        console.log(list);
         this.setState({
-          items: json.items,
-          title: json.title
+            items: list.items,
+            title: list.title
         })
-      })
+        dba.close()
     }
     handleInput(event) {
         event.preventDefault();
@@ -94,7 +102,7 @@ class ShoppingListFormUpdate extends Component {
         }
     }
 
-    HandleDeleteItem(event, data){
+    HandleDeleteItem(event, data) {
         console.log("delete item" + data);
         event.preventDefault();
         this.props.deleteItem(
@@ -129,7 +137,7 @@ class ShoppingListFormUpdate extends Component {
                                         value={item.price} onChange={(e) => this.handleItemPriceChange(e, index)}
                                         placeholder="Price" onBlur={this.updateInput} />
 
-                                        <DeleteButtonforItem className="DeleteButtonforItem" onClick={((e) => this.HandleDeleteItem(e, item._id))}/>
+                                    <DeleteButtonforItem className="DeleteButtonforItem" onClick={((e) => this.HandleDeleteItem(e, item._id))} />
 
                                 </div>
 

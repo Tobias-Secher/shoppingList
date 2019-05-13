@@ -22,9 +22,7 @@ import KeyBoardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import ShoppingListFormUpdate from "./shoppingListFormUpdate";
 
 import io from 'socket.io-client';
-import { object } from "prop-types";
 
-let db;
 const DB_VERSION = 1;
 const DB_NAME = 'ShoppingList';
 const DB_STORE = 'ShoppingLists';
@@ -43,11 +41,12 @@ class App extends Component {
         this.addShoppingList = this.addShoppingList.bind(this);
         this.deleteShoppingList = this.deleteShoppingList.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
-        this.myFunction = this.myFunction.bind(this);
+        this.myFunction = this.getIndexedDB.bind(this);
     }
 
     componentDidMount() {
         this.getShoppingLists();
+        this.getIndexedDB();
         const socket = io(this.SOCKET_URL);
 
         socket.on('new-data', (data) => {
@@ -70,45 +69,33 @@ class App extends Component {
     };
 
     getShoppingLists() {
-        fetch(`${this.api_url}/shoppingLists`)
-            .then(response => response.json())
-            .then(json => {
-                // this.setState({
-                //     shoppingLists: json
-                // })
-                this.addToIndexedDB(json);
-            })
+        if (navigator.onLine)
+            fetch(`${this.api_url}/shoppingLists`)
+                .then(response => response.json())
+                .then(json => {
+                    this.addToIndexedDB(json);
+                })
     }
 
     addToIndexedDB(json) {
         let request = indexedDB.open(DB_NAME, DB_VERSION);
-        console.log(json)
         request.onsuccess = function (event) {
-            console.log(`[onsuccess]`, request.result);
-            db = request.result;
-            console.log(db);
         }
         request.onerror = function (event) {
-            console.log('[onerror]', request.error);
+            console.error('[onerror]', request.error);
         };
-
         request.onupgradeneeded = function (event) {
-            // create object store from db or event.target.result
-            // let db = event.target.result;
-            db = event.target.result;
+            let db = event.target.result;
             let store = db.createObjectStore(DB_STORE, { keyPath: '_id' });
             json.forEach(function (list) {
                 store.add(list);
             })
         };
-
     }
 
-    async myFunction() {
-        let dba = await openDB(DB_NAME, DB_VERSION)
-        console.log(dba)
-
-        let transaction = dba.transaction([DB_STORE], 'readwrite');
+    async getIndexedDB() {
+        let db = await openDB(DB_NAME, DB_VERSION)
+        let transaction = db.transaction([DB_STORE], 'readwrite');
         let objectStore = transaction.objectStore(DB_STORE);
 
         let allSavedItems = await objectStore.getAll()
@@ -117,7 +104,7 @@ class App extends Component {
         this.setState({
             shoppingLists: allSavedItems
         })
-        dba.close()
+        db.close()
 
     }
     setStuff(json) {
@@ -206,7 +193,6 @@ class App extends Component {
                             <Menu />
                         </button>
                         <Link to={'/'}><h1>Lists</h1></Link>
-                        <button onClick={this.myFunction}>test</button>
                         <button onClick={this.toggleSearch(true)}>
                             <Search />
                         </button>
@@ -222,13 +208,13 @@ class App extends Component {
 
                             <Route exact path={'/shoppingList/:id'}
                                 render={(props) =>
-                                    <ShoppingListForm {...props}
+                                    <ShoppingListForm {...props} 
                                     />}
                             />
                             <Route exact path={'/shoppingList/update/:id'}
                                 render={(props) =>
                                     <ShoppingListFormUpdate {...props}
-                                        deleteItem={this.deleteItem} />}
+                                        deleteItem={this.deleteItem} DB_NAME={DB_NAME} DB_STORE={DB_STORE} DB_VERSION={DB_VERSION} />}
                             />
 
 
