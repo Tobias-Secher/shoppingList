@@ -44,6 +44,7 @@ class App extends Component {
         this.deleteItem = this.deleteItem.bind(this);
         this.getIndexedDB = this.getIndexedDB.bind(this);
         this.createIndexed = this.createIndexed.bind(this);
+        this.addOneToIndexedDB = this.addOneToIndexedDB.bind(this);
     }
 
     componentDidMount() {
@@ -76,7 +77,7 @@ class App extends Component {
             fetch(`${this.api_url}/shoppingLists`)
                 .then(response => response.json())
                 .then(json => {
-                    this.addToIndexedDB(json);
+                    this.addAllToIndexedDB(json);
                 })
     }
     createIndexed() {
@@ -95,21 +96,31 @@ class App extends Component {
             db.createObjectStore(DB_STORE.toString(), { keyPath: '_id' });
         };
     }
-    async addToIndexedDB(json) {
-        console.log(`Add data`)
+    async addAllToIndexedDB(json) {
+        
         let db = await openDB(DB_NAME, DB_VERSION)
         let transaction = db.transaction(DB_STORE.toString(), 'readwrite');
         let objectStore = transaction.objectStore(DB_STORE);
 
-        json.forEach(function (list, index) {
+        json.forEach(function (list) {
             objectStore.put(list)
         })
 
         this.getIndexedDB();
+        db.close()
+    }
+    async addOneToIndexedDB(json) {
+        
+        let db = await openDB(DB_NAME, DB_VERSION)
+        let transaction = db.transaction(DB_STORE.toString(), 'readwrite');
+        let objectStore = transaction.objectStore(DB_STORE);
+        objectStore.add(json)
+
+        this.getIndexedDB();
+        db.close()
     }
 
     async getIndexedDB() {
-        console.log(`getIndexedDB`)
         let db = await openDB(DB_NAME, DB_VERSION)
 
         let transaction = db.transaction(DB_STORE.toString(), 'readwrite');
@@ -117,7 +128,6 @@ class App extends Component {
         let objectStore = transaction.objectStore(DB_STORE);
         let allSavedItems = await objectStore.getAll()
 
-        console.log(allSavedItems)
         this.setState({
             shoppingLists: allSavedItems
         })
@@ -140,10 +150,6 @@ class App extends Component {
             .then(json => {
                 console.log("Result of posting a new question:");
                 console.log(json);
-                /*shoppingList._id = json.id;
-                this.setState({
-                    shoppingLists: [...this.state.shoppingLists, shoppingList]
-                })*/
             });
     }
 
