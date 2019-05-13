@@ -87,7 +87,6 @@ class ShoppingListFormUpdate extends Component {
             type: "normal",
             description: "En kort beskrivelse af listen"
         };
-
         this.props.addShoppingList(shoppingList);
     }
 
