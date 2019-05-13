@@ -14,7 +14,7 @@ mongoose.connect(dbUrl, { useNewUrlParser: true }, (err) => {
 });
 
 app.use(bodyParser.json());                 // Make sure all json data is parsed
-// app.use(morgan('combined'));         // Log all requests to the console
+app.use(morgan('combined'));         // Log all requests to the console
 
 const port = (process.env.PORT || 8080);
 

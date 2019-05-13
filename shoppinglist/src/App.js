@@ -22,11 +22,12 @@ import KeyBoardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import ShoppingListFormUpdate from "./shoppingListFormUpdate";
 
 import io from 'socket.io-client';
-
-const DB_VERSION = 1;
+const DB_VERSION = 3;
 const DB_NAME = 'ShoppingList';
 const DB_STORE = 'ShoppingLists';
 class App extends Component {
+
+    db;
     api_url = process.env.REACT_APP_API_URL
     SOCKET_URL = 'http://localhost:8080/shopping_list';
     constructor(props) {
@@ -41,12 +42,15 @@ class App extends Component {
         this.addShoppingList = this.addShoppingList.bind(this);
         this.deleteShoppingList = this.deleteShoppingList.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
-        this.myFunction = this.getIndexedDB.bind(this);
+        this.getIndexedDB = this.getIndexedDB.bind(this);
+        this.createIndexed = this.createIndexed.bind(this);
     }
 
     componentDidMount() {
-        this.getShoppingLists();
-        this.getIndexedDB();
+        this.createIndexed();
+        this.getShoppingLists()
+        if (!navigator.onLine)
+            this.getIndexedDB()
         const socket = io(this.SOCKET_URL);
 
         socket.on('new-data', (data) => {
@@ -67,7 +71,6 @@ class App extends Component {
             search: open
         });
     };
-
     getShoppingLists() {
         if (navigator.onLine)
             fetch(`${this.api_url}/shoppingLists`)
@@ -76,28 +79,42 @@ class App extends Component {
                     this.addToIndexedDB(json);
                 })
     }
-
-    addToIndexedDB(json) {
+    createIndexed() {
         let request = indexedDB.open(DB_NAME, DB_VERSION);
+
         request.onsuccess = function (event) {
+            console.log(`[success]`)
+            this.db = event.target.result;
         }
         request.onerror = function (event) {
             console.error('[onerror]', request.error);
         };
         request.onupgradeneeded = function (event) {
+            console.log(`[UPGRADE]`)
             let db = event.target.result;
-            let store = db.createObjectStore(DB_STORE, { keyPath: '_id' });
-            json.forEach(function (list) {
-                store.add(list);
-            })
+            db.createObjectStore(DB_STORE.toString(), { keyPath: '_id' });
         };
+    }
+    async addToIndexedDB(json) {
+        console.log(`Add data`)
+        let db = await openDB(DB_NAME, DB_VERSION)
+        let transaction = db.transaction(DB_STORE.toString(), 'readwrite');
+        let objectStore = transaction.objectStore(DB_STORE);
+
+        json.forEach(function (list, index) {
+            objectStore.put(list)
+        })
+
+        this.getIndexedDB();
     }
 
     async getIndexedDB() {
+        console.log(`getIndexedDB`)
         let db = await openDB(DB_NAME, DB_VERSION)
-        let transaction = db.transaction([DB_STORE], 'readwrite');
-        let objectStore = transaction.objectStore(DB_STORE);
 
+        let transaction = db.transaction(DB_STORE.toString(), 'readwrite');
+
+        let objectStore = transaction.objectStore(DB_STORE);
         let allSavedItems = await objectStore.getAll()
 
         console.log(allSavedItems)
@@ -208,7 +225,7 @@ class App extends Component {
 
                             <Route exact path={'/shoppingList/:id'}
                                 render={(props) =>
-                                    <ShoppingListForm {...props} 
+                                    <ShoppingListForm {...props}
                                     />}
                             />
                             <Route exact path={'/shoppingList/update/:id'}

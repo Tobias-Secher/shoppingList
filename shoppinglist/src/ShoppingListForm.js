@@ -145,7 +145,6 @@ class ShoppingListForm extends Component {
                         })
                     }
                 </div>
-
                 <button onClick={this.handleInput}
                         type="submit" id="submitItemBtn" className="btn btn-primary">CREATE
                 </button>
