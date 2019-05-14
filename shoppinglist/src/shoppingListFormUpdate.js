@@ -68,7 +68,7 @@ class ShoppingListFormUpdate extends Component {
 
         let transaction = dba.transaction([this.props.DB_STORE], 'readwrite');
         let objectStore = transaction.objectStore(this.props.DB_STORE);
-
+        console.log(`ID TEST: ${this.props.match.params.id}`);
         let list = await objectStore.get(this.props.match.params.id)
         console.log(`LIST RESULT`)
         console.log(list);

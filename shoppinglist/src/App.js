@@ -97,7 +97,7 @@ class App extends Component {
         };
     }
     async addAllToIndexedDB(json) {
-        
+
         let db = await openDB(DB_NAME, DB_VERSION)
         let transaction = db.transaction(DB_STORE.toString(), 'readwrite');
         let objectStore = transaction.objectStore(DB_STORE);
@@ -110,7 +110,7 @@ class App extends Component {
         db.close()
     }
     async addOneToIndexedDB(json) {
-        
+
         let db = await openDB(DB_NAME, DB_VERSION)
         let transaction = db.transaction(DB_STORE.toString(), 'readwrite');
         let objectStore = transaction.objectStore(DB_STORE);

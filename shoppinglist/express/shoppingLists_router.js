@@ -16,7 +16,8 @@ module.exports = (io) => {
         type: String,
         description: String,
         dotColor: String,
-        items: [listItemSchema]
+        items: [listItemSchema],
+        _id: String
     });
 
     router.get('/', (req, res) => {
@@ -32,28 +33,37 @@ module.exports = (io) => {
     });
 
     router.post('/', (req, res) => {
-        let title = req.body.title;
-        let type = req.body.type;
-        let items = req.body.items;
-        let description = req.body.description;
-        let dotColor = req.body.dotColor;
+        ShoppingList.findOne({}).sort('-_id').exec(function (err, list) {
+            let title = req.body.title;
+            let type = req.body.type;
+            let items = req.body.items;
+            let description = req.body.description;
+            let dotColor = req.body.dotColor;
+            let id = 0;
+            if(list != undefined){
+                id = list._id + 1;
+            }
 
-        let newShoppingList = new ShoppingList({
-            title: title,
-            type: type,
-            dotColor: dotColor,
-            items: items,
-            description: description
+            let stringId = id.toString();
+
+            let newShoppingList = new ShoppingList({
+                title: title,
+                type: type,
+                dotColor: dotColor,
+                items: items,
+                description: description,
+                _id: stringId
+            });
+
+            newShoppingList.save((err) => {
+                if (err)
+                    console.error(err)
+            });
+
+            io.of('/shopping_list').emit('new-data', {msg: 'New data is available on /api/my_data'});
+
+            res.status(200).json({id: newShoppingList._id, msg: `POST shoppingList: ${title}`});
         });
-
-        newShoppingList.save((err) => {
-            if(err)
-                console.error(err)
-        });
-
-        io.of('/shopping_list').emit('new-data', {msg: 'New data is available on /api/my_data'});
-
-        res.status(200).json({id: newShoppingList._id, msg: `POST shoppingList: ${title}`});
     });
 
     router.put('/:id', (req, res) => {
@@ -74,8 +84,8 @@ module.exports = (io) => {
         //ShoppingList.findByIdAndDelete({'_id': req.params.id})
 
         //ShoppingList.collection.findByIdAndRemove({_id :req.params.id});
-
-        ShoppingList.findOne({_id: req.params.id}).exec(function(err, shoppinglist){
+        console.log(`REQ PARAMS ID: ${req.params.id}`)
+        ShoppingList.findOne({_id: req.params.id}).exec(function (err, shoppinglist) {
             shoppinglist.remove();
             shoppinglist.save();
 
