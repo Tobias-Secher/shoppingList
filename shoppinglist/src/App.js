@@ -22,11 +22,12 @@ import KeyBoardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import ShoppingListFormUpdate from "./shoppingListFormUpdate";
 
 import io from 'socket.io-client';
-const DB_VERSION = 3;
+const DB_VERSION = 1;
 const DB_NAME = 'ShoppingList';
 const DB_STORE = 'ShoppingLists';
+const DB_REQUEST = 'ShoppingListsRequest';
 class App extends Component {
-
+    newId;
     db;
     api_url = process.env.REACT_APP_API_URL
     SOCKET_URL = 'http://localhost:8080/shopping_list';
@@ -38,13 +39,17 @@ class App extends Component {
             left: false,
             search: false
         };
+        this.binds();
+    }
 
+    binds() {
         this.addShoppingList = this.addShoppingList.bind(this);
         this.deleteShoppingList = this.deleteShoppingList.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
         this.getIndexedDB = this.getIndexedDB.bind(this);
         this.createIndexed = this.createIndexed.bind(this);
-        this.addOneToIndexedDB = this.addOneToIndexedDB.bind(this);
+        this.addToRequestDB = this.addToRequestDB.bind(this);
+        this.requestHandler = this.requestHandler.bind(this);
     }
 
     componentDidMount() {
@@ -65,7 +70,6 @@ class App extends Component {
             [side]: open,
         });
     };
-
     toggleSearch = (open) => () => {
         console.log(open);
         this.setState({
@@ -81,65 +85,104 @@ class App extends Component {
                 })
     }
     createIndexed() {
+        // If the database dosen't exist -> create it
+        // else -> fetch it.
         let request = indexedDB.open(DB_NAME, DB_VERSION);
 
+        // If the base creation/fetch is successfull
         request.onsuccess = function (event) {
-            console.log(`[success]`)
-            this.db = event.target.result;
+            // Do stuff here
         }
+
+        // If there are errors
         request.onerror = function (event) {
             console.error('[onerror]', request.error);
         };
+
+        // This only runs when the database version changes.
+        // This is to make sure the database updates the structure
+        // If needed, everytime there are a version change.
         request.onupgradeneeded = function (event) {
-            console.log(`[UPGRADE]`)
+            // Gets the result from the database request
             let db = event.target.result;
+            // Creates the object store where we are keeping the lists
+            // For offine use
             db.createObjectStore(DB_STORE.toString(), { keyPath: '_id' });
+            // Creates the oject store where we are keeping the changes
+            // The background sync will handle
+            db.createObjectStore(DB_REQUEST.toString(), { keyPath: '_id' });
         };
     }
     async addAllToIndexedDB(json) {
-
+        // Open connection to indexeddb
         let db = await openDB(DB_NAME, DB_VERSION)
+        // Creates the transaction and allows it to read and write data
         let transaction = db.transaction(DB_STORE.toString(), 'readwrite');
+        // Gets the correct objectStore
         let objectStore = transaction.objectStore(DB_STORE);
-
+        // Adds all the json elements to the objectstore
         json.forEach(function (list) {
             objectStore.put(list)
         })
-
+        // Update the state
         this.getIndexedDB();
+        // Closes the connection
         db.close()
     }
-    async addOneToIndexedDB(json) {
-
-        let db = await openDB(DB_NAME, DB_VERSION)
-        let transaction = db.transaction(DB_STORE.toString(), 'readwrite');
-        let objectStore = transaction.objectStore(DB_STORE);
-        objectStore.add(json)
-
-        this.getIndexedDB();
-        db.close()
-    }
-
     async getIndexedDB() {
+        // Open connection to indexeddb
         let db = await openDB(DB_NAME, DB_VERSION)
-
-        let transaction = db.transaction(DB_STORE.toString(), 'readwrite');
-
+        // Get the transaction and only allows it to read.
+        let transaction = db.transaction(DB_STORE.toString(), 'readonly');
+        // Gets the correct objectStore
         let objectStore = transaction.objectStore(DB_STORE);
+        // Fetches all items in the object store
         let allSavedItems = await objectStore.getAll()
-
+        // Assigns a new id for later use. This is used when adding.
+        this.newId = `${allSavedItems.length + 1}`;
+        // Updates the react state, in order to display the lists
         this.setState({
             shoppingLists: allSavedItems
         })
+        // Closes the connection
         db.close()
 
     }
-    setStuff(json) {
-        console.log(json)
+    async addToRequestDB(json, req) {
+        // Open connection to indexeddb
+        let db = await openDB(DB_NAME, DB_VERSION);
+        // Creates the transaction and allows it to read and write data        
+        let transaction = db.transaction(DB_REQUEST.toString(), 'readwrite');
+        // Gets the correct objectStore
+        let objectStore = transaction.objectStore(DB_REQUEST.toString());
+        // Adds a request attrabute to the json element
+        json.request = req.toUpperCase();
+        // Handels the request
+        this.requestHandler(db, json)
+        // Adds the json element to the request object store
+        objectStore.add(json);
+        // Closes the connection
+        db.close();
+        // Updates the state
+        this.getIndexedDB();
     }
-
+    requestHandler(db, json) {
+        // Opens the referenced db and gets the transaction.
+        let transaction = db.transaction(DB_STORE.toString(), 'readwrite');
+        // Gets the store
+        let objectStore = transaction.objectStore(DB_STORE.toString());
+        // Checks the json requst value
+        switch (json.request) {
+            case 'DELETE':
+                objectStore.delete(json._id);
+                break;
+            case 'ADD':
+                objectStore.add(json)
+                break;
+        }
+    }
     addShoppingList(shoppingList) {
-        fetch(`${this.api_url}/shoppingLists`, {
+        fetch(`${this.api_url} /shoppingLists`, {
             method: 'POST',
             body: JSON.stringify(shoppingList),
             headers: {
@@ -226,7 +269,7 @@ class App extends Component {
                                 render={(props) =>
                                     <ShoppingList {...props}
                                         shoppingLists={this.state.shoppingLists}
-                                        deleteShoppingList={this.deleteShoppingList} />}
+                                        deleteShoppingList={this.addToRequestDB} />}
                             />
 
                             <Route exact path={'/shoppingList/:id'}
@@ -244,7 +287,7 @@ class App extends Component {
                             <Route exact path={'/create'}
                                 render={(props) =>
                                     <ShoppingListForm {...props}
-                                        addShoppingList={this.addShoppingList} />}
+                                        addShoppingList={this.addToRequestDB} newId={this.newId} />}
                             />
 
                             <Route component={NotFound} />

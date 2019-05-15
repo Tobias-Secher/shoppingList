@@ -8,11 +8,7 @@ class ShoppingListForm extends Component {
             title: "",
             type: "",
             description: "",
-            items: [
-                // {itemName: 'List  item 01', price: 22},
-                // {itemName: 'List  item 02', price: 22},
-                // {itemName: 'List  item 03', price: 22}
-            ],
+            items: [],
             errorMsg: ""
         };
 
@@ -45,9 +41,6 @@ class ShoppingListForm extends Component {
         if ((this.state.items.length - 1) <= index) {
             this.addItem();
         }
-
-        console.log(`shoppingList: ${JSON.stringify(this.state.items)}`);
-
     }
 
     handleItemPriceChange(e, index) {
@@ -57,8 +50,6 @@ class ShoppingListForm extends Component {
         if ((this.state.items.length - 1) <= index) {
             this.addItem();
         }
-
-        console.log(`shoppingList: ${JSON.stringify(this.state.items)}`);
     }
 
     static isItemsNull(items){
@@ -89,6 +80,7 @@ class ShoppingListForm extends Component {
                 items.pop();
 
                 let shoppingList = {
+                    _id: this.props.newId,
                     title: title,
                     items: items,
                     dotColor: this.randomColor(),
@@ -96,7 +88,7 @@ class ShoppingListForm extends Component {
                     description: "En kort beskrivelse af listen"
                 };
 
-                this.props.addShoppingList(shoppingList);
+                this.props.addShoppingList(shoppingList, 'add');
                 this.props.history.push('/');
             }
         } else {

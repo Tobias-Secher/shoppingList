@@ -53,16 +53,7 @@ self.addEventListener('fetch', event => {
     );
 });
 
-// Installable
-// let deferredPrompt;
-// window.addEventListener('beforeinstallpromt', (e) =>{
-//     // Prevent chrome 67 and earlier form automatically
-//     // showing the promt
-//     e.preventDefault();
-//     // Stash the event so it can be triggered later
-//     deferredPrompt = e;
-
-//     // Update the ui nofity the user they can 
-//     // add to home screen
-//     btnAdd.style.display;
-// })
+self.addEventListener('sync', event =>{
+    console.log('SYNC EVENT')
+    console.log(event);
+});
