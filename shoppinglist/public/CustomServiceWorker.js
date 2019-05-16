@@ -95,17 +95,31 @@ workbox.routing.registerRoute(
     workbox.strategies.networkFirst()
 );
 
-const queue = new workbox.backgroundSync.Queue('shoppingListQueue');
-self.addEventListener('fetch', (event) => {
-    // Clone the request to ensure it's save to read when
-    // adding to the Queue.
-    const promiseChain = fetch(event.request.clone())
-    .catch((err) => {
-        return queue.pushRequest({request: event.request});
-    });
-  
-    event.waitUntil(promiseChain);
+const bgSyncPlugin = new workbox.backgroundSync.Plugin('myQueueName', {
+    maxRetentionTime: 24 * 60 // Retry for max of 24 Hours
   });
+  
+  workbox.routing.registerRoute(
+    `http://localhost:8080/api/shoppingLists`,
+    new workbox.strategies.NetworkOnly({
+      plugins: [bgSyncPlugin]
+    }),
+    'POST'
+  );
+
+
+
+// const queue = new workbox.backgroundSync.Queue('shoppingListQueue');
+// self.addEventListener('fetch', (event) => {
+//     // Clone the request to ensure it's save to read when
+//     // adding to the Queue.
+//     const promiseChain = fetch(event.request.clone())
+//     .catch((err) => {
+//         return queue.pushRequest({request: event.request});
+//     });
+  
+//     event.waitUntil(promiseChain);
+//   });
 
 
 
