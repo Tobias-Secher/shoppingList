@@ -41,7 +41,7 @@ module.exports = (io) => {
             let dotColor = req.body.dotColor;
             let id = 0;
             if(list != undefined){
-                id = list._id + 1;
+                id = parseInt(list._id) + 1;
             }
 
             let stringId = id.toString();
