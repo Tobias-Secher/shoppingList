@@ -73,7 +73,7 @@ module.exports = () => {
         })
     });
 
-    router.delete('/delete/:id', function (req, res, next) {
+    router.delete('/:id', function (req, res, next) {
         console.log(`REQ PARAMS ID: ${req.params.id}`)
         ShoppingList.findOne({_id: req.params.id}).exec(function (err, shoppinglist) {
             shoppinglist.remove();
