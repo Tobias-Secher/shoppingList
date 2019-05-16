@@ -110,11 +110,18 @@ workbox.routing.registerRoute(
     'POST', 'DELETE', 'PUT'
 );
 workbox.routing.registerRoute(
-    `http://localhost:8080/api/shoppingLists`,
+    `http://localhost:8080/api/shoppingLists/`,
     new workbox.strategies.NetworkOnly({
         plugins: [bgSyncPlugin]
     }),
-    'POST', 'DELETE', 'PUT'
+    'POST'
+);
+workbox.routing.registerRoute(
+    `http://localhost:8080/api/shoppingLists/:id`,
+    new workbox.strategies.NetworkOnly({
+        plugins: [bgSyncPlugin]
+    }),
+    'DELETE', 'PUT'
 );
 
 
