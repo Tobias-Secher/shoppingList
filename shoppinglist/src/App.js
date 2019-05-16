@@ -233,7 +233,7 @@ class App extends Component {
 
         console.log("vi er inde i delete" + id)
 
-        fetch(`${this.api_url}/shoppingLists/delete/${id}`, {
+        fetch(`${this.api_url}/shoppingLists/${id}`, {
             method: 'DELETE',
             body: JSON.stringify(id),
 
