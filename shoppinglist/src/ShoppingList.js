@@ -9,10 +9,10 @@ class ShoppingList extends Component {
 
 
     handleInputDelete(event, data){
-        console.log("test" + " " + data)
+        console.log(data)
         event.preventDefault();
         this.props.deleteShoppingList(
-            data
+            data, 'delete'
         );
     }
 
@@ -23,7 +23,6 @@ class ShoppingList extends Component {
                 backgroundColor: elm.dotColor
             };
             list.push(
-
                     <div key={elm._id} className="shoppingItem" >
                         <Link  to={'/shoppingList/update/' + elm._id}>
                         <span className="dot" style={dotStyle}>
@@ -37,12 +36,8 @@ class ShoppingList extends Component {
 
                         </Link>
                         {/*<OpenList  className="launchlist"/>*/}
-                        <DeleteButton className="deletebutton" onClick={((e) => {if (window.confirm('Are you sure you wish to delete this item?')) this.handleInputDelete(e, elm._id)})} />
-
-
+                        <DeleteButton className="deletebutton" onClick={((e) => {if (window.confirm('Are you sure you wish to delete this item?')) this.handleInputDelete(e, elm)})} />
                     </div>
-
-
             )
         });
 

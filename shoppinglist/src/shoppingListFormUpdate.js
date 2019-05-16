@@ -62,21 +62,18 @@ class ShoppingListFormUpdate extends Component {
     }
 
     async getList() {
-        let dba = await openDB(this.props.DB_NAME, this.props.DB_VERSION)
-        console.log(`UPDATE DATABASE LOG`)
-        console.log(dba)
+        let db = await openDB(this.props.DB_NAME, this.props.DB_VERSION)
 
-        let transaction = dba.transaction([this.props.DB_STORE], 'readwrite');
+        let transaction = db.transaction([this.props.DB_STORE], 'readwrite');
         let objectStore = transaction.objectStore(this.props.DB_STORE);
-        console.log(`ID TEST: ${this.props.match.params.id}`);
-        let list = await objectStore.get(this.props.match.params.id)
-        console.log(`LIST RESULT`)
-        console.log(list);
-        this.setState({
-            items: list.items,
-            title: list.title
+
+        objectStore.get(this.props.match.params.id).then(response => {
+            this.setState({
+                items: response.items,
+                title: response.title
+            })
         })
-        dba.close()
+        db.close()
     }
     handleInput(event) {
         event.preventDefault();
@@ -102,16 +99,13 @@ class ShoppingListFormUpdate extends Component {
     }
 
     HandleDeleteItem(event, data) {
-        console.log("delete item" + data);
+        console.log(data);
         event.preventDefault();
         this.props.deleteItem(
             data
         );
 
     }
-
-
-
     render() {
         return (
             <form className="createListForm" method="post" action="#">
@@ -137,12 +131,7 @@ class ShoppingListFormUpdate extends Component {
                                         placeholder="Price" onBlur={this.updateInput} />
 
                                     <DeleteButtonforItem className="DeleteButtonforItem" onClick={((e) => this.HandleDeleteItem(e, item._id))} />
-
                                 </div>
-
-
-
-
                             )
                         })
                     }
