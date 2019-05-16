@@ -1,5 +1,5 @@
 {
-  "name": "krdo_todo_api",
+  "name": "shoppinglist_api",
   "version": "1.0.0",
   "description": "Simple API for a Todo List app",
   "main": "app.js",
@@ -16,6 +16,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.5.2",
     "morgan": "^1.9.1",
-    "socket.io": "^2.2.0"
+    "socket.io": "^2.2.0",
+    "web-push": "^3.3.4"
   }
 }
