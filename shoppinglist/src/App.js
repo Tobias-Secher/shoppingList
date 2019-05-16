@@ -253,7 +253,7 @@ class App extends Component {
             .then(response => response.json())
             .then(json => {
                 console.log("delete item" + id);
-            }).catch(error => console.error(error));
+            }).catch(error => console.error(error)); 
     }
 
     render() {
