@@ -8,11 +8,11 @@ import Link from "react-router-dom/es/Link";
 class ShoppingList extends Component {
 
 
-    handleInputDelete(event, data){
-        console.log(data)
+    handleInputDelete(event, id){
+        console.log(id)
         event.preventDefault();
         this.props.deleteShoppingList(
-            data, 'delete'
+            id
         );
     }
 
@@ -36,7 +36,7 @@ class ShoppingList extends Component {
 
                         </Link>
                         {/*<OpenList  className="launchlist"/>*/}
-                        <DeleteButton className="deletebutton" onClick={((e) => {if (window.confirm('Are you sure you wish to delete this item?')) this.handleInputDelete(e, elm)})} />
+                        <DeleteButton className="deletebutton" onClick={((e) => {if (window.confirm('Are you sure you wish to delete this item?')) this.handleInputDelete(e, elm._id)})} />
                     </div>
             )
         });

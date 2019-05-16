@@ -51,6 +51,7 @@ class App extends Component {
         this.addToRequestDB = this.addToRequestDB.bind(this);
         this.requestHandler = this.requestHandler.bind(this);
         this.addOneToIndexedDB = this.addOneToIndexedDB.bind(this);
+        this.deleteOneFromIndexedDB = this.deleteOneFromIndexedDB.bind(this);
     }
 
     componentDidMount() {
@@ -143,6 +144,20 @@ class App extends Component {
         // Closes the connection
         db.close()
     }
+    async deleteOneFromIndexedDB(id) {
+        // Open connection to indexeddb
+        let db = await openDB(DB_NAME, DB_VERSION)
+        // Creates the transaction and allows it to read and write data
+        let transaction = db.transaction(DB_STORE.toString(), 'readwrite');
+        // Gets the correct objectStore
+        let objectStore = transaction.objectStore(DB_STORE);
+        // Adds all the json elements to the objectstore
+
+        objectStore.delete(id);
+        this.getIndexedDB();
+        // Closes the connection
+        db.close()
+    }
     async getIndexedDB() {
         // Open connection to indexeddb
         let db = await openDB(DB_NAME, DB_VERSION)
@@ -153,7 +168,7 @@ class App extends Component {
         // Fetches all items in the object store
         let allSavedItems = await objectStore.getAll()
         // Assigns a new id for later use. This is used when adding.
-        this.newId = `${allSavedItems.length + 1}`;
+        this.newId = `${allSavedItems.length}`;
         // Updates the react state, in order to display the lists
         this.setState({
             shoppingLists: allSavedItems
@@ -227,6 +242,7 @@ class App extends Component {
             .then(json => {
                 console.log("delete shoppinglist" + id);
             }).catch(error => console.error(error));
+        this.deleteOneFromIndexedDB(id);
     }
 
     deleteItem(id) {
@@ -286,7 +302,7 @@ class App extends Component {
                                 render={(props) =>
                                     <ShoppingList {...props}
                                         shoppingLists={this.state.shoppingLists}
-                                        deleteShoppingList={this.addToRequestDB} />}
+                                        deleteShoppingList={this.deleteShoppingList} />}
                             />
 
                             <Route exact path={'/shoppingList/:id'}

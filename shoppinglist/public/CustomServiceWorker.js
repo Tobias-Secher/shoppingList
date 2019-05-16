@@ -4,6 +4,9 @@ importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox
 
 // importScripts('serviceworker-cache-polyfill.js');
 
+const HEROKU_NAME = `https://shoppinglistpwa.herokuapp.com`;
+const LOCALHOST = `http://localhost:8080/`;
+
 const CACHE_VERSION = 1
 const CACHE_NAME = `PWA_CACHE_${CACHE_VERSION}`;
 const filesToCache = [
@@ -50,32 +53,32 @@ if (workbox) {
 else {
     console.log(`Boo! Workbox didn't load 😬`);
 }
-
-workbox.routing.registerRoute(
-    `http://localhost:8080/api/shoppingLists/`,
-    workbox.strategies.networkFirst()
-);
 workbox.routing.registerRoute(
     /\.(?:js|css|html|png|ico)$/,
     workbox.strategies.cacheFirst({
         cacheName: 'STATIC_FILES',
-        plugins:[
+        plugins: [
             new workbox.expiration.Plugin({
                 maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
             })
         ]
     }),
 );
+
 workbox.routing.registerRoute(
-    `http://localhost:3000/`,
+    `${LOCALHOST}/api/shoppingLists/`,
     workbox.strategies.networkFirst()
 );
 workbox.routing.registerRoute(
-    `http://localhost:3000/shoppingList/update/:id`,
+    `http://localhost:8080/`,
     workbox.strategies.networkFirst()
 );
 workbox.routing.registerRoute(
-    `http://localhost:3000/create`,
+    `http://localhost:8080/shoppingList/update/:id`,
+    workbox.strategies.networkFirst()
+);
+workbox.routing.registerRoute(
+    `http://localhost:8080/create`,
     workbox.strategies.networkFirst()
 );
 workbox.routing.registerRoute(
@@ -97,15 +100,15 @@ workbox.routing.registerRoute(
 
 const bgSyncPlugin = new workbox.backgroundSync.Plugin('myQueueName', {
     maxRetentionTime: 24 * 60 // Retry for max of 24 Hours
-  });
-  
-  workbox.routing.registerRoute(
+});
+
+workbox.routing.registerRoute(
     `http://localhost:8080/api/shoppingLists`,
     new workbox.strategies.NetworkOnly({
-      plugins: [bgSyncPlugin]
+        plugins: [bgSyncPlugin]
     }),
-    'POST'
-  );
+    'POST', 'DELETE'
+);
 
 
 
@@ -117,7 +120,7 @@ const bgSyncPlugin = new workbox.backgroundSync.Plugin('myQueueName', {
 //     .catch((err) => {
 //         return queue.pushRequest({request: event.request});
 //     });
-  
+
 //     event.waitUntil(promiseChain);
 //   });
 
