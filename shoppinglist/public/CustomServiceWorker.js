@@ -76,14 +76,13 @@ workbox.routing.registerRoute(
 // const bgSyncPlugin = new workbox.backgroundSync.Plugin('shoppingListQueue', {
 //     maxRetentionTime: 24 * 60
 // });
-
 // workbox.routing.registerRoute(
-//     `http://localhost:8080/api/shoppingLists/`,
+//     'http://localhost:8080/shoppingLists',
 //     workbox.strategies.networkFirst({
-//         plugins:[bgSyncPlugin]
+//       plugins: [bgSyncPlugin]
 //     }),
 //     'POST'
-// )
+//   )
 
 
 

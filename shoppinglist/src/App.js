@@ -53,10 +53,10 @@ class App extends Component {
     }
 
     componentDidMount() {
-        // this.createIndexed();
+        this.createIndexed();
         this.getShoppingLists()
-        // if (!navigator.onLine)
-        //     this.getIndexedDB()
+        if (!navigator.onLine)
+            this.getIndexedDB()
         // const socket = io(this.SOCKET_URL);
 
         // socket.on('new-data', (data) => {
@@ -77,13 +77,11 @@ class App extends Component {
         });
     };
     getShoppingLists() {
+        if (navigator.onLine)
             fetch(`${this.api_url}/shoppingLists`)
                 .then(response => response.json())
                 .then(json => {
-                    this.setState({
-                        shoppingLists: json
-                    })
-                    // this.addAllToIndexedDB(json);
+                    this.addAllToIndexedDB(json);
                 })
     }
     createIndexed() {
@@ -184,11 +182,12 @@ class App extends Component {
         }
     }
     addShoppingList(shoppingList) {
-        console.log('yooooo')
+       
         fetch(`${this.api_url}/shoppingLists`, {
             method: 'POST',
             body: JSON.stringify(shoppingList),
             headers: {
+                'Accept': 'application/json',
                 "Content-type": "application/json; charset=UTF-8"
             }
         })
@@ -196,6 +195,7 @@ class App extends Component {
             .then(json => {
                 console.log("Result of posting a new question:");
                 console.log(json);
+                this.getShoppingLists()
             });
     }
 
