@@ -50,13 +50,15 @@ class App extends Component {
         this.createIndexed = this.createIndexed.bind(this);
         this.addToRequestDB = this.addToRequestDB.bind(this);
         this.requestHandler = this.requestHandler.bind(this);
+        this.addOneToIndexedDB = this.addOneToIndexedDB.bind(this);
     }
 
     componentDidMount() {
         this.createIndexed();
-        this.getShoppingLists()
         if (!navigator.onLine)
             this.getIndexedDB()
+        else
+            this.getShoppingLists()
         // const socket = io(this.SOCKET_URL);
 
         // socket.on('new-data', (data) => {
@@ -77,12 +79,11 @@ class App extends Component {
         });
     };
     getShoppingLists() {
-        if (navigator.onLine)
-            fetch(`${this.api_url}/shoppingLists`)
-                .then(response => response.json())
-                .then(json => {
-                    this.addAllToIndexedDB(json);
-                })
+        fetch(`${this.api_url}/shoppingLists`)
+            .then(response => response.json())
+            .then(json => {
+                this.addAllToIndexedDB(json);
+            })
     }
     createIndexed() {
         // If the database dosen't exist -> create it
@@ -109,8 +110,6 @@ class App extends Component {
             // For offine use
             db.createObjectStore(DB_STORE.toString(), { keyPath: '_id' });
             // Creates the oject store where we are keeping the changes
-            // The background sync will handle
-            db.createObjectStore(DB_REQUEST.toString(), { keyPath: '_id' });
         };
     }
     async addAllToIndexedDB(json) {
@@ -121,10 +120,25 @@ class App extends Component {
         // Gets the correct objectStore
         let objectStore = transaction.objectStore(DB_STORE);
         // Adds all the json elements to the objectstore
+        objectStore.clear();
         json.forEach(function (list) {
             objectStore.put(list)
         })
         // Update the state
+        this.getIndexedDB();
+        // Closes the connection
+        db.close()
+    }
+    async addOneToIndexedDB(json) {
+        // Open connection to indexeddb
+        let db = await openDB(DB_NAME, DB_VERSION)
+        // Creates the transaction and allows it to read and write data
+        let transaction = db.transaction(DB_STORE.toString(), 'readwrite');
+        // Gets the correct objectStore
+        let objectStore = transaction.objectStore(DB_STORE);
+        // Adds all the json elements to the objectstore
+        json._id = this.newId;
+        objectStore.add(json);
         this.getIndexedDB();
         // Closes the connection
         db.close()
@@ -182,7 +196,7 @@ class App extends Component {
         }
     }
     addShoppingList(shoppingList) {
-       
+
         fetch(`${this.api_url}/shoppingLists`, {
             method: 'POST',
             body: JSON.stringify(shoppingList),
@@ -195,9 +209,10 @@ class App extends Component {
             .then(json => {
                 console.log("Result of posting a new question:");
                 console.log(json);
-                this.getShoppingLists()
             });
+        this.addOneToIndexedDB(shoppingList);
     }
+
 
     deleteShoppingList(id) {
 
