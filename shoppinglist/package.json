@@ -20,7 +20,8 @@
     "start:dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "preinstall": "cd express && npm install"
   },
   "eslintConfig": {
     "extends": "react-app"

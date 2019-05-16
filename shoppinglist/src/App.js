@@ -30,7 +30,7 @@ class App extends Component {
     newId;
     db;
     api_url = process.env.REACT_APP_API_URL
-    SOCKET_URL = 'http://localhost:8080/shopping_list';
+    SOCKET_URL = process.env.REACT_APP_SOCKET_URL;
     constructor(props) {
         super(props);
 
@@ -208,7 +208,6 @@ class App extends Component {
             .then(response => response.json())
             .then(json => {
                 console.log("delete shoppinglist" + id);
-
             }).catch(error => console.error(error));
     }
 

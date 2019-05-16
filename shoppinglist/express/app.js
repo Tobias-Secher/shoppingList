@@ -4,6 +4,7 @@ const morgan = require('morgan');           // Log all HTTP requests to the cons
 const app = express();
 const checkJwt = require('express-jwt');    // Check for access tokens automatically
 const mongoose = require('mongoose');
+const path = require('path');
 
 const webpush = require('web-push');
 
@@ -142,5 +143,12 @@ io.of('/shopping_list').on('connection', function (socket) {
     socket.on('disconnect', () => {
         console.log("Someone disconnected...");
     });
+});
+
+app.use(express.static(path.join(__dirname, '../build')));
+
+/**** Reroute all unknown requests to the React index.html ****/
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../build/index.html'));
 });
 
