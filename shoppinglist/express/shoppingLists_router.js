@@ -87,18 +87,13 @@ module.exports = () => {
     });
 
     router.delete('/delete/item/:id', function (req, res, next) {
-
-        console.log("vi er inde i delete item")
-
         ShoppingList.find({}, (err, list) => {
 
             list.forEach(function (elm) {
                 elm.items.forEach(function (item) {
                     if (item._id == req.params.id) {
-                        console.log("DETTE ER DIN KOMMENTAR" + item.item);
                         item.remove();
                         elm.save();
-
                     }
                 })
             })

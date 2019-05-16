@@ -246,20 +246,14 @@ class App extends Component {
     }
 
     deleteItem(id) {
-
-        console.log("vi er inde i delete item" + id)
-
         fetch(`${this.api_url}/shoppingLists/delete/item/${id}`, {
             method: 'DELETE',
             body: JSON.stringify(id),
-
         })
             .then(response => response.json())
             .then(json => {
                 console.log("delete item" + id);
-
             }).catch(error => console.error(error));
-
     }
 
     render() {
@@ -315,14 +309,11 @@ class App extends Component {
                                     <ShoppingListFormUpdate {...props}
                                         deleteItem={this.deleteItem} DB_NAME={DB_NAME} DB_STORE={DB_STORE} DB_VERSION={DB_VERSION} />}
                             />
-
-
                             <Route exact path={'/create'}
                                 render={(props) =>
                                     <ShoppingListForm {...props}
                                         addShoppingList={this.addShoppingList} newId={this.newId} />}
                             />
-
                             <Route component={NotFound} />
                         </Switch>
                     </div>

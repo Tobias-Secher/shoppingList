@@ -48,6 +48,17 @@ class ShoppingListFormUpdate extends Component {
         }
     }
 
+    handleItemRemoveChange(e, index) {
+        console.log('remove item');
+        let arr = this.state.items;
+        arr.splice(index, 1);
+        this.setState({
+            items: arr
+        });
+        this.updateInput(e)
+    }
+
+
     updateInput(e) {
         e.preventDefault();
         fetch(`${this.api_url}/shoppingLists/${this.props.match.params.id}`, {
@@ -66,7 +77,8 @@ class ShoppingListFormUpdate extends Component {
 
         let transaction = db.transaction([this.props.DB_STORE], 'readwrite');
         let objectStore = transaction.objectStore(this.props.DB_STORE);
-
+        this.state.items = [];
+        this.state.title = "";
         objectStore.get(this.props.match.params.id).then(response => {
             this.setState({
                 items: response.items,
@@ -130,7 +142,7 @@ class ShoppingListFormUpdate extends Component {
                                         value={item.price} onChange={(e) => this.handleItemPriceChange(e, index)}
                                         placeholder="Price" onBlur={this.updateInput} />
 
-                                    <DeleteButtonforItem className="DeleteButtonforItem" onClick={((e) => this.HandleDeleteItem(e, item._id))} />
+                                    <DeleteButtonforItem className="DeleteButtonforItem" onClick={((e) => this.handleItemRemoveChange(e, index))} />
                                 </div>
                             )
                         })

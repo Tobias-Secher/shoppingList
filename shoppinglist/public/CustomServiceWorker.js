@@ -90,7 +90,7 @@ workbox.routing.registerRoute(
     workbox.strategies.cacheFirst()
 );
 workbox.routing.registerRoute(
-    `https://shoppinglistpwa.herokuapp.com/shoppingList/update/:id`,
+    `https://shoppinglistpwa.herokuapp.com/shoppingList/update/`,
     workbox.strategies.networkFirst()
 );
 workbox.routing.registerRoute(
@@ -103,11 +103,18 @@ const bgSyncPlugin = new workbox.backgroundSync.Plugin('myQueueName', {
 });
 
 workbox.routing.registerRoute(
+    `https://shoppinglistpwa.herokuapp.com/api/shoppingLists`,
+    new workbox.strategies.NetworkOnly({
+        plugins: [bgSyncPlugin]
+    }),
+    'POST', 'DELETE', 'PUT'
+);
+workbox.routing.registerRoute(
     `http://localhost:8080/api/shoppingLists`,
     new workbox.strategies.NetworkOnly({
         plugins: [bgSyncPlugin]
     }),
-    'POST', 'DELETE'
+    'POST', 'DELETE', 'PUT'
 );
 
 
