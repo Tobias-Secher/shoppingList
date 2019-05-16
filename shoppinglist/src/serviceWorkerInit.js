@@ -23,7 +23,7 @@ function subscribeToPush() {
             };
             serviceWorkerRegistration.pushManager.subscribe(options).then(
                 function (pushSubscription) {
-                    fetch('http://localhost:8080/api/subscribe', {
+                    fetch(`${process.env.REACT_APP_API_URL}/subscribe`, {
                         method: 'post',
                         headers: {
                             'Content-type': 'application/json'
