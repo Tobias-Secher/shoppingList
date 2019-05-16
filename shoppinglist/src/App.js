@@ -53,16 +53,16 @@ class App extends Component {
     }
 
     componentDidMount() {
-        this.createIndexed();
+        // this.createIndexed();
         this.getShoppingLists()
-        if (!navigator.onLine)
-            this.getIndexedDB()
-        const socket = io(this.SOCKET_URL);
+        // if (!navigator.onLine)
+        //     this.getIndexedDB()
+        // const socket = io(this.SOCKET_URL);
 
-        socket.on('new-data', (data) => {
-            console.log(`server msg: ${data.msg}`);
-            this.getShoppingLists();
-        });
+        // socket.on('new-data', (data) => {
+        //     console.log(`server msg: ${data.msg}`);
+        //     this.getShoppingLists();
+        // });
     }
 
     toggleDrawer = (side, open) => () => {
@@ -77,11 +77,13 @@ class App extends Component {
         });
     };
     getShoppingLists() {
-        if (navigator.onLine)
             fetch(`${this.api_url}/shoppingLists`)
                 .then(response => response.json())
                 .then(json => {
-                    this.addAllToIndexedDB(json);
+                    this.setState({
+                        shoppingLists: json
+                    })
+                    // this.addAllToIndexedDB(json);
                 })
     }
     createIndexed() {
@@ -182,7 +184,8 @@ class App extends Component {
         }
     }
     addShoppingList(shoppingList) {
-        fetch(`${this.api_url} /shoppingLists`, {
+        console.log('yooooo')
+        fetch(`${this.api_url}/shoppingLists`, {
             method: 'POST',
             body: JSON.stringify(shoppingList),
             headers: {
@@ -286,7 +289,7 @@ class App extends Component {
                             <Route exact path={'/create'}
                                 render={(props) =>
                                     <ShoppingListForm {...props}
-                                        addShoppingList={this.addToRequestDB} newId={this.newId} />}
+                                        addShoppingList={this.addShoppingList} newId={this.newId} />}
                             />
 
                             <Route component={NotFound} />

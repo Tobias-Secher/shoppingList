@@ -1,4 +1,4 @@
-module.exports = (io) => {
+module.exports = () => {
     let express = require('express');
     let router = express.Router();
     const mongoose = require('mongoose');
@@ -60,7 +60,7 @@ module.exports = (io) => {
                     console.error(err)
             });
 
-            io.of('/shopping_list').emit('new-data', {msg: 'New data is available on /api/my_data'});
+            //io.of('/shopping_list').emit('new-data', {msg: 'New data is available on /api/my_data'});
 
             res.status(200).json({id: newShoppingList._id, msg: `POST shoppingList: ${title}`});
         });
@@ -74,22 +74,12 @@ module.exports = (io) => {
     });
 
     router.delete('/delete/:id', function (req, res, next) {
-
-       //console.log("vi er inde i delete api")
-        //ShoppingList.findOneAndRemove({_id: req.params.id});
-        //res.send('DELETE request to homepage')
-        //ShoppingList.remove(ShoppingList.findOne({_id: req.params.id}))
-        //ShoppingList.deleteOne({_id: req.params.id});
-        //ShoppingList.save();
-        //ShoppingList.findByIdAndDelete({'_id': req.params.id})
-
-        //ShoppingList.collection.findByIdAndRemove({_id :req.params.id});
         console.log(`REQ PARAMS ID: ${req.params.id}`)
         ShoppingList.findOne({_id: req.params.id}).exec(function (err, shoppinglist) {
             shoppinglist.remove();
             shoppinglist.save();
 
-            io.of('/shopping_list').emit('new-data', {msg: 'New data is available on /api/my_data'});
+            //io.of('/shopping_list').emit('new-data', {msg: 'New data is available on /api/my_data'});
 
             res.json("succes")
         })
@@ -114,7 +104,7 @@ module.exports = (io) => {
             })
         });
 
-        io.of('/shopping_list').emit('new-data', {msg: 'New data is available on /api/my_data'});
+        //io.of('/shopping_list').emit('new-data', {msg: 'New data is available on /api/my_data'});
 
         res.json("succes")
     });

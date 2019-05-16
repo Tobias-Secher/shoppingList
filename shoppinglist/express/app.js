@@ -82,14 +82,15 @@ app.use(function (err, req, res, next) {
 });
 
 /****** Listen ******/
-const server = app.listen(port, () => console.log(`API running on port ${port}!`));
-const io = require('socket.io').listen(server);
+// const server = app.listen(port, () => console.log(`API running on port ${port}!`));
+app.listen(port, () => console.log(`API running on port ${port}!`));
+// const io = require('socket.io').listen(server);
 
 /****** Routes ******/
 let usersRouter = require('./users_router')();
 app.use('/api/users', usersRouter);
 
-let shoppingListsRouter = require('./shoppingLists_router')(io);
+let shoppingListsRouter = require('./shoppingLists_router')();
 app.use('/api/shoppingLists', shoppingListsRouter);
 
 
@@ -136,14 +137,14 @@ app.post('/api/push_message', (req, res) => {
 
 
 /**** Socket.io event handlers ****/
-io.of('/shopping_list').on('connection', function (socket) {
-    socket.on('hello', function (from, msg) {
-        console.log(`I received a private message from '${from}' saying '${msg}'`);
-    });
-    socket.on('disconnect', () => {
-        console.log("Someone disconnected...");
-    });
-});
+// io.of('/shopping_list').on('connection', function (socket) {
+//     socket.on('hello', function (from, msg) {
+//         console.log(`I received a private message from '${from}' saying '${msg}'`);
+//     });
+//     socket.on('disconnect', () => {
+//         console.log("Someone disconnected...");
+//     });
+// });
 
 app.use(express.static(path.join(__dirname, '../build')));
 
