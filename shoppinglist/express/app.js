@@ -5,11 +5,12 @@ const app = express();
 const checkJwt = require('express-jwt');    // Check for access tokens automatically
 const mongoose = require('mongoose');
 const path = require('path');
-
 const webpush = require('web-push');
 
-const publicVapidKey = "BMswosYc0RwZTlP6FjfLCAUASMfW2cUrMOCvl4LtQr2r5Q0KbRqti0QwV9QS5hqR367w8eXax31In07OGxi5etI";
-const privateVapidKey = "bApAKbvQWi5xWpgqjFBYNBfsBLYXPfeesJWo2LCxbSg";
+
+
+const publicVapidKey = "BICQDK9JKQncDXsw2MXPdLpA4WhBOAIm6jioxOvAvbmtmK72ocLjZ6conbmmPUrUznKdSJxEMtwRtHuNTxQPmMw";
+const privateVapidKey = "kXJVtX-l38xTFVWQmf-9Ca5D-_9QJqEsowB1CahKMxs";
 
 
 webpush.setVapidDetails('mailto:katerine.ciro@gmail.com', publicVapidKey, privateVapidKey);
@@ -28,6 +29,8 @@ app.use(bodyParser.json());                 // Make sure all json data is parsed
 // app.use(morgan('combined'));         // Log all requests to the console
 
 const port = (process.env.PORT || 8080);
+
+
 
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error'));
@@ -97,6 +100,7 @@ app.use('/api/shoppingLists', shoppingListsRouter);
 
 //Routes for subscribtion
 
+
 app.post('/api/subscribe', (req, res) => {
 
     const subscription = req.body;
@@ -116,23 +120,23 @@ app.post('/api/subscribe', (req, res) => {
 
 
 app.post('/api/push_message', (req, res) => {
-
     let text = req.body.text;
     let title = req.body.title;
+    console.log(text, title);
 
     subscriptions.forEach((sub) => {
         const payload = JSON.stringify({
             msg: text,
             title: title
+
         });
+
         webpush.sendNotification(sub, payload).catch(error => {
             console.error(error.stack);
         });
-
     });
 
-    res.json({message: "Sending push message initiated"});
-
+    res.json({message: "Sending push messages initiated"});
 });
 
 

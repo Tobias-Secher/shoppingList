@@ -1,4 +1,4 @@
-const vapidPublicKey = 'BMswosYc0RwZTlP6FjfLCAUASMfW2cUrMOCvl4LtQr2r5Q0KbRqti0QwV9QS5hqR367w8eXax31In07OGxi5etI';
+const vapidPublicKey = 'BICQDK9JKQncDXsw2MXPdLpA4WhBOAIm6jioxOvAvbmtmK72ocLjZ6conbmmPUrUznKdSJxEMtwRtHuNTxQPmMw';
 
 export function register() {
     if ('serviceWorker' in navigator) {
@@ -13,6 +13,8 @@ export function register() {
 }
 
 function subscribeToPush() {
+    const api_url = process.env.REACT_APP_API_URL;
+
     navigator.serviceWorker.ready.then(
         function (serviceWorkerRegistration) {
             // Register to push events here
@@ -23,7 +25,8 @@ function subscribeToPush() {
             };
             serviceWorkerRegistration.pushManager.subscribe(options).then(
                 function (pushSubscription) {
-                    fetch(`${process.env.REACT_APP_API_URL}/subscribe`, {
+                    console.log(this.api_url);
+                    fetch(`${api_url}/subscribe`, {
                         method: 'post',
                         headers: {
                             'Content-type': 'application/json'
