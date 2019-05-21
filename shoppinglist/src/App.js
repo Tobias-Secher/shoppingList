@@ -138,7 +138,7 @@ class App extends Component {
         // Gets the correct objectStore
         let objectStore = transaction.objectStore(DB_STORE);
         // Adds all the json elements to the objectstore
-        json._id = this.newId;
+        json._id = this.newId;        
         objectStore.add(json);
         this.getIndexedDB();
         // Closes the connection
@@ -168,7 +168,7 @@ class App extends Component {
         // Fetches all items in the object store
         let allSavedItems = await objectStore.getAll()
         // Assigns a new id for later use. This is used when adding.
-        this.newId = `${allSavedItems.length}`;
+        this.newId = `${allSavedItems.length + 1}`;
         // Updates the react state, in order to display the lists
         this.setState({
             shoppingLists: allSavedItems
@@ -253,7 +253,7 @@ class App extends Component {
             .then(response => response.json())
             .then(json => {
                 console.log("delete item" + id);
-            }).catch(error => console.error(error)); 
+            }).catch(error => console.error(error));
     }
 
     render() {

@@ -5,7 +5,7 @@ importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox
 // importScripts('serviceworker-cache-polyfill.js');
 
 const HEROKU_NAME = `https://shoppinglistpwa.herokuapp.com`;
-const LOCALHOST = `http://localhost:8080/`;
+const LOCALHOST = `http://localhost:3000/`;
 
 const CACHE_VERSION = 1
 const CACHE_NAME = `PWA_CACHE_${CACHE_VERSION}`;
@@ -77,35 +77,19 @@ workbox.routing.registerRoute(
 );
 
 workbox.routing.registerRoute(
-    `${LOCALHOST}/api/shoppingLists/`,
+    `localhost:3000/api/shoppingLists/`,
     workbox.strategies.networkFirst()
 );
 workbox.routing.registerRoute(
-    `http://localhost:8080/`,
+    `http://localhost:3000/`,
     workbox.strategies.networkFirst()
 );
 workbox.routing.registerRoute(
-    `http://localhost:8080/shoppingList/update/:id`,
+    `http://localhost:3000/shoppingList/update/:id/`,
     workbox.strategies.networkFirst()
 );
 workbox.routing.registerRoute(
-    `http://localhost:8080/create`,
-    workbox.strategies.networkFirst()
-);
-workbox.routing.registerRoute(
-    `https://shoppinglistpwa.herokuapp.com/`,
-    workbox.strategies.networkFirst()
-);
-workbox.routing.registerRoute(
-    `https://shoppinglistpwa.herokuapp.com/manifest.json`,
-    workbox.strategies.cacheFirst()
-);
-workbox.routing.registerRoute(
-    `https://shoppinglistpwa.herokuapp.com/shoppingList/update/`,
-    workbox.strategies.networkFirst()
-);
-workbox.routing.registerRoute(
-    `https://shoppinglistpwa.herokuapp.com/create`,
+    `http://localhost:3000/create`,
     workbox.strategies.networkFirst()
 );
 
@@ -113,26 +97,20 @@ const bgSyncPlugin = new workbox.backgroundSync.Plugin('myQueueName', {
     maxRetentionTime: 24 * 60 // Retry for max of 24 Hours
 });
 
+
 workbox.routing.registerRoute(
-    `https://shoppinglistpwa.herokuapp.com/api/shoppingLists`,
-    new workbox.strategies.NetworkOnly({
-        plugins: [bgSyncPlugin]
-    }),
-    'POST', 'DELETE', 'PUT'
-);
-workbox.routing.registerRoute(
-    `http://localhost:8080/api/shoppingLists/`,
+    `http://localhost:3000/api/shoppingLists/`,
     new workbox.strategies.NetworkOnly({
         plugins: [bgSyncPlugin]
     }),
     'POST'
 );
 workbox.routing.registerRoute(
-    `http://localhost:8080/api/shoppingLists/:id`,
+    `http://localhost:3000/api/shoppingLists/:id/`,
     new workbox.strategies.NetworkOnly({
         plugins: [bgSyncPlugin]
     }),
-    'DELETE', 'PUT'
+    'DELETE'
 );
 
 
@@ -156,7 +134,7 @@ workbox.routing.registerRoute(
 //     maxRetentionTime: 24 * 60 // Retry for max of 24 Hours
 // });
 // workbox.routing.registerRoute(
-//     `http://localhost:8080/shoppingLists`,
+//     `http://localhost:3000/shoppingLists`,
 //     workbox.strategies.networkFirst({
 //       plugins: [bgSyncPlugin]
 //     }),
