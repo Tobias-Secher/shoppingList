@@ -5,7 +5,7 @@ importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox
 // importScripts('serviceworker-cache-polyfill.js');
 
 const HEROKU_NAME = `https://shoppinglistpwa.herokuapp.com`;
-const LOCALHOST = `http://localhost:3000/`;
+const LOCALHOST = `http://localhost:8080/`;
 
 const CACHE_VERSION = 1
 const CACHE_NAME = `PWA_CACHE_${CACHE_VERSION}`;
@@ -76,20 +76,20 @@ workbox.routing.registerRoute(
     }),
 );
 
+// workbox.routing.registerRoute(
+//     `http://localhost:8080/api/shoppingLists/`,
+//     workbox.strategies.networkFirst()
+// );
 workbox.routing.registerRoute(
-    `localhost:3000/api/shoppingLists/`,
+    `http://localhost:8080/`,
     workbox.strategies.networkFirst()
 );
 workbox.routing.registerRoute(
-    `http://localhost:3000/`,
+    `http://localhost:8080/shoppingList/update/:id/`,
     workbox.strategies.networkFirst()
 );
 workbox.routing.registerRoute(
-    `http://localhost:3000/shoppingList/update/:id/`,
-    workbox.strategies.networkFirst()
-);
-workbox.routing.registerRoute(
-    `http://localhost:3000/create`,
+    `http://localhost:8080/create`,
     workbox.strategies.networkFirst()
 );
 
@@ -99,14 +99,14 @@ const bgSyncPlugin = new workbox.backgroundSync.Plugin('myQueueName', {
 
 
 workbox.routing.registerRoute(
-    `http://localhost:3000/api/shoppingLists/`,
+    `http://localhost:8080/api/shoppingLists/`,
     new workbox.strategies.NetworkOnly({
         plugins: [bgSyncPlugin]
     }),
     'POST'
 );
 workbox.routing.registerRoute(
-    `http://localhost:3000/api/shoppingLists/:id/`,
+    `http://localhost:8080/api/shoppingLists/:id/`,
     new workbox.strategies.NetworkOnly({
         plugins: [bgSyncPlugin]
     }),
@@ -134,7 +134,7 @@ workbox.routing.registerRoute(
 //     maxRetentionTime: 24 * 60 // Retry for max of 24 Hours
 // });
 // workbox.routing.registerRoute(
-//     `http://localhost:3000/shoppingLists`,
+//     `http://localhost:8080/shoppingLists`,
 //     workbox.strategies.networkFirst({
 //       plugins: [bgSyncPlugin]
 //     }),

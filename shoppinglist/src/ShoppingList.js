@@ -36,7 +36,7 @@ class ShoppingList extends Component {
 
                         </Link>
                         {/*<OpenList  className="launchlist"/>*/}
-                        <DeleteButton className="deletebutton" onClick={((e) => {if (window.confirm('Are you sure you wish to delete this item?')) this.handleInputDelete(e, elm._id)})} />
+                        <DeleteButton className="deletebutton" onClick={((e) => {if (window.confirm('Are you sure you wish to delete this item?')){this.handleInputDelete(e, elm._id)}})} />
                     </div>
             )
         });

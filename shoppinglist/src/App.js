@@ -212,7 +212,7 @@ class App extends Component {
     }
     addShoppingList(shoppingList) {
 
-        fetch(`${this.api_url}/shoppingLists`, {
+        fetch(`${this.api_url}/shoppingLists/`, {
             method: 'POST',
             body: JSON.stringify(shoppingList),
             headers: {
