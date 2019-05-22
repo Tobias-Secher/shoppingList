@@ -148,10 +148,6 @@ class ShoppingListFormUpdate extends Component {
                         })
                     }
                 </div>
-
-                <button onClick={this.handleInput}
-                    type="submit" id="submitItemBtn" className="btn btn-primary">UPDATE
-                </button>
                 <button
                     id="findListBtn" className="btn btn-primary btn-bot">Find list
                 </button>

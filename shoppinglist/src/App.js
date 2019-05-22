@@ -56,16 +56,38 @@ class App extends Component {
 
     componentDidMount() {
         this.createIndexed();
-        if (!navigator.onLine)
+        if (!navigator.onLine) {
+            this.updateNetworkStatus();
             this.getIndexedDB()
-        else
+        }
+        else {
             this.getShoppingLists()
+        }
         // const socket = io(this.SOCKET_URL);
 
         // socket.on('new-data', (data) => {
         //     console.log(`server msg: ${data.msg}`);
         //     this.getShoppingLists();
         // });
+
+        window.addEventListener('online', this.updateNetworkStatus, false);
+        window.addEventListener('offline', this.updateNetworkStatus, false);
+    }
+
+    //To update network status
+    updateNetworkStatus() {
+        if (navigator.onLine) {
+            this.setState({
+                connectivity: true
+            });
+            console.log('You are Online again.');
+        }
+        else {
+            this.setState({
+                connectivity: false
+            });
+            console.log('You are now offline..');
+        }
     }
 
     toggleDrawer = (side, open) => () => {
@@ -73,10 +95,9 @@ class App extends Component {
             [side]: open,
         });
     };
-    toggleSearch = (open) => () => {
-        console.log(open);
+    toggleSearch = () => () => {
         this.setState({
-            search: open
+            search: !this.state.search
         });
     };
     getShoppingLists() {
@@ -278,15 +299,20 @@ class App extends Component {
             </div>
         );
 
+        let searchClass = this.state.search ? "openSearch" : "closedSearch";
+
+        let connectClass = this.state.connectivity ? "online" : "offline";
+
         return (
             <Router>
                 <div className="container">
-                    <div className="header">
+                    <div className={connectClass + ' header'}>
                         <button onClick={this.toggleDrawer('left', true)}>
                             <Menu />
                         </button>
                         <Link to={'/'}><h1>Lists</h1></Link>
-                        <button onClick={this.toggleSearch(true)}>
+                        <input placeholder="search..." type="text" name="searchInput" id="searchInput" className={searchClass} />
+                        <button onClick={this.toggleSearch()}>
                             <Search />
                         </button>
                     </div>
