@@ -36,7 +36,9 @@ class App extends Component {
 
         this.state = {
             shoppingLists: [],
+            price: 22,
             left: false,
+            search: false
             search: false,
             connectivity: true
         };
@@ -313,8 +315,17 @@ class App extends Component {
                             <Menu />
                         </button>
                         <Link to={'/'}><h1>Lists</h1></Link>
+<<<<<<< HEAD
+                        {this.price}
+                        <span className={'price'}>
+                            <strong>{this.state.price}</strong>
+                            <em>DKK</em>
+                        </span>
+                        <button onClick={this.toggleSearch(true)}>
+=======
                         <input placeholder="search..." type="text" name="searchInput" id="searchInput" className={searchClass} />
                         <button onClick={this.toggleSearch()}>
+>>>>>>> 5f8011ea8ac5bdf6ef51a72abd768d4f6590ec88
                             <Search />
                         </button>
                     </div>
