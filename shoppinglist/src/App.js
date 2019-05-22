@@ -281,7 +281,7 @@ class App extends Component {
 
     deleteShoppingList(id) {
 
-        console.log("vi er inde i delete" + id)
+        //console.log("vi er inde i delete" + id)
 
         fetch(`${this.api_url}/shoppingLists/${id}`, {
             method: 'DELETE',
@@ -290,7 +290,7 @@ class App extends Component {
         })
             .then(response => response.json())
             .then(json => {
-                console.log("delete shoppinglist" + id);
+                //console.log("delete shoppinglist" + id);
             }).catch(error => console.error(error));
         this.deleteOneFromIndexedDB(id);
     }
@@ -302,7 +302,7 @@ class App extends Component {
         })
             .then(response => response.json())
             .then(json => {
-                console.log("delete item" + id);
+                //console.log("delete item" + id);
             }).catch(error => console.error(error));
     }
     render() {

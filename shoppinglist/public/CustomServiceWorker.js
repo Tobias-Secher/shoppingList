@@ -2,48 +2,22 @@ console.log("Custom Service Worker");
 // Imports the workbox CDN and creates a global var called workbox
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js');
 
-// importScripts('serviceworker-cache-polyfill.js');
-
-const HEROKU_NAME = `https://shoppinglistpwa.herokuapp.com`;
-const LOCALHOST = `http://localhost:8080/`;
-
-const CACHE_VERSION = 1
-const CACHE_NAME = `PWA_CACHE_${CACHE_VERSION}`;
-const filesToCache = [
-    '/',
-    '../src/app.scss',
-    '../src/app.js',
-    '../src/index.css',
-    '../src/index.js',
-    '../shoppingList.js',
-    '../shoppingListForm.js',
-    '../shoppingListFormUpdate.js',
-    './index.html',
-    './CustomServiceWorker.js',
-    './manifest.json',
-    './favicon.ico',
-    '../static/js/bundle.js',
-    '../static/js/0.chunk.js',
-    '../static/js/1.chunk.js',
-    '../static/js/main.chunk.js',
-    '../main.6bdba2c05771f28f1976.hot-update.js',
-]
-self.addEventListener('install', event => {
-    console.log('The service worker is being installed.');
+// self.addEventListener('install', event => {
+//     console.log('The service worker is being installed.');
     // When you call the "caches.open", it starts working in the background immediately. Unless we do somethig to prevent that.
     // This means that the install event would return before the cache is ready.
     // This is fixed by wrapping the event.waitUntil. This waits until the last promise is done, before returning the event.
     // event.waitUntil(
-    //     // Returns a promise that works in the background 
+    //     // Returns a promise that works in the background
     //     caches.open(CACHE_NAME)
-    //         // .then runs after the promise is done. This will recive the result of the privious function. 
+    //         // .then runs after the promise is done. This will recive the result of the privious function.
     //         // Here we recive the cache from the previous funcion
     //         .then(cache => {
     //             // Here we are adding the files. This also happens in the background.
     //             return cache.addAll(filesToCache);
     //         })
     // );
-});
+// });
 
 
 self.addEventListener('push', function (event) {
@@ -102,10 +76,6 @@ workbox.routing.registerRoute(
     `https://shoppinglistpwa.herokuapp.com/create`,
     new workbox.strategies.CacheFirst()
 );
-
-// const bgSyncPlugin = new workbox.backgroundSync.Plugin('myQueueName', {
-//     maxRetentionTime: 24 * 60 // Retry for max of 24 Hours
-// });
 
 const queue = new workbox.backgroundSync.Queue('bgReqQueue');
 

@@ -8,12 +8,12 @@ import * as serviceWorker from './serviceWorkerInit';
 ReactDOM.render(<App />, document.getElementById('root'));
 
 
-// serviceWorker.register();
+serviceWorker.register();
 
-// Register the service worker
-// if ('serviceWorker' in navigator) {
-//     navigator.serviceWorker.register('./CustomServiceWorker.js')
-//         .then(registration =>
-//             console.log('ServiceWorker registration successful with scope: ', registration.scope)
-//         ).catch(err => console.log('ServiceWorker registration failed: ', err));
-// }
+//Register the service worker
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./CustomServiceWorker.js')
+        .then(registration =>
+            console.log('ServiceWorker registration successful with scope: ', registration.scope)
+        ).catch(err => console.log('ServiceWorker registration failed: ', err));
+}
