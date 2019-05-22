@@ -1,6 +1,6 @@
-import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
-import React, {Component} from 'react';
-import {openDB, deleteDB, wrap, unwrap} from 'idb';
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import React, { Component } from 'react';
+import { openDB } from 'idb';
 
 
 import './app.scss';
@@ -20,8 +20,6 @@ import ShoppingListForm from "./ShoppingListForm";
 import HomeIcon from '@material-ui/icons/Home';
 import KeyBoardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import ShoppingListFormUpdate from "./shoppingListFormUpdate";
-
-import io from 'socket.io-client';
 
 const DB_VERSION = 1;
 const DB_NAME = 'ShoppingList';
@@ -137,7 +135,7 @@ class App extends Component {
             let db = event.target.result;
             // Creates the object store where we are keeping the lists
             // For offine use
-            db.createObjectStore(DB_STORE.toString(), {keyPath: '_id'});
+            db.createObjectStore(DB_STORE.toString(), { keyPath: '_id' });
             // Creates the oject store where we are keeping the changes
         };
     }
@@ -242,6 +240,8 @@ class App extends Component {
             case 'ADD':
                 objectStore.add(json)
                 break;
+            default:
+                break;
         }
     }
 
@@ -290,7 +290,7 @@ class App extends Component {
                 console.log("delete item" + id);
             }).catch(error => console.error(error));
     }
-    calcPrice(price){
+    calcPrice(price) {
         this.setState({
             price: price
         })
@@ -299,18 +299,18 @@ class App extends Component {
         const sideList = (
             <div className="list">
                 <div className="loginContainer">
-                    <span className="dot"/>
+                    <span className="dot" />
                     <h3>coolguy27@gmail.com</h3>
-                    <KeyBoardArrowDown className="arrowDownIcon"/>
+                    <KeyBoardArrowDown className="arrowDownIcon" />
                 </div>
-                <Divider/>
+                <Divider />
                 <List>
                     <Link to={'/'}>
                         <ListItem button>
                             <ListItemIcon>
-                                <HomeIcon/>
+                                <HomeIcon />
                             </ListItemIcon>
-                            <ListItemText primary={"Home"}/>
+                            <ListItemText primary={"Home"} />
                         </ListItem>
                     </Link>
                 </List>
@@ -326,7 +326,7 @@ class App extends Component {
                 <div className="container">
                     <div className={connectClass + ' header'}>
                         <button onClick={this.toggleDrawer('left', true)}>
-                            <Menu/>
+                            <Menu />
                         </button>
                         <Link to={'/'}><h1>Lists</h1></Link>
                         {this.price}
@@ -335,24 +335,24 @@ class App extends Component {
                             <em>DKK</em>
                         </span>
                         <input placeholder="search..." type="text" name="searchInput" id="searchInput"
-                               className={searchClass}/>
+                            className={searchClass} />
                         <button onClick={this.toggleSearch()}>
-                            <Search/>
+                            <Search />
                         </button>
                     </div>
                     <div className="content">
                         <Switch>
                             <Route exact path={'/'}
-                                   render={(props) =>
-                                       <ShoppingList {...props}
-                                                     shoppingLists={this.state.shoppingLists}
-                                                     deleteShoppingList={this.deleteShoppingList}/>}
+                                render={(props) =>
+                                    <ShoppingList {...props}
+                                        shoppingLists={this.state.shoppingLists}
+                                        deleteShoppingList={this.deleteShoppingList} />}
                             />
 
                             <Route exact path={'/shoppingList/:id'}
-                                   render={(props) =>
-                                       <ShoppingListForm {...props}
-                                       />}
+                                render={(props) =>
+                                    <ShoppingListForm {...props}
+                                    />}
                             />
                             <Route exact path={'/shoppingList/update/:id'}
                                 render={(props) =>
@@ -360,11 +360,11 @@ class App extends Component {
                                         deleteItem={this.deleteItem} DB_NAME={DB_NAME} DB_STORE={DB_STORE} DB_VERSION={DB_VERSION} calcPrice={this.calcPrice} />}
                             />
                             <Route exact path={'/create'}
-                                   render={(props) =>
-                                       <ShoppingListForm {...props}
-                                                         addShoppingList={this.addShoppingList} newId={this.newId}/>}
+                                render={(props) =>
+                                    <ShoppingListForm {...props}
+                                        addShoppingList={this.addShoppingList} newId={this.newId} />}
                             />
-                            <Route component={NotFound}/>
+                            <Route component={NotFound} />
                         </Switch>
                     </div>
                     <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
@@ -378,7 +378,7 @@ class App extends Component {
                         </div>
                     </Drawer>
                     <Link to={'/create'}>
-                        <AddCircle className="addIcon"/>
+                        <AddCircle className="addIcon" />
                     </Link>
                 </div>
             </Router>

@@ -86,14 +86,17 @@ workbox.routing.registerRoute(
 );
 workbox.routing.registerRoute(
     `http://localhost:8080/shoppingList/update/:id/`,
-    workbox.strategies.networkFirst()
+    workbox.strategies.cacheFirst()
 );
 workbox.routing.registerRoute(
     `http://localhost:8080/create`,
-    workbox.strategies.networkFirst()
+    workbox.strategies.cacheFirst()
 );
 
 const bgSyncPlugin = new workbox.backgroundSync.Plugin('myQueueName', {
+    maxRetentionTime: 24 * 60 // Retry for max of 24 Hours
+});
+const bgSyncPluginDEL = new workbox.backgroundSync.Plugin('myQueueNameDEL', {
     maxRetentionTime: 24 * 60 // Retry for max of 24 Hours
 });
 
@@ -108,7 +111,7 @@ workbox.routing.registerRoute(
 workbox.routing.registerRoute(
     `http://localhost:8080/api/shoppingLists/:id/`,
     new workbox.strategies.NetworkOnly({
-        plugins: [bgSyncPlugin]
+        plugins: [bgSyncPluginDEL]
     }),
     'DELETE'
 );
