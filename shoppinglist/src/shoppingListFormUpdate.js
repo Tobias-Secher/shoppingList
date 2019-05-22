@@ -160,6 +160,7 @@ class ShoppingListFormUpdate extends Component {
                     <strong>{this.state.totalPrice}</strong>
                     <em>DKK</em>
                 </span>
+                <label htmlFor="title" />
                 <input type="text" name="title" id="title" className="titleInput" value={this.state.title}
                     onChange={this.onChange} placeholder="Inkøbsliste titel" />
 
@@ -186,7 +187,7 @@ class ShoppingListFormUpdate extends Component {
                         })
                     }
                 </div>
-                <button
+                <button aria-label="find list button"
                     id="findListBtn" className="btn btn-primary btn-bot">Find list
                 </button>
             </form>

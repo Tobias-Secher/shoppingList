@@ -1,6 +1,6 @@
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
-import React, { Component } from 'react';
-import { openDB } from 'idb';
+import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
+import React, {Component} from 'react';
+import {openDB} from 'idb';
 
 
 import './app.scss';
@@ -133,7 +133,7 @@ class App extends Component {
             let db = event.target.result;
             // Creates the object store where we are keeping the lists
             // For offine use
-            db.createObjectStore(DB_STORE.toString(), { keyPath: '_id' });
+            db.createObjectStore(DB_STORE.toString(), {keyPath: '_id'});
             // Creates the oject store where we are keeping the changes
         };
     }
@@ -304,18 +304,18 @@ class App extends Component {
         const sideList = (
             <div className="list">
                 <div className="loginContainer">
-                    <span className="dot" />
+                    <span className="dot"/>
                     <h3>coolguy28@gmail.com</h3>
-                    <KeyBoardArrowDown className="arrowDownIcon" />
+                    <KeyBoardArrowDown className="arrowDownIcon"/>
                 </div>
-                <Divider />
+                <Divider/>
                 <List>
                     <Link to={'/'}>
                         <ListItem button>
                             <ListItemIcon>
-                                <HomeIcon />
+                                <HomeIcon/>
                             </ListItemIcon>
-                            <ListItemText primary={"Home"} />
+                            <ListItemText primary={"Home"}/>
                         </ListItem>
                     </Link>
                 </List>
@@ -330,42 +330,43 @@ class App extends Component {
             <Router>
                 <div className="container">
                     <div className={connectClass + ' header'}>
-                        <button onClick={this.toggleDrawer('left', true)}>
-                            <Menu />
+                        <button aria-label="menu button" onClick={this.toggleDrawer('left', true)}>
+                            <Menu/>
                         </button>
                         <Link to={'/'}><h1>Lists</h1></Link>
-                        
-                        <input placeholder="search..." type="text" name="searchInput" id="searchInput"
-                            className={searchClass} />
-                        <button onClick={this.toggleSearch()}>
-                            <Search />
+                        <input aria-label="search input field" placeholder="search..." type="text" name="searchInput"
+                               id="searchInput"
+                               className={searchClass}/>
+                        <button aria-label="toggle searchbar" onClick={this.toggleSearch()}>
+                            <Search/>
                         </button>
                     </div>
                     <div className="content">
                         <Switch>
                             <Route exact path={'/'}
-                                render={(props) =>
-                                    <ShoppingList {...props}
-                                        shoppingLists={this.state.shoppingLists}
-                                        deleteShoppingList={this.deleteShoppingList} />}
+                                   render={(props) =>
+                                       <ShoppingList {...props}
+                                                     shoppingLists={this.state.shoppingLists}
+                                                     deleteShoppingList={this.deleteShoppingList}/>}
                             />
 
                             <Route exact path={'/shoppingList/:id'}
-                                render={(props) =>
-                                    <ShoppingListForm {...props}
-                                    />}
+                                   render={(props) =>
+                                       <ShoppingListForm {...props}
+                                       />}
                             />
                             <Route exact path={'/shoppingList/update/:id'}
-                                render={(props) =>
-                                    <ShoppingListFormUpdate {...props}
-                                        deleteItem={this.deleteItem} DB_NAME={DB_NAME} DB_STORE={DB_STORE} DB_VERSION={DB_VERSION} />}
+                                   render={(props) =>
+                                       <ShoppingListFormUpdate {...props}
+                                                               deleteItem={this.deleteItem} DB_NAME={DB_NAME}
+                                                               DB_STORE={DB_STORE} DB_VERSION={DB_VERSION}/>}
                             />
                             <Route exact path={'/create'}
-                                render={(props) =>
-                                    <ShoppingListForm {...props}
-                                        addShoppingList={this.addShoppingList} newId={this.newId} />}
+                                   render={(props) =>
+                                       <ShoppingListForm {...props}
+                                                         addShoppingList={this.addShoppingList} newId={this.newId}/>}
                             />
-                            <Route component={NotFound} />
+                            <Route component={NotFound}/>
                         </Switch>
                     </div>
                     <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
@@ -378,8 +379,8 @@ class App extends Component {
                             {sideList}
                         </div>
                     </Drawer>
-                    <Link to={'/create'}>
-                        <AddCircle className="addIcon" />
+                    <Link aria-label="create new list" to={'/create'}>
+                        <AddCircle className="addIcon"/>
                     </Link>
                 </div>
             </Router>

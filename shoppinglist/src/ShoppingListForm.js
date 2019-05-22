@@ -24,10 +24,10 @@ class ShoppingListForm extends Component {
         this.setState({items: [...this.state.items, {itemName: "", price: null}]})
     }
 
-    randomColor(){
+    randomColor() {
         let rgb = [];
 
-        for(let i = 0; i < 3; i++){
+        for (let i = 0; i < 3; i++) {
             rgb.push(Math.floor(Math.random() * 255));
         }
 
@@ -52,10 +52,10 @@ class ShoppingListForm extends Component {
         }
     }
 
-    static isItemsNull(items){
+    static isItemsNull(items) {
         let isItemsNull = false;
-        for(let i = 0; i < items.length - 1; i++){
-            if(items[i].itemName === "" || items[i].price === "" || items[i].price === null){
+        for (let i = 0; i < items.length - 1; i++) {
+            if (items[i].itemName === "" || items[i].price === "" || items[i].price === null) {
                 isItemsNull = true;
                 console.log("true");
             }
@@ -113,6 +113,7 @@ class ShoppingListForm extends Component {
         return (
             <form className="createListForm" method="post" action="#">
                 <span className="errorMsg">{this.state.errorMsg}</span>
+                <label for="title" />
                 <input type="text" name="title" id="title" className="titleInput" value={this.state.title}
                        onChange={this.onChange} placeholder="Inkøbsliste titel"/>
 
@@ -137,11 +138,11 @@ class ShoppingListForm extends Component {
                         })
                     }
                 </div>
-                <button onClick={this.handleInput}
+                <button aria-label="create button" onClick={this.handleInput}
                         type="submit" id="submitItemBtn" className="btn btn-primary">CREATE
                 </button>
-                <button
-                    id="findListBtn" className="btn btn-primary btn-bot">Find list
+                <button aria-label="find list button"
+                        id="findListBtn" className="btn btn-primary btn-bot">Find list
                 </button>
             </form>
         );

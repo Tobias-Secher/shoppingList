@@ -3,9 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="b6b85dc7-100c-46b4-a2ce-9ba58926f248" name="Default Changelist" comment="-oprydning">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shoppinglist/public/CustomServiceWorker.js" beforeDir="false" afterPath="$PROJECT_DIR$/shoppinglist/public/CustomServiceWorker.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shoppinglist/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/shoppinglist/public/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shoppinglist/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/shoppinglist/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shoppinglist/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/shoppinglist/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shoppinglist/src/ShoppingListForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/shoppinglist/src/ShoppingListForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shoppinglist/src/shoppingListFormUpdate.js" beforeDir="false" afterPath="$PROJECT_DIR$/shoppinglist/src/shoppingListFormUpdate.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,27 +22,35 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/shoppinglist/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="312" column="48" lean-forward="true" selection-start-line="312" selection-start-column="48" selection-end-line="312" selection-end-column="48" />
+            <state relative-caret-position="367">
+              <caret line="381" column="53" selection-start-line="381" selection-start-column="53" selection-end-line="381" selection-end-column="53" />
               <folding>
                 <element signature="e#0#80#0" expanded="true" />
+                <element signature="n#!!block;n#componentDidMount#0;n#App#0" />
+                <element signature="n#!!block;n#updateNetworkStatus#0;n#App#0" />
+                <element signature="n#!!block;n#getShoppingLists#0;n#App#0" />
+                <element signature="n#!!block;n#createIndexed#0;n#App#0" />
+                <element signature="n#!!block;n#addAllToIndexedDB#0;n#App#0" />
+                <element signature="n#!!block;n#addOneToIndexedDB#0;n#App#0" />
+                <element signature="n#!!block;n#deleteOneFromIndexedDB#0;n#App#0" />
+                <element signature="n#!!block;n#getIndexedDB#0;n#App#0" />
+                <element signature="n#!!block;n#addToRequestDB#0;n#App#0" />
+                <element signature="n#!!block;n#requestHandler#0;n#App#0" />
+                <element signature="n#!!block;n#addShoppingList#0;n#App#0" />
+                <element signature="n#!!block;n#deleteShoppingList#0;n#App#0" />
+                <element signature="n#!!block;n#deleteItem#0;n#App#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/shoppinglist/src/serviceWorkerInit.js">
+        <entry file="file://$PROJECT_DIR$/shoppinglist/public/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="36" column="20" selection-start-line="36" selection-start-column="20" selection-end-line="36" selection-end-column="20" />
+            <state relative-caret-position="204">
+              <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/shoppinglist/public/index.html">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -59,47 +68,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shoppinglist/src/ShoppingListForm.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="76" selection-start-line="23" selection-start-column="76" selection-end-line="23" selection-end-column="76" />
+            <state relative-caret-position="166">
+              <caret line="115" column="34" selection-start-line="115" selection-start-column="34" selection-end-line="115" selection-end-column="34" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/shoppinglist/public/manifest.json">
+        <entry file="file://$PROJECT_DIR$/shoppinglist/src/shoppingListFormUpdate.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/shoppinglist/src/ShoppingList.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/shoppinglist/.env">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="35" selection-start-line="1" selection-start-column="35" selection-end-line="1" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/shoppinglist/.env.development">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="56" selection-start-line="1" selection-start-column="42" selection-end-line="1" selection-end-column="56" />
+            <state relative-caret-position="690">
+              <caret line="187" column="21" selection-start-line="187" selection-start-column="21" selection-end-line="187" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -107,7 +86,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shoppinglist/public/CustomServiceWorker.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
+            <state relative-caret-position="-205">
               <caret line="38" column="11" selection-start-line="38" selection-start-column="4" selection-end-line="38" selection-end-column="11" />
             </state>
           </provider>
@@ -120,6 +99,10 @@
       <find>addonetoindex</find>
       <find>local</find>
       <find>console</find>
+      <find>desc</find>
+      <find>form</find>
+      <find>label</find>
+      <find>button</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -134,11 +117,14 @@
         <option value="$PROJECT_DIR$/shoppinglist/.env" />
         <option value="$PROJECT_DIR$/shoppinglist/express/app.js" />
         <option value="$PROJECT_DIR$/shoppinglist/public/manifest.json" />
-        <option value="$PROJECT_DIR$/shoppinglist/src/shoppingListFormUpdate.js" />
         <option value="$PROJECT_DIR$/shoppinglist/src/app.scss" />
         <option value="$PROJECT_DIR$/shoppinglist/express/shoppingLists_router.js" />
         <option value="$PROJECT_DIR$/shoppinglist/src/index.js" />
         <option value="$PROJECT_DIR$/shoppinglist/public/CustomServiceWorker.js" />
+        <option value="$PROJECT_DIR$/shoppinglist/src/ShoppingList.js" />
+        <option value="$PROJECT_DIR$/shoppinglist/src/ShoppingListForm.js" />
+        <option value="$PROJECT_DIR$/shoppinglist/src/shoppingListFormUpdate.js" />
+        <option value="$PROJECT_DIR$/shoppinglist/public/index.html" />
         <option value="$PROJECT_DIR$/shoppinglist/src/App.js" />
       </list>
     </option>
@@ -155,6 +141,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -196,7 +183,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -247,7 +233,9 @@
       <workItem from="1557925138970" duration="1758000" />
       <workItem from="1557989026510" duration="5308000" />
       <workItem from="1558521874408" duration="10153000" />
-      <workItem from="1558541321334" duration="1602000" />
+      <workItem from="1558541321334" duration="1877000" />
+      <workItem from="1558544055391" duration="1872000" />
+      <workItem from="1558552501308" duration="2177000" />
     </task>
     <task id="LOCAL-00001" summary="-changed to online version">
       <created>1557993666169</created>
@@ -305,20 +293,47 @@
       <option name="project" value="LOCAL" />
       <updated>1558528388070</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="-oprydning">
+      <created>1558543622065</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1558543622065</updated>
+    </task>
+    <task id="LOCAL-00010" summary="-oprydning">
+      <created>1558543629680</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1558543629680</updated>
+    </task>
+    <task id="LOCAL-00011" summary="-oprydning">
+      <created>1558543760802</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1558543760802</updated>
+    </task>
+    <task id="LOCAL-00012" summary="-oprydning">
+      <created>1558545323302</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1558545323302</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18821000" />
+    <option name="totallyTimeSpent" value="23145000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1227608" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1227608" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" weight="0.32936078" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32936078" />
@@ -328,8 +343,9 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32936078" />
-      <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.32936078" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.32936078" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32936078" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -359,13 +375,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/shoppinglist/build/asset-manifest.json" />
-    <entry file="file://$PROJECT_DIR$/shoppinglist/express/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/shoppinglist/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
@@ -390,34 +399,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shoppinglist/src/shoppingListFormUpdate.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2261">
-          <caret line="133" column="19" selection-start-line="133" selection-start-column="19" selection-end-line="133" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shoppinglist/src/ShoppingListForm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="76" selection-start-line="23" selection-start-column="76" selection-end-line="23" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/shoppinglist/public/manifest.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shoppinglist/src/ShoppingList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -435,15 +420,50 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/shoppinglist/express/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="154" column="64" selection-start-line="154" selection-start-column="64" selection-end-line="154" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/shoppinglist/src/serviceWorkerInit.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
+        <state relative-caret-position="529">
           <caret line="36" column="20" selection-start-line="36" selection-start-column="20" selection-end-line="36" selection-end-column="20" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shoppinglist/public/index.html">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/shoppinglist/src/ShoppingList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="20" column="36" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shoppinglist/public/CustomServiceWorker.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-205">
+          <caret line="38" column="11" selection-start-line="38" selection-start-column="4" selection-end-line="38" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shoppinglist/src/ShoppingListForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="115" column="34" selection-start-line="115" selection-start-column="34" selection-end-line="115" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shoppinglist/src/shoppingListFormUpdate.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="690">
+          <caret line="187" column="21" selection-start-line="187" selection-start-column="21" selection-end-line="187" selection-end-column="21" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/shoppinglist/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -455,19 +475,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shoppinglist/public/CustomServiceWorker.js">
+    <entry file="file://$PROJECT_DIR$/shoppinglist/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="38" column="11" selection-start-line="38" selection-start-column="4" selection-end-line="38" selection-end-column="11" />
+        <state relative-caret-position="204">
+          <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/shoppinglist/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="312" column="48" lean-forward="true" selection-start-line="312" selection-start-column="48" selection-end-line="312" selection-end-column="48" />
+        <state relative-caret-position="367">
+          <caret line="381" column="53" selection-start-line="381" selection-start-column="53" selection-end-line="381" selection-end-column="53" />
           <folding>
             <element signature="e#0#80#0" expanded="true" />
+            <element signature="n#!!block;n#componentDidMount#0;n#App#0" />
+            <element signature="n#!!block;n#updateNetworkStatus#0;n#App#0" />
+            <element signature="n#!!block;n#getShoppingLists#0;n#App#0" />
+            <element signature="n#!!block;n#createIndexed#0;n#App#0" />
+            <element signature="n#!!block;n#addAllToIndexedDB#0;n#App#0" />
+            <element signature="n#!!block;n#addOneToIndexedDB#0;n#App#0" />
+            <element signature="n#!!block;n#deleteOneFromIndexedDB#0;n#App#0" />
+            <element signature="n#!!block;n#getIndexedDB#0;n#App#0" />
+            <element signature="n#!!block;n#addToRequestDB#0;n#App#0" />
+            <element signature="n#!!block;n#requestHandler#0;n#App#0" />
+            <element signature="n#!!block;n#addShoppingList#0;n#App#0" />
+            <element signature="n#!!block;n#deleteShoppingList#0;n#App#0" />
+            <element signature="n#!!block;n#deleteItem#0;n#App#0" />
           </folding>
         </state>
       </provider>
