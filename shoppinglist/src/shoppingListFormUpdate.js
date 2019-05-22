@@ -18,6 +18,7 @@ class ShoppingListFormUpdate extends Component {
         this.handleInput = this.handleInput.bind(this);
         this.onChange = this.onChange.bind(this);
         this.updateInput = this.updateInput.bind(this);
+        this.updateInputPrice = this.updateInputPrice.bind(this);
         this.getList = this.getList.bind(this);
         this.getList();
     }
@@ -27,7 +28,7 @@ class ShoppingListFormUpdate extends Component {
     }
 
     addItem() {
-        this.setState({ items: [...this.state.items, { itemName: "", price: "" }] })
+        this.setState({ items: [...this.state.items, { itemName: "", price: Number }] })
     }
 
     handleItemTitleChange(e, index) {
@@ -40,7 +41,7 @@ class ShoppingListFormUpdate extends Component {
     }
 
     handleItemPriceChange(e, index) {
-        this.state.items[index].price = e.target.value;
+        this.state.items[index].price = Number.parseInt(e.target.value);
         //set the state...
         this.setState({ items: this.state.items });
         if ((this.state.items.length - 1) <= index) {
@@ -70,6 +71,33 @@ class ShoppingListFormUpdate extends Component {
         }).then(res => res.json())
             .then(response => console.log('Success:', JSON.stringify(response)))
             .catch(error => console.error('Error:', error));
+    }
+    updateInputPrice(e) {
+        e.preventDefault();
+        // fetch(`${this.api_url}/shoppingLists/${this.props.match.params.id}`, {
+        //     method: 'PUT',
+        //     body: JSON.stringify(this.state.items),
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     }
+        // }).then(res => res.json())
+        //     .then(response => console.log('Success:', JSON.stringify(response)))
+        //     .catch(error => console.error('Error:', error));
+
+        this.setState({
+            price: this.calcPrice()
+        })
+    }
+
+    calcPrice() {
+        let price = Number;
+        console.log('CALC HHIT')
+        for (let i = 0; i < this.state.items.length; i++) {
+            price = parseInt(this.state.items[i].price + price);
+        }
+
+        return price;
+
     }
 
     async getList() {
@@ -140,7 +168,7 @@ class ShoppingListFormUpdate extends Component {
                                         onChange={(e) => this.handleItemTitleChange(e, index)} placeholder="Title" onBlur={this.updateInput} />
                                     <input className="itemPriceInput" key={`itemPrice_${index}`} type="text"
                                         value={item.price} onChange={(e) => this.handleItemPriceChange(e, index)}
-                                        placeholder="Price" onBlur={this.updateInput} />
+                                        placeholder="Price" type="number" onBlur={this.updateInputPrice} />
 
                                     <DeleteButtonforItem className="DeleteButtonforItem" onClick={((e) => this.handleItemRemoveChange(e, index))} />
                                 </div>
