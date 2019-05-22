@@ -28,7 +28,7 @@ class ShoppingListFormUpdate extends Component {
     }
 
     addItem() {
-        this.setState({ items: [...this.state.items, { itemName: "", price: Number }] })
+        this.setState({ items: [...this.state.items, { itemName: "", price: null }] })
     }
 
     handleItemTitleChange(e, index) {
@@ -74,29 +74,25 @@ class ShoppingListFormUpdate extends Component {
     }
     updateInputPrice(e) {
         e.preventDefault();
-        // fetch(`${this.api_url}/shoppingLists/${this.props.match.params.id}`, {
-        //     method: 'PUT',
-        //     body: JSON.stringify(this.state.items),
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     }
-        // }).then(res => res.json())
-        //     .then(response => console.log('Success:', JSON.stringify(response)))
-        //     .catch(error => console.error('Error:', error));
+        fetch(`${this.api_url}/shoppingLists/${this.props.match.params.id}`, {
+            method: 'PUT',
+            body: JSON.stringify(this.state.items),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+            .then(response => console.log('Success:', JSON.stringify(response)))
+            .catch(error => console.error('Error:', error));
         this.calcPrice();
-        // this.setState({
-        //     price: this.calcPrice()
-        // })
     }
 
     calcPrice() {
         let price = Number;
-        console.log('CALC HHIT')
         for (let i = 0; i < this.state.items.length; i++) {
-            if(this.state.items[i].price != null)
-            price = parseInt(this.state.items[i].price + price);
+            if (this.state.items[i].price != null || this.state.items[i].price != '')
+                price = parseInt(this.state.items[i].price + price);
         }
-        
+
         this.props.calcPrice(price);
 
     }

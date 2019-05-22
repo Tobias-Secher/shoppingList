@@ -39,7 +39,7 @@ class App extends Component {
 
         this.state = {
             shoppingLists: [],
-            price: 22,
+            price: null,
             left: false,
             search: false,
             connectivity: true
