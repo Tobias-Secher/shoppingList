@@ -31,7 +31,7 @@ const DB_REQUEST = 'ShoppingListsRequest';
 class App extends Component {
     newId;
     db;
-    api_url = process.env.REACT_APP_API_URL
+    api_url = process.env.REACT_APP_API_URL;
     SOCKET_URL = process.env.REACT_APP_SOCKET_URL;
 
     constructor(props) {
@@ -86,12 +86,12 @@ class App extends Component {
             this.setState({
                 connectivity: true
             });
-            console.log('You are Online again.');
+            //console.log('You are Online again.');
         } else {
             this.setState({
                 connectivity: false
             });
-            console.log('You are now offline..');
+            //console.log('You are now offline..');
         }
     }
 
@@ -259,6 +259,18 @@ class App extends Component {
             .then(json => {
                 console.log("Result of posting a new question:");
                 console.log(json);
+                let data = {
+                    "text": "Din nye liste er blevet synkroniseret med skyen!",
+                    "title": "Synkroniseret!"
+                };
+                fetch(`${this.api_url}/push_message/`, {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Accept': 'application/json',
+                        "Content-type": "application/json; charset=UTF-8"
+                    }
+                });
             });
         this.addOneToIndexedDB(shoppingList);
     }

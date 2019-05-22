@@ -1,6 +1,6 @@
 console.log("Custom Service Worker");
 // Imports the workbox CDN and creates a global var called workbox
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox-sw.js');
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js');
 
 // importScripts('serviceworker-cache-polyfill.js');
 
@@ -66,7 +66,7 @@ else {
 }
 workbox.routing.registerRoute(
     /\.(?:js|css|html|png|ico)$/,
-    workbox.strategies.cacheFirst({
+    new workbox.strategies.CacheFirst({
         cacheName: 'STATIC_FILES',
         plugins: [
             new workbox.expiration.Plugin({
@@ -82,36 +82,63 @@ workbox.routing.registerRoute(
 // );
 workbox.routing.registerRoute(
     `http://localhost:8080/`,
-    workbox.strategies.networkFirst()
+    new workbox.strategies.NetworkFirst()
 );
 workbox.routing.registerRoute(
     `http://localhost:8080/shoppingList/update/:id/`,
-    workbox.strategies.networkFirst()
+    new workbox.strategies.NetworkFirst()
 );
 workbox.routing.registerRoute(
     `http://localhost:8080/create`,
-    workbox.strategies.networkFirst()
+    new workbox.strategies.NetworkFirst()
 );
 
-const bgSyncPlugin = new workbox.backgroundSync.Plugin('myQueueName', {
-    maxRetentionTime: 24 * 60 // Retry for max of 24 Hours
+// const bgSyncPlugin = new workbox.backgroundSync.Plugin('myQueueName', {
+//     maxRetentionTime: 24 * 60 // Retry for max of 24 Hours
+// });
+
+const queue = new workbox.backgroundSync.Queue('bgReqQueue');
+
+self.addEventListener('fetch', (event) => {
+    // Clone the request to ensure it's save to read when
+    // adding to the Queue.
+    const promiseChain = fetch(event.request.clone())
+        .catch((err) => {
+            return queue.pushRequest({request: event.request});
+        });
+    event.waitUntil(promiseChain);
 });
 
 
-workbox.routing.registerRoute(
-    `http://localhost:8080/api/shoppingLists/`,
-    new workbox.strategies.NetworkOnly({
-        plugins: [bgSyncPlugin]
-    }),
-    'POST'
-);
-workbox.routing.registerRoute(
-    `http://localhost:8080/api/shoppingLists/:id/`,
-    new workbox.strategies.NetworkOnly({
-        plugins: [bgSyncPlugin]
-    }),
-    'DELETE'
-);
+// push message fetch
+// let data = {
+//     "text": "Din nye liste er blevet synkroniseret med skyen!",
+//     "title": "Synkroniseret!"
+// };
+// fetch(`http://localhost:8080/api/push_message/`, {
+//     method: 'POST',
+//     body: JSON.stringify(data),
+//     headers: {
+//         'Accept': 'application/json',
+//         "Content-type": "application/json; charset=UTF-8"
+//     }
+// });
+
+
+// workbox.routing.registerRoute(
+//     `http://localhost:8080/api/shoppingLists/`,
+//     new workbox.strategies.NetworkOnly({
+//         plugins: [bgSyncPlugin]
+//     }),
+//     'POST'
+// );
+// workbox.routing.registerRoute(
+//     `http://localhost:8080/api/shoppingLists/:id/`,
+//     new workbox.strategies.NetworkOnly({
+//         plugins: [bgSyncPlugin]
+//     }),
+//     'DELETE'
+// );
 
 
 

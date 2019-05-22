@@ -77,7 +77,10 @@ module.exports = () => {
         console.log(`REQ PARAMS ID: ${req.params.id}`)
         ShoppingList.findOne({_id: req.params.id}).exec(function (err, shoppinglist) {
             shoppinglist.remove();
-            shoppinglist.save();
+            shoppinglist.save((err) => {
+                if (err)
+                    console.error(err)
+            });
 
             //io.of('/shopping_list').emit('new-data', {msg: 'New data is available on /api/my_data'});
 
