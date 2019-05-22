@@ -21,7 +21,7 @@ class ShoppingListForm extends Component {
     }
 
     addItem() {
-        this.setState({items: [...this.state.items, {itemName: "", price: ""}]})
+        this.setState({items: [...this.state.items, {itemName: "", price: null}]})
     }
 
     randomColor(){
@@ -44,7 +44,7 @@ class ShoppingListForm extends Component {
     }
 
     handleItemPriceChange(e, index) {
-        this.state.items[index].price = e.target.value;
+        this.state.items[index].price = parseInt(e.target.value);
         //set the state...
         this.setState({items: this.state.items});
         if ((this.state.items.length - 1) <= index) {
@@ -55,7 +55,7 @@ class ShoppingListForm extends Component {
     static isItemsNull(items){
         let isItemsNull = false;
         for(let i = 0; i < items.length - 1; i++){
-            if(items[i].itemName === "" || items[i].price === ""){
+            if(items[i].itemName === "" || items[i].price === "" || items[i].price === null){
                 isItemsNull = true;
                 console.log("true");
             }

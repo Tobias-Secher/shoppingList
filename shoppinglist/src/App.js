@@ -27,7 +27,7 @@ const DB_STORE = 'ShoppingLists';
 const DB_REQUEST = 'ShoppingListsRequest';
 
 class App extends Component {
-    newId;
+    newId = "0";
     db;
     api_url = process.env.REACT_APP_API_URL;
     SOCKET_URL = process.env.REACT_APP_SOCKET_URL;
@@ -198,7 +198,13 @@ class App extends Component {
         // Fetches all items in the object store
         let allSavedItems = await objectStore.getAll()
         // Assigns a new id for later use. This is used when adding.
-        this.newId = `${allSavedItems.length + 1}`;
+        // let id = 0;
+        console.log(allSavedItems.length);
+        if (allSavedItems.length > 0) {
+            this.newId = (parseInt(allSavedItems[allSavedItems.length - 1]._id) + 1).toString();
+        }
+
+        // this.newId = `${allSavedItems[allSavedItems.length]._id + 1}`;
         // Updates the react state, in order to display the lists
         this.setState({
             shoppingLists: allSavedItems

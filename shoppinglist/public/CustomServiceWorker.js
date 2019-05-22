@@ -76,10 +76,6 @@ workbox.routing.registerRoute(
     }),
 );
 
-// workbox.routing.registerRoute(
-//     `http://localhost:8080/api/shoppingLists/`,
-//     workbox.strategies.networkFirst()
-// );
 workbox.routing.registerRoute(
     `http://localhost:8080/`,
     new workbox.strategies.NetworkFirst()
@@ -91,6 +87,20 @@ workbox.routing.registerRoute(
 workbox.routing.registerRoute(
     `http://localhost:8080/create`,
     new workbox.strategies.NetworkFirst()
+);
+
+// Heroku
+workbox.routing.registerRoute(
+    `https://shoppinglistpwa.herokuapp.com/`,
+    new workbox.strategies.CacheFirst()
+);
+workbox.routing.registerRoute(
+    `https://shoppinglistpwa.herokuapp.com/shoppingList/update/:id/`,
+    new workbox.strategies.CacheFirst()
+);
+workbox.routing.registerRoute(
+    `https://shoppinglistpwa.herokuapp.com/create`,
+    new workbox.strategies.CacheFirst()
 );
 
 // const bgSyncPlugin = new workbox.backgroundSync.Plugin('myQueueName', {
