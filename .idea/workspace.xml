@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b6b85dc7-100c-46b4-a2ce-9ba58926f248" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/shoppinglist/.env.development" beforeDir="false" afterPath="$PROJECT_DIR$/shoppinglist/.env.development" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shoppinglist/express/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/shoppinglist/express/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shoppinglist/express/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/shoppinglist/express/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shoppinglist/express/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/shoppinglist/express/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shoppinglist/express/shoppingLists_router.js" beforeDir="false" afterPath="$PROJECT_DIR$/shoppinglist/express/shoppingLists_router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shoppinglist/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/shoppinglist/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shoppinglist/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/shoppinglist/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shoppinglist/public/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/shoppinglist/public/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shoppinglist/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/shoppinglist/src/App.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -23,32 +16,61 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/shoppinglist/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="32" column="24" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
+            <state relative-caret-position="277">
+              <caret line="55" column="71" selection-start-line="55" selection-start-column="71" selection-end-line="55" selection-end-column="71" />
               <folding>
                 <element signature="e#0#80#0" expanded="true" />
+                <element signature="n#!!block;n#getShoppingLists#0;n#App#0" />
+                <element signature="n#!!block;n#createIndexed#0;n#App#0" />
+                <element signature="n#!!block;n#addAllToIndexedDB#0;n#App#0" />
+                <element signature="n#!!block;n#addOneToIndexedDB#0;n#App#0" />
+                <element signature="n#!!block;n#deleteOneFromIndexedDB#0;n#App#0" />
+                <element signature="n#!!block;n#getIndexedDB#0;n#App#0" />
+                <element signature="n#!!block;n#addToRequestDB#0;n#App#0" />
+                <element signature="n#!!block;n#requestHandler#0;n#App#0" />
+                <element signature="n#!!block;n#addShoppingList#0;n#App#0" />
+                <element signature="n#!!block;n#deleteShoppingList#0;n#App#0" />
+                <element signature="n#!!block;n#deleteItem#0;n#App#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/shoppinglist/express/app.js">
+        <entry file="file://$PROJECT_DIR$/shoppinglist/src/shoppingListFormUpdate.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
+            <state relative-caret-position="520">
+              <caret line="150" selection-start-line="150" selection-end-line="150" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/shoppinglist/express/shoppingLists_router.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="510">
+              <caret line="39" column="51" selection-start-line="39" selection-start-column="51" selection-end-line="39" selection-end-column="51" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shoppinglist/public/manifest.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="153">
               <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/shoppinglist/src/app.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="476">
+              <caret line="79" column="1" selection-start-line="79" selection-start-column="1" selection-end-line="79" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -65,7 +87,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shoppinglist/src/ShoppingList.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
+            <state relative-caret-position="102">
               <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
@@ -107,7 +129,7 @@
   </component>
   <component name="Git.Settings">
     <option name="UPDATE_TYPE" value="MERGE" />
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/shoppinglist" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -116,19 +138,11 @@
         <option value="$PROJECT_DIR$/shoppinglist/package.json" />
         <option value="$PROJECT_DIR$/shoppinglist/.env.development" />
         <option value="$PROJECT_DIR$/shoppinglist/.env" />
-        <option value="$PROJECT_DIR$/shoppinglist/src/App.js" />
         <option value="$PROJECT_DIR$/shoppinglist/express/app.js" />
         <option value="$PROJECT_DIR$/shoppinglist/public/manifest.json" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectConfigurationFiles">
-    <option name="files">
-      <list>
-        <option value="$PROJECT_DIR$/.idea/shoppingListV2.iml" />
-        <option value="$PROJECT_DIR$/.idea/misc.xml" />
-        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
-        <option value="$PROJECT_DIR$/.idea/modules.xml" />
+        <option value="$PROJECT_DIR$/shoppinglist/src/app.scss" />
+        <option value="$PROJECT_DIR$/shoppinglist/src/shoppingListFormUpdate.js" />
+        <option value="$PROJECT_DIR$/shoppinglist/src/App.js" />
       </list>
     </option>
   </component>
@@ -148,42 +162,36 @@
         <subPane>
           <expand>
             <path>
-              <item name="shoppingListV2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shoppingListV2" type="462c0819:PsiDirectoryNode" />
+              <item name="shoppingListV6" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shoppingListV6" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="shoppingListV2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shoppingListV2" type="462c0819:PsiDirectoryNode" />
+              <item name="shoppingListV6" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shoppingListV6" type="462c0819:PsiDirectoryNode" />
               <item name="shoppinglist" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="shoppingListV2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shoppingListV2" type="462c0819:PsiDirectoryNode" />
-              <item name="shoppinglist" type="462c0819:PsiDirectoryNode" />
-              <item name="build" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shoppingListV2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shoppingListV2" type="462c0819:PsiDirectoryNode" />
-              <item name="shoppinglist" type="462c0819:PsiDirectoryNode" />
-              <item name="build" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shoppingListV2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shoppingListV2" type="462c0819:PsiDirectoryNode" />
+              <item name="shoppingListV6" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shoppingListV6" type="462c0819:PsiDirectoryNode" />
               <item name="shoppinglist" type="462c0819:PsiDirectoryNode" />
               <item name="express" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="shoppingListV2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shoppingListV2" type="462c0819:PsiDirectoryNode" />
+              <item name="shoppingListV6" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shoppingListV6" type="462c0819:PsiDirectoryNode" />
               <item name="shoppinglist" type="462c0819:PsiDirectoryNode" />
               <item name="public" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="shoppingListV2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shoppingListV2" type="462c0819:PsiDirectoryNode" />
+              <item name="shoppingListV6" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shoppingListV6" type="462c0819:PsiDirectoryNode" />
+              <item name="shoppinglist" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="images" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shoppingListV6" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shoppingListV6" type="462c0819:PsiDirectoryNode" />
               <item name="shoppinglist" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -196,6 +204,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ChangesTree.GroupingKeys" value="directory" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/shoppinglist" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -240,6 +249,7 @@
       <updated>1557925137866</updated>
       <workItem from="1557925138970" duration="1758000" />
       <workItem from="1557989026510" duration="5308000" />
+      <workItem from="1558521874408" duration="861000" />
     </task>
     <task id="LOCAL-00001" summary="-changed to online version">
       <created>1557993666169</created>
@@ -248,14 +258,29 @@
       <option name="project" value="LOCAL" />
       <updated>1557993666170</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="-changed to offline/online notification&#10;-added search bar animation">
+      <created>1558522277246</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1558522277246</updated>
+    </task>
+    <task id="LOCAL-00003" summary="-added state">
+      <created>1558522662421</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1558522662421</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7066000" />
+    <option name="totallyTimeSpent" value="7927000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1227608" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -281,29 +306,11 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="-changed to online version" />
-    <option name="LAST_COMMIT_MESSAGE" value="-changed to online version" />
+    <MESSAGE value="-changed to offline/online notification&#10;-added search bar animation" />
+    <MESSAGE value="-added state" />
+    <option name="LAST_COMMIT_MESSAGE" value="-added state" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/shoppinglist/express/shoppingLists_router.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="60" column="15" lean-forward="true" selection-start-line="60" selection-start-column="15" selection-end-line="60" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shoppinglist/public/CustomServiceWorker.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shoppinglist/src/ShoppingList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/shoppinglist/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -311,8 +318,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shoppinglist/build/asset-manifest.json">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/shoppinglist/build/asset-manifest.json" />
+    <entry file="file://$PROJECT_DIR$/shoppinglist/express/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shoppinglist/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="6" selection-start-line="24" selection-start-column="6" selection-end-line="24" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shoppinglist/src/ShoppingList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/shoppinglist/.env">
       <provider selected="true" editor-type-id="text-editor">
@@ -328,34 +357,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shoppinglist/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="32" column="24" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#80#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shoppinglist/express/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shoppinglist/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="6" selection-start-line="24" selection-start-column="6" selection-end-line="24" selection-end-column="6" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/shoppinglist/public/CustomServiceWorker.js">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/shoppinglist/public/manifest.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shoppinglist/public/images/icon192.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shoppinglist/src/app.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="79" column="1" selection-start-line="79" selection-start-column="1" selection-end-line="79" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shoppinglist/src/shoppingListFormUpdate.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="520">
+          <caret line="150" selection-start-line="150" selection-end-line="150" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shoppinglist/express/shoppingLists_router.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="39" column="51" selection-start-line="39" selection-start-column="51" selection-end-line="39" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shoppinglist/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="55" column="71" selection-start-line="55" selection-start-column="71" selection-end-line="55" selection-end-column="71" />
+          <folding>
+            <element signature="e#0#80#0" expanded="true" />
+            <element signature="n#!!block;n#getShoppingLists#0;n#App#0" />
+            <element signature="n#!!block;n#createIndexed#0;n#App#0" />
+            <element signature="n#!!block;n#addAllToIndexedDB#0;n#App#0" />
+            <element signature="n#!!block;n#addOneToIndexedDB#0;n#App#0" />
+            <element signature="n#!!block;n#deleteOneFromIndexedDB#0;n#App#0" />
+            <element signature="n#!!block;n#getIndexedDB#0;n#App#0" />
+            <element signature="n#!!block;n#addToRequestDB#0;n#App#0" />
+            <element signature="n#!!block;n#requestHandler#0;n#App#0" />
+            <element signature="n#!!block;n#addShoppingList#0;n#App#0" />
+            <element signature="n#!!block;n#deleteShoppingList#0;n#App#0" />
+            <element signature="n#!!block;n#deleteItem#0;n#App#0" />
+          </folding>
         </state>
       </provider>
     </entry>

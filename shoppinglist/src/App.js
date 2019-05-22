@@ -1,6 +1,6 @@
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
-import React, { Component } from 'react';
-import { openDB, deleteDB, wrap, unwrap } from 'idb';
+import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
+import React, {Component} from 'react';
+import {openDB, deleteDB, wrap, unwrap} from 'idb';
 
 
 import './app.scss';
@@ -22,15 +22,18 @@ import KeyBoardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import ShoppingListFormUpdate from "./shoppingListFormUpdate";
 
 import io from 'socket.io-client';
+
 const DB_VERSION = 1;
 const DB_NAME = 'ShoppingList';
 const DB_STORE = 'ShoppingLists';
 const DB_REQUEST = 'ShoppingListsRequest';
+
 class App extends Component {
     newId;
     db;
     api_url = process.env.REACT_APP_API_URL
     SOCKET_URL = process.env.REACT_APP_SOCKET_URL;
+
     constructor(props) {
         super(props);
 
@@ -55,6 +58,7 @@ class App extends Component {
         this.addOneToIndexedDB = this.addOneToIndexedDB.bind(this);
         this.deleteOneFromIndexedDB = this.deleteOneFromIndexedDB.bind(this);
         this.calcPrice = this.calcPrice.bind(this);
+        this.updateNetworkStatus = this.updateNetworkStatus.bind(this);
     }
 
     componentDidMount() {
@@ -62,8 +66,7 @@ class App extends Component {
         if (!navigator.onLine) {
             this.updateNetworkStatus();
             this.getIndexedDB()
-        }
-        else {
+        } else {
             this.getShoppingLists()
         }
         // const socket = io(this.SOCKET_URL);
@@ -84,8 +87,7 @@ class App extends Component {
                 connectivity: true
             });
             console.log('You are Online again.');
-        }
-        else {
+        } else {
             this.setState({
                 connectivity: false
             });
@@ -103,6 +105,7 @@ class App extends Component {
             search: !this.state.search
         });
     };
+
     getShoppingLists() {
         fetch(`${this.api_url}/shoppingLists`)
             .then(response => response.json())
@@ -110,6 +113,7 @@ class App extends Component {
                 this.addAllToIndexedDB(json);
             })
     }
+
     createIndexed() {
         // If the database dosen't exist -> create it
         // else -> fetch it.
@@ -133,10 +137,11 @@ class App extends Component {
             let db = event.target.result;
             // Creates the object store where we are keeping the lists
             // For offine use
-            db.createObjectStore(DB_STORE.toString(), { keyPath: '_id' });
+            db.createObjectStore(DB_STORE.toString(), {keyPath: '_id'});
             // Creates the oject store where we are keeping the changes
         };
     }
+
     async addAllToIndexedDB(json) {
         // Open connection to indexeddb
         let db = await openDB(DB_NAME, DB_VERSION)
@@ -154,6 +159,7 @@ class App extends Component {
         // Closes the connection
         db.close()
     }
+
     async addOneToIndexedDB(json) {
         // Open connection to indexeddb
         let db = await openDB(DB_NAME, DB_VERSION)
@@ -162,12 +168,13 @@ class App extends Component {
         // Gets the correct objectStore
         let objectStore = transaction.objectStore(DB_STORE);
         // Adds all the json elements to the objectstore
-        json._id = this.newId;        
+        json._id = this.newId;
         objectStore.add(json);
         this.getIndexedDB();
         // Closes the connection
         db.close()
     }
+
     async deleteOneFromIndexedDB(id) {
         // Open connection to indexeddb
         let db = await openDB(DB_NAME, DB_VERSION)
@@ -182,6 +189,7 @@ class App extends Component {
         // Closes the connection
         db.close()
     }
+
     async getIndexedDB() {
         // Open connection to indexeddb
         let db = await openDB(DB_NAME, DB_VERSION)
@@ -201,6 +209,7 @@ class App extends Component {
         db.close()
 
     }
+
     async addToRequestDB(json, req) {
         // Open connection to indexeddb
         let db = await openDB(DB_NAME, DB_VERSION);
@@ -219,6 +228,7 @@ class App extends Component {
         // Updates the state
         this.getIndexedDB();
     }
+
     requestHandler(db, json) {
         // Opens the referenced db and gets the transaction.
         let transaction = db.transaction(DB_STORE.toString(), 'readwrite');
@@ -234,6 +244,7 @@ class App extends Component {
                 break;
         }
     }
+
     addShoppingList(shoppingList) {
 
         fetch(`${this.api_url}/shoppingLists/`, {
@@ -288,18 +299,18 @@ class App extends Component {
         const sideList = (
             <div className="list">
                 <div className="loginContainer">
-                    <span className="dot" />
+                    <span className="dot"/>
                     <h3>coolguy27@gmail.com</h3>
-                    <KeyBoardArrowDown className="arrowDownIcon" />
+                    <KeyBoardArrowDown className="arrowDownIcon"/>
                 </div>
-                <Divider />
+                <Divider/>
                 <List>
                     <Link to={'/'}>
                         <ListItem button>
                             <ListItemIcon>
-                                <HomeIcon />
+                                <HomeIcon/>
                             </ListItemIcon>
-                            <ListItemText primary={"Home"} />
+                            <ListItemText primary={"Home"}/>
                         </ListItem>
                     </Link>
                 </List>
@@ -315,7 +326,7 @@ class App extends Component {
                 <div className="container">
                     <div className={connectClass + ' header'}>
                         <button onClick={this.toggleDrawer('left', true)}>
-                            <Menu />
+                            <Menu/>
                         </button>
                         <Link to={'/'}><h1>Lists</h1></Link>
                         {this.price}
@@ -323,23 +334,25 @@ class App extends Component {
                             <strong>{this.state.price}</strong>
                             <em>DKK</em>
                         </span>
-                        <button onClick={this.toggleSearch(true)}>
-                            <Search />
+                        <input placeholder="search..." type="text" name="searchInput" id="searchInput"
+                               className={searchClass}/>
+                        <button onClick={this.toggleSearch()}>
+                            <Search/>
                         </button>
                     </div>
                     <div className="content">
                         <Switch>
                             <Route exact path={'/'}
-                                render={(props) =>
-                                    <ShoppingList {...props}
-                                        shoppingLists={this.state.shoppingLists}
-                                        deleteShoppingList={this.deleteShoppingList} />}
+                                   render={(props) =>
+                                       <ShoppingList {...props}
+                                                     shoppingLists={this.state.shoppingLists}
+                                                     deleteShoppingList={this.deleteShoppingList}/>}
                             />
 
                             <Route exact path={'/shoppingList/:id'}
-                                render={(props) =>
-                                    <ShoppingListForm {...props}
-                                    />}
+                                   render={(props) =>
+                                       <ShoppingListForm {...props}
+                                       />}
                             />
                             <Route exact path={'/shoppingList/update/:id'}
                                 render={(props) =>
@@ -347,11 +360,11 @@ class App extends Component {
                                         deleteItem={this.deleteItem} DB_NAME={DB_NAME} DB_STORE={DB_STORE} DB_VERSION={DB_VERSION} calcPrice={this.calcPrice} />}
                             />
                             <Route exact path={'/create'}
-                                render={(props) =>
-                                    <ShoppingListForm {...props}
-                                        addShoppingList={this.addShoppingList} newId={this.newId} />}
+                                   render={(props) =>
+                                       <ShoppingListForm {...props}
+                                                         addShoppingList={this.addShoppingList} newId={this.newId}/>}
                             />
-                            <Route component={NotFound} />
+                            <Route component={NotFound}/>
                         </Switch>
                     </div>
                     <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
@@ -365,7 +378,7 @@ class App extends Component {
                         </div>
                     </Drawer>
                     <Link to={'/create'}>
-                        <AddCircle className="addIcon" />
+                        <AddCircle className="addIcon"/>
                     </Link>
                 </div>
             </Router>
