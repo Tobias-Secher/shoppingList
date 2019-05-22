@@ -53,6 +53,7 @@ class App extends Component {
         this.requestHandler = this.requestHandler.bind(this);
         this.addOneToIndexedDB = this.addOneToIndexedDB.bind(this);
         this.deleteOneFromIndexedDB = this.deleteOneFromIndexedDB.bind(this);
+        this.updateNetworkStatus = this.updateNetworkStatus.bind(this);
     }
 
     componentDidMount() {
