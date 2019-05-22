@@ -51,7 +51,7 @@ class App extends Component {
         this.getIndexedDB = this.getIndexedDB.bind(this);
         this.createIndexed = this.createIndexed.bind(this);
         this.addToRequestDB = this.addToRequestDB.bind(this);
-        this.requestHandler = this.requestHandler.bind(this);
+        App.requestHandler = App.requestHandler.bind(this);
         this.addOneToIndexedDB = this.addOneToIndexedDB.bind(this);
         this.deleteOneFromIndexedDB = this.deleteOneFromIndexedDB.bind(this);
         // this.calcPrice = this.calcPrice.bind(this);
@@ -119,10 +119,10 @@ class App extends Component {
         // If the base creation/fetch is successfull
         request.onsuccess = function (event) {
             // Do stuff here
-        }
+        };
 
         // If there are errors
-        request.onerror = function (event) {
+        request.onerror = function () {
             console.error('[onerror]', request.error);
         };
 
@@ -141,7 +141,7 @@ class App extends Component {
 
     async addAllToIndexedDB(json) {
         // Open connection to indexeddb
-        let db = await openDB(DB_NAME, DB_VERSION)
+        let db = await openDB(DB_NAME, DB_VERSION);
         // Creates the transaction and allows it to read and write data
         let transaction = db.transaction(DB_STORE.toString(), 'readwrite');
         // Gets the correct objectStore
@@ -150,7 +150,7 @@ class App extends Component {
         objectStore.clear();
         json.forEach(function (list) {
             objectStore.put(list)
-        })
+        });
         // Update the state
         this.getIndexedDB();
         // Closes the connection
@@ -159,7 +159,7 @@ class App extends Component {
 
     async addOneToIndexedDB(json) {
         // Open connection to indexeddb
-        let db = await openDB(DB_NAME, DB_VERSION)
+        let db = await openDB(DB_NAME, DB_VERSION);
         // Creates the transaction and allows it to read and write data
         let transaction = db.transaction(DB_STORE.toString(), 'readwrite');
         // Gets the correct objectStore
@@ -174,7 +174,7 @@ class App extends Component {
 
     async deleteOneFromIndexedDB(id) {
         // Open connection to indexeddb
-        let db = await openDB(DB_NAME, DB_VERSION)
+        let db = await openDB(DB_NAME, DB_VERSION);
         // Creates the transaction and allows it to read and write data
         let transaction = db.transaction(DB_STORE.toString(), 'readwrite');
         // Gets the correct objectStore
@@ -189,13 +189,13 @@ class App extends Component {
 
     async getIndexedDB() {
         // Open connection to indexeddb
-        let db = await openDB(DB_NAME, DB_VERSION)
+        let db = await openDB(DB_NAME, DB_VERSION);
         // Get the transaction and only allows it to read.
         let transaction = db.transaction(DB_STORE.toString(), 'readonly');
         // Gets the correct objectStore
         let objectStore = transaction.objectStore(DB_STORE);
         // Fetches all items in the object store
-        let allSavedItems = await objectStore.getAll()
+        let allSavedItems = await objectStore.getAll();
         // Assigns a new id for later use. This is used when adding.
         if (allSavedItems.length > 0) {
             this.newId = (parseInt(allSavedItems[allSavedItems.length - 1]._id) + 1).toString();
@@ -205,7 +205,7 @@ class App extends Component {
         // Updates the react state, in order to display the lists
         this.setState({
             shoppingLists: allSavedItems
-        })
+        });
         // Closes the connection
         db.close()
 
@@ -221,7 +221,7 @@ class App extends Component {
         // Adds a request attrabute to the json element
         json.request = req.toUpperCase();
         // Handels the request
-        this.requestHandler(db, json)
+        App.requestHandler(db, json);
         // Adds the json element to the request object store
         objectStore.add(json);
         // Closes the connection
@@ -230,7 +230,7 @@ class App extends Component {
         this.getIndexedDB();
     }
 
-    requestHandler(db, json) {
+    static requestHandler(db, json) {
         // Opens the referenced db and gets the transaction.
         let transaction = db.transaction(DB_STORE.toString(), 'readwrite');
         // Gets the store
@@ -241,7 +241,7 @@ class App extends Component {
                 objectStore.delete(json._id);
                 break;
             case 'ADD':
-                objectStore.add(json)
+                objectStore.add(json);
                 break;
             default:
                 break;
@@ -289,9 +289,7 @@ class App extends Component {
 
         })
             .then(response => response.json())
-            .then(json => {
-                //console.log("delete shoppinglist" + id);
-            }).catch(error => console.error(error));
+            .catch(error => console.error(error));
         this.deleteOneFromIndexedDB(id);
     }
 
@@ -301,16 +299,14 @@ class App extends Component {
             body: JSON.stringify(id),
         })
             .then(response => response.json())
-            .then(json => {
-                //console.log("delete item" + id);
-            }).catch(error => console.error(error));
+            .catch(error => console.error(error));
     }
     render() {
         const sideList = (
             <div className="list">
                 <div className="loginContainer">
                     <span className="dot" />
-                    <h3>coolguy27@gmail.com</h3>
+                    <h3>coolguy28@gmail.com</h3>
                     <KeyBoardArrowDown className="arrowDownIcon" />
                 </div>
                 <Divider />
