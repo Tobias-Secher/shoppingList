@@ -53,11 +53,10 @@ body {
 
 .offline {
   border-top: 5px solid red;
-  box-sizing: border-box;
 }
 
 .online {
-  border-top: none;
+  border-top: 5px solid #f3f3f3;
 }
 
 .closedSearch {
