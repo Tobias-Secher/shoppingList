@@ -38,7 +38,6 @@ class App extends Component {
             shoppingLists: [],
             price: 22,
             left: false,
-            search: false
             search: false,
             connectivity: true
         };
