@@ -83,20 +83,21 @@ class ShoppingListFormUpdate extends Component {
         // }).then(res => res.json())
         //     .then(response => console.log('Success:', JSON.stringify(response)))
         //     .catch(error => console.error('Error:', error));
-
-        this.setState({
-            price: this.calcPrice()
-        })
+        this.calcPrice();
+        // this.setState({
+        //     price: this.calcPrice()
+        // })
     }
 
     calcPrice() {
         let price = Number;
         console.log('CALC HHIT')
         for (let i = 0; i < this.state.items.length; i++) {
+            if(this.state.items[i].price != null)
             price = parseInt(this.state.items[i].price + price);
         }
-
-        return price;
+        
+        this.props.calcPrice(price);
 
     }
 
@@ -168,7 +169,7 @@ class ShoppingListFormUpdate extends Component {
                                         onChange={(e) => this.handleItemTitleChange(e, index)} placeholder="Title" onBlur={this.updateInput} />
                                     <input className="itemPriceInput" key={`itemPrice_${index}`} type="text"
                                         value={item.price} onChange={(e) => this.handleItemPriceChange(e, index)}
-                                        placeholder="Price" type="number" onBlur={this.updateInputPrice} />
+                                        placeholder="Price" onBlur={this.updateInputPrice} />
 
                                     <DeleteButtonforItem className="DeleteButtonforItem" onClick={((e) => this.handleItemRemoveChange(e, index))} />
                                 </div>

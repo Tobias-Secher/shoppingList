@@ -38,7 +38,6 @@ class App extends Component {
             shoppingLists: [],
             price: 22,
             left: false,
-            search: false
             search: false,
             connectivity: true
         };
@@ -55,6 +54,7 @@ class App extends Component {
         this.requestHandler = this.requestHandler.bind(this);
         this.addOneToIndexedDB = this.addOneToIndexedDB.bind(this);
         this.deleteOneFromIndexedDB = this.deleteOneFromIndexedDB.bind(this);
+        this.calcPrice = this.calcPrice.bind(this);
     }
 
     componentDidMount() {
@@ -279,7 +279,11 @@ class App extends Component {
                 console.log("delete item" + id);
             }).catch(error => console.error(error));
     }
-
+    calcPrice(price){
+        this.setState({
+            price: price
+        })
+    }
     render() {
         const sideList = (
             <div className="list">
@@ -314,17 +318,12 @@ class App extends Component {
                             <Menu />
                         </button>
                         <Link to={'/'}><h1>Lists</h1></Link>
-<<<<<<< HEAD
                         {this.price}
                         <span className={'price'}>
                             <strong>{this.state.price}</strong>
                             <em>DKK</em>
                         </span>
                         <button onClick={this.toggleSearch(true)}>
-=======
-                        <input placeholder="search..." type="text" name="searchInput" id="searchInput" className={searchClass} />
-                        <button onClick={this.toggleSearch()}>
->>>>>>> 5f8011ea8ac5bdf6ef51a72abd768d4f6590ec88
                             <Search />
                         </button>
                     </div>
@@ -345,7 +344,7 @@ class App extends Component {
                             <Route exact path={'/shoppingList/update/:id'}
                                 render={(props) =>
                                     <ShoppingListFormUpdate {...props}
-                                        deleteItem={this.deleteItem} DB_NAME={DB_NAME} DB_STORE={DB_STORE} DB_VERSION={DB_VERSION} />}
+                                        deleteItem={this.deleteItem} DB_NAME={DB_NAME} DB_STORE={DB_STORE} DB_VERSION={DB_VERSION} calcPrice={this.calcPrice} />}
                             />
                             <Route exact path={'/create'}
                                 render={(props) =>
