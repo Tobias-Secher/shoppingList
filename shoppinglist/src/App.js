@@ -37,7 +37,8 @@ class App extends Component {
         this.state = {
             shoppingLists: [],
             left: false,
-            search: false
+            search: false,
+            connectivity: true
         };
         this.binds();
     }
