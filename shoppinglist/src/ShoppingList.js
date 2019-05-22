@@ -32,10 +32,7 @@ class ShoppingList extends Component {
                             <h2>{elm.title}</h2>
                             <span className="description">{elm.description}</span>
                         </div>
-                        {/*<ArrowRightIcon className="arrowRightIcon"/>*/}
-
                         </Link>
-                        {/*<OpenList  className="launchlist"/>*/}
                         <DeleteButton className="deletebutton" onClick={((e) => {if (window.confirm('Are you sure you wish to delete this item?')){this.handleInputDelete(e, elm._id)}})} />
                     </div>
             )

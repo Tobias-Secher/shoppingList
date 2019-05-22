@@ -54,7 +54,6 @@ class App extends Component {
         App.requestHandler = App.requestHandler.bind(this);
         this.addOneToIndexedDB = this.addOneToIndexedDB.bind(this);
         this.deleteOneFromIndexedDB = this.deleteOneFromIndexedDB.bind(this);
-        // this.calcPrice = this.calcPrice.bind(this);
         this.updateNetworkStatus = this.updateNetworkStatus.bind(this);
     }
 
@@ -278,7 +277,6 @@ class App extends Component {
         this.addOneToIndexedDB(shoppingList);
     }
 
-
     deleteShoppingList(id) {
 
         //console.log("vi er inde i delete" + id)
@@ -301,6 +299,7 @@ class App extends Component {
             .then(response => response.json())
             .catch(error => console.error(error));
     }
+
     render() {
         const sideList = (
             <div className="list">
