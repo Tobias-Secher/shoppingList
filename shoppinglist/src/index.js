@@ -8,7 +8,7 @@ import * as serviceWorker from './serviceWorkerInit';
 ReactDOM.render(<App />, document.getElementById('root'));
 
 
-serviceWorker.register();
+// serviceWorker.register();
 
 // Register the service worker
 // if ('serviceWorker' in navigator) {

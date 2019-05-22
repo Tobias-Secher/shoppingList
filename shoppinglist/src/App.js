@@ -37,7 +37,6 @@ class App extends Component {
 
         this.state = {
             shoppingLists: [],
-            price: null,
             left: false,
             search: false,
             connectivity: true
@@ -55,7 +54,7 @@ class App extends Component {
         this.requestHandler = this.requestHandler.bind(this);
         this.addOneToIndexedDB = this.addOneToIndexedDB.bind(this);
         this.deleteOneFromIndexedDB = this.deleteOneFromIndexedDB.bind(this);
-        this.calcPrice = this.calcPrice.bind(this);
+        // this.calcPrice = this.calcPrice.bind(this);
         this.updateNetworkStatus = this.updateNetworkStatus.bind(this);
     }
 
@@ -198,8 +197,6 @@ class App extends Component {
         // Fetches all items in the object store
         let allSavedItems = await objectStore.getAll()
         // Assigns a new id for later use. This is used when adding.
-        // let id = 0;
-        console.log(allSavedItems.length);
         if (allSavedItems.length > 0) {
             this.newId = (parseInt(allSavedItems[allSavedItems.length - 1]._id) + 1).toString();
         }
@@ -308,11 +305,6 @@ class App extends Component {
                 console.log("delete item" + id);
             }).catch(error => console.error(error));
     }
-    calcPrice(price) {
-        this.setState({
-            price: price
-        })
-    }
     render() {
         const sideList = (
             <div className="list">
@@ -347,11 +339,7 @@ class App extends Component {
                             <Menu />
                         </button>
                         <Link to={'/'}><h1>Lists</h1></Link>
-                        {this.price}
-                        <span className={'price'}>
-                            <strong>{this.state.price}</strong>
-                            <em>DKK</em>
-                        </span>
+                        
                         <input placeholder="search..." type="text" name="searchInput" id="searchInput"
                             className={searchClass} />
                         <button onClick={this.toggleSearch()}>
@@ -375,7 +363,7 @@ class App extends Component {
                             <Route exact path={'/shoppingList/update/:id'}
                                 render={(props) =>
                                     <ShoppingListFormUpdate {...props}
-                                        deleteItem={this.deleteItem} DB_NAME={DB_NAME} DB_STORE={DB_STORE} DB_VERSION={DB_VERSION} calcPrice={this.calcPrice} />}
+                                        deleteItem={this.deleteItem} DB_NAME={DB_NAME} DB_STORE={DB_STORE} DB_VERSION={DB_VERSION} />}
                             />
                             <Route exact path={'/create'}
                                 render={(props) =>

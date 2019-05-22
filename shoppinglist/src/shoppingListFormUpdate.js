@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import DeleteButton from "@material-ui/core/SvgIcon/SvgIcon";
 import DeleteButtonforItem from '@material-ui/icons/Clear';
 import { openDB } from 'idb';
 
@@ -12,7 +11,8 @@ class ShoppingListFormUpdate extends Component {
             title: "",
             type: "",
             description: "",
-            items: []
+            items: [],
+            totalPrice: 7
         };
 
         this.handleInput = this.handleInput.bind(this);
@@ -20,6 +20,8 @@ class ShoppingListFormUpdate extends Component {
         this.updateInput = this.updateInput.bind(this);
         this.updateInputPrice = this.updateInputPrice.bind(this);
         this.getList = this.getList.bind(this);
+        this.calcPrice = this.calcPrice.bind(this);
+        this.initPrice = this.initPrice.bind(this);
         this.getList();
     }
 
@@ -28,7 +30,7 @@ class ShoppingListFormUpdate extends Component {
     }
 
     addItem() {
-        this.setState({ items: [...this.state.items, { itemName: "", price: null }] })
+        this.setState({ items: [...this.state.items, { itemName: "", price: 0 }] })
     }
 
     handleItemTitleChange(e, index) {
@@ -50,7 +52,6 @@ class ShoppingListFormUpdate extends Component {
     }
 
     handleItemRemoveChange(e, index) {
-        console.log('remove item');
         let arr = this.state.items;
         arr.splice(index, 1);
         this.setState({
@@ -83,18 +84,26 @@ class ShoppingListFormUpdate extends Component {
         }).then(res => res.json())
             .then(response => console.log('Success:', JSON.stringify(response)))
             .catch(error => console.error('Error:', error));
-        this.calcPrice();
+
+            this.calcPrice();
     }
 
+    initPrice(items) {
+        let price = 0;
+        for (let i = 0; i < items.length; i++)
+            if (items[i].price !== null || items[i].price !== '')
+                price = parseInt(items[i].price + price);
+        return price;
+    }
     calcPrice() {
-        let price = Number;
-        for (let i = 0; i < this.state.items.length; i++) {
+        let price = 0;
+        for (let i = 0; i < this.state.items.length; i++)
             if (this.state.items[i].price !== null || this.state.items[i].price !== '')
                 price = parseInt(this.state.items[i].price + price);
-        }
 
-        this.props.calcPrice(price);
-
+        this.setState({
+            totalPrice: price
+        })
     }
 
     async getList() {
@@ -107,7 +116,8 @@ class ShoppingListFormUpdate extends Component {
         objectStore.get(this.props.match.params.id).then(response => {
             this.setState({
                 items: response.items,
-                title: response.title
+                title: response.title,
+                totalPrice: this.initPrice(response.items)
             })
         })
         db.close()
@@ -146,7 +156,10 @@ class ShoppingListFormUpdate extends Component {
     render() {
         return (
             <form className="createListForm" method="post" action="#">
-
+                <span className={'price'}>
+                    <strong>{this.state.totalPrice}</strong>
+                    <em>DKK</em>
+                </span>
                 <input type="text" name="title" id="title" className="titleInput" value={this.state.title}
                     onChange={this.onChange} placeholder="Inkøbsliste titel" />
 
