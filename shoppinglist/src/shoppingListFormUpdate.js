@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 //import DeleteButton from "@material-ui/core/SvgIcon/SvgIcon";
 import DeleteButtonforItem from '@material-ui/icons/Clear';
-import { openDB, deleteDB, wrap, unwrap } from 'idb';
+import { openDB } from 'idb';
 
 class ShoppingListFormUpdate extends Component {
     api_url = process.env.REACT_APP_API_URL;
@@ -89,7 +89,7 @@ class ShoppingListFormUpdate extends Component {
     calcPrice() {
         let price = Number;
         for (let i = 0; i < this.state.items.length; i++) {
-            if (this.state.items[i].price != null || this.state.items[i].price != '')
+            if (this.state.items[i].price !== null || this.state.items[i].price !== '')
                 price = parseInt(this.state.items[i].price + price);
         }
 
