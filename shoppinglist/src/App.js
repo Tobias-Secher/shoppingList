@@ -228,7 +228,9 @@ class App extends Component {
     }
 
     addShoppingList(shoppingList) {
-
+        // console.log("#######################");
+        // console.log("KØR POST");
+        // console.log("#######################");
         fetch(`${this.api_url}/shoppingLists/`, {
             method: 'POST',
             body: JSON.stringify(shoppingList),

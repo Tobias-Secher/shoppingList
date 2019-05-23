@@ -29,18 +29,33 @@ module.exports = () => {
     });
 
     router.post('/', (req, res) => {
-        ShoppingList.findOne({}).sort('-_id').exec(function (err, list) {
+        ShoppingList.find({}, (err, lists) => {
+            // console.log("lists:");
+            // console.log("#######################");
+            // console.log(lists);
+            // console.log("#######################");
+            // console.log("length:");
+            // console.log(lists.length);
+            let highest = 0;
+            for (let i = 0; i < lists.length; i++) {
+                // console.log("RUNNING FOR" + i);
+                // console.log("#######################");
+                // console.log(lists[i]);
+                // console.log("#######################");
+                if (parseInt(lists[i]._id) >= highest) {
+                    highest = parseInt(lists[i]._id) + 1;
+                }
+            }
+            // console.log("highest");
+            // console.log(highest);
             let title = req.body.title;
             let type = req.body.type;
             let items = req.body.items;
             let description = req.body.description;
             let dotColor = req.body.dotColor;
-            let id = 0;
-            if(list != undefined){
-                id = parseInt(list._id) + 1;
-            }
 
-            let stringId = id.toString();
+
+            let stringId = highest.toString();
 
             let newShoppingList = new ShoppingList({
                 title: title,
@@ -56,14 +71,48 @@ module.exports = () => {
                     console.error(err)
             });
 
-            //io.of('/shopping_list').emit('new-data', {msg: 'New data is available on /api/my_data'});
-
             res.status(200).json({id: newShoppingList._id, msg: `POST shoppingList: ${title}`});
+
         });
+        // ShoppingList.findOne({}).sort('-_id').exec(function (err, list) {
+        //     console.log("NEW POST");
+        //     console.log(list._id);
+        //     let title = req.body.title;
+        //     let type = req.body.type;
+        //     let items = req.body.items;
+        //     let description = req.body.description;
+        //     let dotColor = req.body.dotColor;
+        //     let id = 0;
+        //     if(list !== 'undefined'){
+        //         id = parseInt(list._id) + 1;
+        //         console.log("NEV ID");
+        //         console.log(id);
+        //     }
+        //
+        //     let stringId = id.toString();
+        //
+        //     let newShoppingList = new ShoppingList({
+        //         title: title,
+        //         type: type,
+        //         dotColor: dotColor,
+        //         items: items,
+        //         description: description,
+        //         _id: stringId
+        //     });
+        //
+        //     newShoppingList.save((err) => {
+        //         if (err)
+        //             console.error(err)
+        //     });
+        //
+        //     //io.of('/shopping_list').emit('new-data', {msg: 'New data is available on /api/my_data'});
+        //
+        //     res.status(200).json({id: newShoppingList._id, msg: `POST shoppingList: ${title}`});
+        // });
     });
 
     router.put('/:id', (req, res) => {
-        ShoppingList.findOne({_id: req.params.id}).exec(function(err, list){
+        ShoppingList.findOne({_id: req.params.id}).exec(function (err, list) {
             list.items = req.body;
             list.save();
         })

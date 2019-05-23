@@ -86,7 +86,9 @@ class ShoppingListForm extends Component {
                     type: "normal",
                     description: "En kort beskrivelse af listen"
                 };
-
+                // console.log("#######################");
+                // console.log("KØR POST");
+                // console.log("#######################");
                 this.props.addShoppingList(shoppingList);
                 this.props.history.push('/');
             }
