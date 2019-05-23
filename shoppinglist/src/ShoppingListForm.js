@@ -140,9 +140,9 @@ class ShoppingListForm extends Component {
                 <button aria-label="create button" onClick={this.handleInput}
                         type="submit" id="submitItemBtn" className="btn btn-primary">CREATE
                 </button>
-                <button aria-label="find list button"
+                {/* <button aria-label="find list button"
                         id="findListBtn" className="btn btn-primary btn-bot">Find list
-                </button>
+                </button> */}
             </form>
         );
     }

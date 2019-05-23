@@ -54,6 +54,18 @@ workbox.routing.registerRoute(
     `http://localhost:8080/create`,
     new workbox.strategies.CacheFirst()
 );
+workbox.routing.registerRoute(
+    `http://localhost:3000/`,
+    new workbox.strategies.CacheFirst()
+);
+workbox.routing.registerRoute(
+    `http://localhost:3000/shoppingList/update/:id/`,
+    new workbox.strategies.CacheFirst()
+);
+workbox.routing.registerRoute(
+    `http://localhost:3000/create`,
+    new workbox.strategies.CacheFirst()
+);
 
 // Heroku
 workbox.routing.registerRoute(

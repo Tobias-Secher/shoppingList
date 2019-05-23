@@ -144,14 +144,6 @@ class ShoppingListFormUpdate extends Component {
             })
         }
     }
-
-    HandleDeleteItem(event, data) {
-        event.preventDefault();
-        this.props.deleteItem(
-            data
-        );
-
-    }
     render() {
         return (
             <form className="createListForm" method="post" action="#">
@@ -186,9 +178,9 @@ class ShoppingListFormUpdate extends Component {
                         })
                     }
                 </div>
-                <button aria-label="find list button"
+                {/* <button aria-label="find list button"
                     id="findListBtn" className="btn btn-primary btn-bot">Find list
-                </button>
+                </button> */}
             </form>
         );
     }

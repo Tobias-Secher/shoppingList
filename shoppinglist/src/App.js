@@ -1,6 +1,6 @@
-import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
-import React, {Component} from 'react';
-import {openDB} from 'idb';
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import React, { Component } from 'react';
+import { openDB } from 'idb';
 
 
 import './app.scss';
@@ -47,11 +47,8 @@ class App extends Component {
     binds() {
         this.addShoppingList = this.addShoppingList.bind(this);
         this.deleteShoppingList = this.deleteShoppingList.bind(this);
-        this.deleteItem = this.deleteItem.bind(this);
         this.getIndexedDB = this.getIndexedDB.bind(this);
         this.createIndexed = this.createIndexed.bind(this);
-        this.addToRequestDB = this.addToRequestDB.bind(this);
-        App.requestHandler = App.requestHandler.bind(this);
         this.addOneToIndexedDB = this.addOneToIndexedDB.bind(this);
         this.deleteOneFromIndexedDB = this.deleteOneFromIndexedDB.bind(this);
         this.updateNetworkStatus = this.updateNetworkStatus.bind(this);
@@ -65,7 +62,7 @@ class App extends Component {
         } else {
             this.getShoppingLists()
         }
-        
+
         window.addEventListener('online', this.updateNetworkStatus, false);
         window.addEventListener('offline', this.updateNetworkStatus, false);
     }
@@ -125,7 +122,7 @@ class App extends Component {
             let db = event.target.result;
             // Creates the object store where we are keeping the lists
             // For offine use
-            db.createObjectStore(DB_STORE.toString(), {keyPath: '_id'});
+            db.createObjectStore(DB_STORE.toString(), { keyPath: '_id' });
             // Creates the oject store where we are keeping the changes
         };
     }
@@ -155,12 +152,27 @@ class App extends Component {
         let transaction = db.transaction(DB_STORE.toString(), 'readwrite');
         // Gets the correct objectStore
         let objectStore = transaction.objectStore(DB_STORE);
-        // Adds all the json elements to the objectstore
-        json._id = this.newId;
+
+        let allObjects = await objectStore.getAll();
+        
+        json._id = this.findNewId(allObjects);
         objectStore.add(json);
         this.getIndexedDB();
         // Closes the connection
         db.close()
+    }
+
+    findNewId(arr){
+        let id = 0;
+        for (let i = 0; i < arr.length; i++) {
+            console.log(`Loop id ${arr[i]._id} : id ${id}`)
+            if (parseInt(arr[i]._id) >= id) {
+                id = parseInt(arr[i]._id) + 1;
+                console.log(`Biggest id ${id}`);
+            }
+        }
+
+        return id.toString();
     }
 
     async deleteOneFromIndexedDB(id) {
@@ -188,9 +200,22 @@ class App extends Component {
         // Fetches all items in the object store
         let allSavedItems = await objectStore.getAll();
         // Assigns a new id for later use. This is used when adding.
-        if (allSavedItems.length > 0) {
-            this.newId = (parseInt(allSavedItems[allSavedItems.length - 1]._id) + 1).toString();
-        }
+        // if (allSavedItems.length > 0) {
+        //     this.newId = (parseInt(allSavedItems[allSavedItems.length - 1]._id) + 1).toString();
+        // }
+        // let largest = 0;
+        // console.log(allSavedItems);
+        // for (let i = 0; i < allSavedItems.length; i++) {
+        //     console.log(allSavedItems[i]._id)
+        //     if (parseInt(allSavedItems[i]._id) > largest){
+        //         largest = parseInt(allSavedItems[i]._id) + 1;
+        //         console.log(allSavedItems[i]._id);
+        //     }
+        // }
+        // console.log(largest);
+        // this.newId = largest.toString();
+
+
 
         // this.newId = `${allSavedItems[allSavedItems.length]._id + 1}`;
         // Updates the react state, in order to display the lists
@@ -200,43 +225,6 @@ class App extends Component {
         // Closes the connection
         db.close()
 
-    }
-
-    async addToRequestDB(json, req) {
-        // Open connection to indexeddb
-        let db = await openDB(DB_NAME, DB_VERSION);
-        // Creates the transaction and allows it to read and write data        
-        let transaction = db.transaction(DB_REQUEST.toString(), 'readwrite');
-        // Gets the correct objectStore
-        let objectStore = transaction.objectStore(DB_REQUEST.toString());
-        // Adds a request attrabute to the json element
-        json.request = req.toUpperCase();
-        // Handels the request
-        App.requestHandler(db, json);
-        // Adds the json element to the request object store
-        objectStore.add(json);
-        // Closes the connection
-        db.close();
-        // Updates the state
-        this.getIndexedDB();
-    }
-
-    static requestHandler(db, json) {
-        // Opens the referenced db and gets the transaction.
-        let transaction = db.transaction(DB_STORE.toString(), 'readwrite');
-        // Gets the store
-        let objectStore = transaction.objectStore(DB_STORE.toString());
-        // Checks the json requst value
-        switch (json.request) {
-            case 'DELETE':
-                objectStore.delete(json._id);
-                break;
-            case 'ADD':
-                objectStore.add(json);
-                break;
-            default:
-                break;
-        }
     }
 
     addShoppingList(shoppingList) {
@@ -278,31 +266,22 @@ class App extends Component {
         this.deleteOneFromIndexedDB(id);
     }
 
-    deleteItem(id) {
-        fetch(`${this.api_url}/shoppingLists/delete/item/${id}`, {
-            method: 'DELETE',
-            body: JSON.stringify(id),
-        })
-            .then(response => response.json())
-            .catch(error => console.error(error));
-    }
-
     render() {
         const sideList = (
             <div className="list">
                 <div className="loginContainer">
-                    <span className="dot"/>
+                    <span className="dot" />
                     <h3>coolguy28@gmail.com</h3>
-                    <KeyBoardArrowDown className="arrowDownIcon"/>
+                    <KeyBoardArrowDown className="arrowDownIcon" />
                 </div>
-                <Divider/>
+                <Divider />
                 <List>
                     <Link to={'/'}>
                         <ListItem button>
                             <ListItemIcon>
-                                <HomeIcon/>
+                                <HomeIcon />
                             </ListItemIcon>
-                            <ListItemText primary={"Home"}/>
+                            <ListItemText primary={"Home"} />
                         </ListItem>
                     </Link>
                 </List>
@@ -318,42 +297,42 @@ class App extends Component {
                 <div className="container">
                     <div className={connectClass + ' header'}>
                         <button aria-label="menu button" onClick={this.toggleDrawer('left', true)}>
-                            <Menu/>
+                            <Menu />
                         </button>
                         <Link to={'/'}><h1>Lists</h1></Link>
                         <input aria-label="search input field" placeholder="search..." type="text" name="searchInput"
-                               id="searchInput"
-                               className={searchClass}/>
+                            id="searchInput"
+                            className={searchClass} />
                         <button aria-label="toggle searchbar" onClick={this.toggleSearch()}>
-                            <Search/>
+                            <Search />
                         </button>
                     </div>
                     <div className="content">
                         <Switch>
                             <Route exact path={'/'}
-                                   render={(props) =>
-                                       <ShoppingList {...props}
-                                                     shoppingLists={this.state.shoppingLists}
-                                                     deleteShoppingList={this.deleteShoppingList}/>}
+                                render={(props) =>
+                                    <ShoppingList {...props}
+                                        shoppingLists={this.state.shoppingLists}
+                                        deleteShoppingList={this.deleteShoppingList} />}
                             />
 
                             <Route exact path={'/shoppingList/:id'}
-                                   render={(props) =>
-                                       <ShoppingListForm {...props}
-                                       />}
+                                render={(props) =>
+                                    <ShoppingListForm {...props}
+                                    />}
                             />
                             <Route exact path={'/shoppingList/update/:id'}
-                                   render={(props) =>
-                                       <ShoppingListFormUpdate {...props}
-                                                               deleteItem={this.deleteItem} DB_NAME={DB_NAME}
-                                                               DB_STORE={DB_STORE} DB_VERSION={DB_VERSION}/>}
+                                render={(props) =>
+                                    <ShoppingListFormUpdate {...props}
+                                        DB_NAME={DB_NAME}
+                                        DB_STORE={DB_STORE} DB_VERSION={DB_VERSION} />}
                             />
                             <Route exact path={'/create'}
-                                   render={(props) =>
-                                       <ShoppingListForm {...props}
-                                                         addShoppingList={this.addShoppingList} newId={this.newId}/>}
+                                render={(props) =>
+                                    <ShoppingListForm {...props}
+                                        addShoppingList={this.addShoppingList} newId={this.newId} />}
                             />
-                            <Route component={NotFound}/>
+                            <Route component={NotFound} />
                         </Switch>
                     </div>
                     <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
@@ -367,7 +346,7 @@ class App extends Component {
                         </div>
                     </Drawer>
                     <Link aria-label="create new list" to={'/create'}>
-                        <AddCircle className="addIcon"/>
+                        <AddCircle className="addIcon" />
                     </Link>
                 </div>
             </Router>
