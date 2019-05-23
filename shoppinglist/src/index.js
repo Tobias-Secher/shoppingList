@@ -10,7 +10,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 
 serviceWorker.register();
 
-//Register the service worker
+//Register the service worker 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./CustomServiceWorker.js')
         .then(registration =>
