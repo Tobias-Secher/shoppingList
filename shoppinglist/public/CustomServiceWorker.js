@@ -31,7 +31,7 @@ self.addEventListener('push', function (event) {
 });
 
 workbox.routing.registerRoute(
-    /\.(?:js|css|html|png|ico)$/,
+    /\.(?:js|css|html|png|ico|json)$/,
     new workbox.strategies.CacheFirst({
         cacheName: 'STATIC_FILES',
         plugins: [
@@ -68,19 +68,27 @@ workbox.routing.registerRoute(
     new workbox.strategies.CacheFirst()
 );
 
-// // Heroku
-// workbox.routing.registerRoute(
-//     'https://shoppinglistpwa.herokuapp.com/',
-//     new workbox.strategies.CacheFirst()
-// );
-// workbox.routing.registerRoute(
-//     'https://shoppinglistpwa.herokuapp.com/shoppingList/update/:id/',
-//     new workbox.strategies.CacheFirst()
-// );
-// workbox.routing.registerRoute(
-//     'https://shoppinglistpwa.herokuapp.com/create',
-//     new workbox.strategies.CacheFirst()
-// );
+// Heroku
+workbox.routing.registerRoute(
+    'https://shoppinglistpwa.herokuapp.com/',
+    new workbox.strategies.CacheFirst()
+);
+workbox.routing.registerRoute(
+    'https://shoppinglistpwa.herokuapp.com/api/shoppingLists/',
+    new workbox.strategies.NetworkFirst()
+);
+workbox.routing.registerRoute(
+    'https://shoppinglistpwa.herokuapp.com/api/shoppingLists/:id/',
+    new workbox.strategies.NetworkFirst()
+);
+workbox.routing.registerRoute(
+    'https://shoppinglistpwa.herokuapp.com/shoppingList/update/:id/',
+    new workbox.strategies.CacheFirst()
+);
+workbox.routing.registerRoute(
+    'https://shoppinglistpwa.herokuapp.com/create',
+    new workbox.strategies.CacheFirst()
+);
 
 const queue = new workbox.backgroundSync.Queue('bgReqQueue');
 
