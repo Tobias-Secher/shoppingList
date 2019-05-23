@@ -12,7 +12,7 @@ class ShoppingListFormUpdate extends Component {
             type: "",
             description: "",
             items: [],
-            totalPrice: 7
+            totalPrice: 0
         };
 
         this.handleInput = this.handleInput.bind(this);
