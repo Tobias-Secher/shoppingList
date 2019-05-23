@@ -9,7 +9,6 @@ class ShoppingList extends Component {
 
 
     handleInputDelete(event, id){
-        console.log(id)
         event.preventDefault();
         this.props.deleteShoppingList(
             id

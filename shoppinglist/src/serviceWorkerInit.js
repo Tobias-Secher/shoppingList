@@ -25,7 +25,6 @@ function subscribeToPush() {
             };
             serviceWorkerRegistration.pushManager.subscribe(options).then(
                 function (pushSubscription) {
-                    console.log(api_url);
                     fetch(`${api_url}/subscribe`, {
                         method: 'post',
                         headers: {

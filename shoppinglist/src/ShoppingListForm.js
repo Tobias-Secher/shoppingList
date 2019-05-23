@@ -57,7 +57,6 @@ class ShoppingListForm extends Component {
         for (let i = 0; i < items.length - 1; i++) {
             if (items[i].itemName === "" || items[i].price === "" || items[i].price === null) {
                 isItemsNull = true;
-                console.log("true");
             }
         }
         return isItemsNull;

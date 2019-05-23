@@ -146,7 +146,6 @@ class ShoppingListFormUpdate extends Component {
     }
 
     HandleDeleteItem(event, data) {
-        console.log(data);
         event.preventDefault();
         this.props.deleteItem(
             data

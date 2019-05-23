@@ -65,13 +65,7 @@ class App extends Component {
         } else {
             this.getShoppingLists()
         }
-        // const socket = io(this.SOCKET_URL);
-
-        // socket.on('new-data', (data) => {
-        //     console.log(`server msg: ${data.msg}`);
-        //     this.getShoppingLists();
-        // });
-
+        
         window.addEventListener('online', this.updateNetworkStatus, false);
         window.addEventListener('offline', this.updateNetworkStatus, false);
     }
@@ -82,12 +76,10 @@ class App extends Component {
             this.setState({
                 connectivity: true
             });
-            //console.log('You are Online again.');
         } else {
             this.setState({
                 connectivity: false
             });
-            //console.log('You are now offline..');
         }
     }
 
@@ -259,8 +251,6 @@ class App extends Component {
         })
             .then(response => response.json())
             .then(json => {
-                console.log("Result of posting a new question:");
-                console.log(json);
                 let data = {
                     "text": "Din nye liste er blevet synkroniseret med skyen!",
                     "title": "Synkroniseret!"
@@ -278,9 +268,6 @@ class App extends Component {
     }
 
     deleteShoppingList(id) {
-
-        //console.log("vi er inde i delete" + id)
-
         fetch(`${this.api_url}/shoppingLists/${id}`, {
             method: 'DELETE',
             body: JSON.stringify(id),

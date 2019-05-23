@@ -22,7 +22,6 @@ importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox
 
 self.addEventListener('push', function (event) {
     const data = event.data.json();
-    console.log("Getting push data", data);
     event.waitUntil(
         self.registration.showNotification(data.title, {
             body: data.msg,
@@ -31,13 +30,6 @@ self.addEventListener('push', function (event) {
     );
 });
 
-
-if (workbox) {
-    console.log(`Yay! Workbox is loaded 🎉`);
-}
-else {
-    console.log(`Boo! Workbox didn't load 😬`);
-}
 workbox.routing.registerRoute(
     /\.(?:js|css|html|png|ico)$/,
     new workbox.strategies.CacheFirst({
@@ -52,15 +44,15 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(
     `http://localhost:8080/`,
-    new workbox.strategies.NetworkFirst()
+    new workbox.strategies.CacheFirst()
 );
 workbox.routing.registerRoute(
     `http://localhost:8080/shoppingList/update/:id/`,
-    new workbox.strategies.NetworkFirst()
+    new workbox.strategies.CacheFirst()
 );
 workbox.routing.registerRoute(
     `http://localhost:8080/create`,
-    new workbox.strategies.NetworkFirst()
+    new workbox.strategies.CacheFirst()
 );
 
 // Heroku

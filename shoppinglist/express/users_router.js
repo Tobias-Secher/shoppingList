@@ -30,7 +30,6 @@ module.exports = () => {
                 if(err)
                     console.error(err)
             });
-            console.log(`Hash generated for ${username}`);
         });
         res.status(501).json({msg: "POST user "});
     });
@@ -52,9 +51,6 @@ module.exports = () => {
         }
 
         User.findOne({username: username}).exec(function (err, user) {
-            console.log("#### USER ####");
-            console.log(user);
-
             if (user) {
                 bcrypt.compare(password, user.password, (err, result) => {
                     if (result) {

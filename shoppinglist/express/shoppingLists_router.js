@@ -3,10 +3,6 @@ module.exports = () => {
     let router = express.Router();
     const mongoose = require('mongoose');
 
-    // let shoppingListItem = new mongoose.model('listItem', {
-        
-    // })
-
     let listItemSchema = mongoose.Schema({
         itemName: String,
         price: Number,
@@ -74,16 +70,12 @@ module.exports = () => {
     });
 
     router.delete('/:id', function (req, res, next) {
-        console.log(`REQ PARAMS ID: ${req.params.id}`)
         ShoppingList.findOne({_id: req.params.id}).exec(function (err, shoppinglist) {
             shoppinglist.remove();
             shoppinglist.save((err) => {
                 if (err)
                     console.error(err)
             });
-
-            //io.of('/shopping_list').emit('new-data', {msg: 'New data is available on /api/my_data'});
-
             res.json("succes")
         })
 
