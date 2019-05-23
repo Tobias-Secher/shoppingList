@@ -42,42 +42,43 @@ workbox.routing.registerRoute(
     }),
 );
 
-// workbox.routing.registerRoute(
-//     `http://localhost:8080/`,
-//     new workbox.strategies.CacheFirst()
-// );
-// workbox.routing.registerRoute(
-//     `http://localhost:8080/shoppingList/update/:id/`,
-//     new workbox.strategies.CacheFirst()
-// );
-// workbox.routing.registerRoute(
-//     `http://localhost:8080/create`,
-//     new workbox.strategies.CacheFirst()
-// );
-// workbox.routing.registerRoute(
-//     `http://localhost:3000/`,
-//     new workbox.strategies.CacheFirst()
-// );
-// workbox.routing.registerRoute(
-//     `http://localhost:3000/shoppingList/update/:id/`,
-//     new workbox.strategies.CacheFirst()
-// );
-// workbox.routing.registerRoute(
-//     `http://localhost:3000/create`,
-//     new workbox.strategies.CacheFirst()
-// );
-//
+workbox.routing.registerRoute(
+    'http://localhost:8080/',
+    new workbox.strategies.CacheFirst()
+);
+workbox.routing.registerRoute(
+    'http://localhost:8080/shoppingList/update/:id/',
+    new workbox.strategies.CacheFirst()
+);
+workbox.routing.registerRoute(
+    'http://localhost:8080/create',
+    new workbox.strategies.CacheFirst()
+);
+workbox.routing.registerRoute(
+    'http://localhost:3000/',
+    new workbox.strategies.CacheFirst()
+);
+workbox.routing.registerRoute(
+    'http://localhost:3000/shoppingList/update/:id/',
+    new workbox.strategies.CacheFirst()
+);
+
+workbox.routing.registerRoute(
+    'http://localhost:3000/create/',
+    new workbox.strategies.CacheFirst()
+);
+
 // // Heroku
 // workbox.routing.registerRoute(
-//     `https://shoppinglistpwa.herokuapp.com/`,
+//     'https://shoppinglistpwa.herokuapp.com/',
 //     new workbox.strategies.CacheFirst()
 // );
 // workbox.routing.registerRoute(
-//     `https://shoppinglistpwa.herokuapp.com/shoppingList/update/:id/`,
+//     'https://shoppinglistpwa.herokuapp.com/shoppingList/update/:id/',
 //     new workbox.strategies.CacheFirst()
 // );
 // workbox.routing.registerRoute(
-//     `https://shoppinglistpwa.herokuapp.com/create`,
+//     'https://shoppinglistpwa.herokuapp.com/create',
 //     new workbox.strategies.CacheFirst()
 // );
 
@@ -99,7 +100,7 @@ self.addEventListener('fetch', (event) => {
 //     "text": "Din nye liste er blevet synkroniseret med skyen!",
 //     "title": "Synkroniseret!"
 // };
-// fetch(`http://localhost:8080/api/push_message/`, {
+// fetch('http://localhost:8080/api/push_message/', {
 //     method: 'POST',
 //     body: JSON.stringify(data),
 //     headers: {
@@ -110,14 +111,14 @@ self.addEventListener('fetch', (event) => {
 
 
 // workbox.routing.registerRoute(
-//     `http://localhost:8080/api/shoppingLists/`,
+//     'http://localhost:8080/api/shoppingLists/',
 //     new workbox.strategies.NetworkOnly({
 //         plugins: [bgSyncPlugin]
 //     }),
 //     'POST'
 // );
 // workbox.routing.registerRoute(
-//     `http://localhost:8080/api/shoppingLists/:id/`,
+//     'http://localhost:8080/api/shoppingLists/:id/',
 //     new workbox.strategies.NetworkOnly({
 //         plugins: [bgSyncPlugin]
 //     }),
@@ -145,7 +146,7 @@ self.addEventListener('fetch', (event) => {
 //     maxRetentionTime: 24 * 60 // Retry for max of 24 Hours
 // });
 // workbox.routing.registerRoute(
-//     `http://localhost:8080/shoppingLists`,
+//     'http://localhost:8080/shoppingLists',
 //     workbox.strategies.networkFirst({
 //       plugins: [bgSyncPlugin]
 //     }),
